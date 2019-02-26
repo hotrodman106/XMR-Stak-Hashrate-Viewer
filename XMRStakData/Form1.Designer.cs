@@ -82,6 +82,7 @@
             "10s"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
             this.toolStripComboBox1.Size = new System.Drawing.Size(80, 28);
+            this.toolStripComboBox1.ToolTipText = "Refresh Interval";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectionChanged);
             // 
             // panel1

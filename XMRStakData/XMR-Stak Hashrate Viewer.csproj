@@ -119,6 +119,8 @@
     <None Include="Resources\removeminer.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Docs\hashrate viewer documentation 2.PNG" />
+    <Content Include="Docs\hashrate viewer documentation.PNG" />
     <Content Include="icon.ico" />
     <Content Include="Resources\close.png" />
   </ItemGroup>
