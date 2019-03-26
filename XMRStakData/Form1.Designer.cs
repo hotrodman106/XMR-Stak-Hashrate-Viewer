@@ -35,8 +35,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.highestHashrate = new System.Windows.Forms.Label();
             this.averageHashrate = new System.Windows.Forms.Label();
+            this.highestHashrate = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -128,20 +128,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(750, 43);
             this.tableLayoutPanel1.TabIndex = 3;
             // 
-            // highestHashrate
-            // 
-            this.highestHashrate.AutoSize = true;
-            this.highestHashrate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.highestHashrate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.highestHashrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.highestHashrate.Location = new System.Drawing.Point(0, 0);
-            this.highestHashrate.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.highestHashrate.Name = "highestHashrate";
-            this.highestHashrate.Size = new System.Drawing.Size(372, 43);
-            this.highestHashrate.TabIndex = 1;
-            this.highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
-            this.highestHashrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // averageHashrate
             // 
             this.averageHashrate.AutoSize = true;
@@ -155,6 +141,20 @@
             this.averageHashrate.TabIndex = 0;
             this.averageHashrate.Text = "Total Hashrate: 0 H/s";
             this.averageHashrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // highestHashrate
+            // 
+            this.highestHashrate.AutoSize = true;
+            this.highestHashrate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.highestHashrate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.highestHashrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.highestHashrate.Location = new System.Drawing.Point(0, 0);
+            this.highestHashrate.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.highestHashrate.Name = "highestHashrate";
+            this.highestHashrate.Size = new System.Drawing.Size(372, 43);
+            this.highestHashrate.TabIndex = 1;
+            this.highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
+            this.highestHashrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainPage
             // 
@@ -185,9 +185,9 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        public System.Windows.Forms.Label highestHashrate;
         public System.Windows.Forms.Label averageHashrate;
         public System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        public System.Windows.Forms.Label highestHashrate;
     }
 }
 

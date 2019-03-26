@@ -15,7 +15,6 @@ namespace XMR_Stak_Hashrate_Viewer
         private void button1_Click(object sender, EventArgs e)
         {
             Visible = false;
-            Program.mainPage.Activate();
             try
             {
                 Uri uri;
@@ -37,17 +36,10 @@ namespace XMR_Stak_Hashrate_Viewer
                 else
                 {
                     MinerObject miner = new MinerObject(uri);
-                    
                     if (miner.isInitialized)
                     {
                         Program.minerList.Add(miner);
                     }
-                    else
-                    {
-                        MessageBox.Show("Error starting miner!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine("Error starting miner!");
-                    }
-
                 }
             }
             catch (Exception ex)
@@ -58,7 +50,8 @@ namespace XMR_Stak_Hashrate_Viewer
                     Console.WriteLine(ex.Message);
                 }
             }
-            Program.mainPage.Enabled = true;
+
+
         }
 
         private bool minerExists(string name)
@@ -73,11 +66,5 @@ namespace XMR_Stak_Hashrate_Viewer
             return false;
         }
 
-
-        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Program.mainPage.Enabled = true;
-            Program.mainPage.Activate();
-        }
     }
 }

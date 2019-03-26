@@ -13,11 +13,12 @@ namespace XMR_Stak_Hashrate_Viewer
 
         public string name = null;
         private int coreCount = 0;
-        private List<float> hashvalues = new List<float>();
+        private List<List<string>> netdata = new List<List<string>>();
         private TreeView tree;
         public float total = 0;
         public float highest = 0;
         public bool isInitialized = false;
+        public CredentialCache cred;
 
         public MinerObject(Uri u)
         {
@@ -26,12 +27,21 @@ namespace XMR_Stak_Hashrate_Viewer
                 uri = u;
 
                 name = uri.Authority;
-                hashvalues = getHashvalues(uri);
-                if (hashvalues != null)
+                cred = requiresLogin(uri);
+                if(cred != null)
                 {
-                    coreCount = hashvalues.Count - 2;
-                    total = hashvalues[hashvalues.Count - 2];
-                    highest = hashvalues[hashvalues.Count - 1];
+                   netdata = getHashvalues(uri, cred);
+                }
+                else
+                {
+                    netdata = null;
+                }
+                
+                if (netdata != null)
+                {
+                    coreCount = netdata[0].Count;
+                    total = float.Parse(netdata[1][coreCount]);
+                    highest = float.Parse(netdata[1][coreCount + 1]);
                     tree = createTreeView();
                     isInitialized = true;
                 }
@@ -45,14 +55,14 @@ namespace XMR_Stak_Hashrate_Viewer
 
         public bool updateMinerData()
         {
-            if (hashvalues != null)
+            if (netdata != null)
             {
                 try
                 {
-                    hashvalues = getHashvalues(uri);
-                    coreCount = hashvalues.Count - 2;
-                    total = hashvalues[hashvalues.Count - 2];
-                    highest = hashvalues[hashvalues.Count - 1];
+                    netdata = getHashvalues(uri, cred);
+                    coreCount = netdata[0].Count;
+                    total = float.Parse(netdata[1][coreCount]);
+                    highest = float.Parse(netdata[1][coreCount + 1]);
                     return true;
                 }
                 catch (NullReferenceException)
@@ -83,7 +93,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     int i = 0;
                     tree.BeginUpdate();
-                    foreach (float q in hashvalues)
+                    foreach (string q in netdata[1])
                     {
                         tree.Nodes[0].Nodes[i].Nodes.Clear();
                         tree.Nodes[0].Nodes[i].Nodes.Add(q + " H/s");
@@ -112,7 +122,7 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             try
             {
-                if (hashvalues.Count != 0)
+                if (netdata[0].Count != 0)
                 {
                     TabPage tab = new TabPage(name);
                     tab.Name = name;
@@ -122,26 +132,18 @@ namespace XMR_Stak_Hashrate_Viewer
                     content.Nodes.Add("Hash Values");
 
                     int index = 0;
-                    int itemCount = hashvalues.Count - 1;
-                    foreach (float hashrate in hashvalues)
+                    int itemCount = netdata[0].Count;
+                    foreach (string header in netdata[0])
                     {
-                        if (index <= itemCount - 2)
-                        {
-                            content.Nodes[0].Nodes.Add("Core " + index);
-                            content.Nodes[0].Nodes[index].Nodes.Add(hashrate + " H/s");
-                        }
-                        else if (index == itemCount - 1)
-                        {
-                            content.Nodes[0].Nodes.Add("Total ");
-                            content.Nodes[0].Nodes[index].Nodes.Add(hashrate + " H/s");
-                        }
-                        else
-                        {
-                            content.Nodes[0].Nodes.Add("Highest ");
-                            content.Nodes[0].Nodes[index].Nodes.Add(hashrate + " H/s");
-                        }
+                        content.Nodes[0].Nodes.Add(header);
+                        content.Nodes[0].Nodes[index].Nodes.Add(netdata[1][index] + " H/s");
                         index++;
                     }
+
+                    content.Nodes[0].Nodes.Add("Total: ");
+                    content.Nodes[0].Nodes[index].Nodes.Add(netdata[1][itemCount] + " H/s");
+                    content.Nodes[0].Nodes.Add("Highest: ");
+                    content.Nodes[0].Nodes[index].Nodes.Add(netdata[1][itemCount + 1] + " H/s");
 
                     content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
                     content.Size = tab.Size;
@@ -167,12 +169,60 @@ namespace XMR_Stak_Hashrate_Viewer
             }
         }
 
-        private List<float> getHashvalues(Uri urlAddress)
+        private CredentialCache requiresLogin(Uri urlAddress)
+        {
+            CredentialCache cache = new CredentialCache();
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
+                request.Timeout = 5000;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    cache.Add(uri, "Digest", new NetworkCredential("", ""));
+                    return cache;
+                }
+                else
+                {
+                    throw new Exception("Request Error");
+                }
+
+            }
+            catch (WebException ex)
+            {
+                if (ex.Message.Contains("401"))
+                {
+
+                    Program.mainPage.Invoke((MethodInvoker)delegate
+                    {
+                        Login l = new Login();
+                        l.ShowDialog();
+                        cache.Add(uri, "Digest", new NetworkCredential(l.username, l.password));
+                    });
+
+                    return cache;
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
+                    return null;
+                }
+            }
+        }
+
+
+        private List<List<string>> getHashvalues(Uri urlAddress, CredentialCache cred)
         {
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.Timeout = 10000;
+                if (cred != null)
+                {
+                    request.Credentials = cred;
+                }
+                request.Timeout = 5000;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
                 if (response.StatusCode == HttpStatusCode.OK)
@@ -192,31 +242,51 @@ namespace XMR_Stak_Hashrate_Viewer
                     string data = readStream.ReadToEnd();
                     if (data.Contains("<div class='header'><span style='color: rgb(255, 160, 0)'>XMR</span>-Stak Monero Miner</div>"))
                     {
-                        string pat = @"(<td>([^<td>])*<\/td>)";
-                        Regex rgx = new Regex(pat);
-                        MatchCollection dataIn = rgx.Matches(data);
-                        List<float> dataOut = new List<float>();
+                        string hashpat = @"(<td>([^<td>])*<\/td>)";
+                        string headerpat = @"(<th>([^<th>])*<\/th>)";
+                        Regex hashrgx = new Regex(hashpat);
+                        Regex headerrgx = new Regex(headerpat);
+                        MatchCollection hashdataIn = hashrgx.Matches(data);
+                        MatchCollection headerdataIn = headerrgx.Matches(data);
+                        List<string> hashDataTemp = new List<string>();
+                        List<string> headerDataTemp = new List<string>();
+                        List<List<string>> dataOut = new List<List<string>>();
                         int count = 0;
 
-                        foreach (Match q in dataIn)
+                        foreach (Match q in hashdataIn)
                         {
                             if (count % 3 == 0)
                             {
                                 if (!q.Value.Equals("<td></td>"))
                                 {
-                                    dataOut.Add(float.Parse(q.Value.Replace("<td>", string.Empty).Replace("</td>", string.Empty).Replace(" ", string.Empty)));
+                                    hashDataTemp.Add(q.Value.Replace("<td>", string.Empty).Replace("</td>", string.Empty).Replace(" ", string.Empty));
                                 }
                                 else
                                 {
-                                    dataOut.Add(0f);
+                                    hashDataTemp.Add("0");
                                 }
 
                             }
                             count++;
                         }
 
+                        count = 0;
+
+                        foreach (Match q in headerdataIn)
+                        {
+                                if (!q.Value.Equals("<th></th>") && !q.Value.Contains("10s") && !q.Value.Contains("60s") && !q.Value.Contains("15m"))
+                                {
+                                string parsedString = q.Value.Replace("<th>", string.Empty).Replace("</th>", string.Empty).Replace(" ", string.Empty);
+                                    headerDataTemp.Add(parsedString.Remove(parsedString.IndexOf(":") + 1));
+                                }
+                            count++;
+                        }
+
                         response.Close();
                         readStream.Close();
+
+                        dataOut.Add(headerDataTemp);
+                        dataOut.Add(hashDataTemp);
 
                         return dataOut;
                     }
@@ -235,8 +305,17 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex.Message);
+                if (ex.Message.Contains("401"))
+                {
+                    MessageBox.Show("Username or password incorrect, please try again!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Username or password incorrect, please try again!");
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
+                }
+
                 return null;
             }
         }

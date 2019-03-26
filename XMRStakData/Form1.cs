@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -23,9 +24,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
         {
-            Program.mainPage.Enabled = false;
-            Settings settings = new Settings();
-            settings.Visible = true;
+            new Settings().ShowDialog();
         }
 
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
