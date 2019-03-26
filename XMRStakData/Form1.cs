@@ -32,8 +32,12 @@ namespace XMR_Stak_Hashrate_Viewer
             background.state = false;
             foreach (MinerObject miner in Program.minerList)
             {
-                miner.isInitialized = false;
+                if (!Properties.Settings.Default.IPs.Contains(miner.name))
+                {
+                    Properties.Settings.Default.IPs.Add(miner.name);
+                }
             }
+            Properties.Settings.Default.Save();
         }
 
         private void MainPage_FormLoad(object sender, EventArgs e)
@@ -41,6 +45,29 @@ namespace XMR_Stak_Hashrate_Viewer
             CloseImage = Properties.Resources.close;
             tabControl1.Padding = new Point(10, 3);
             toolStripComboBox1.SelectedIndex = 4;
+            foreach (string u in Properties.Settings.Default.IPs)
+            {
+                try
+                {
+                    Uri uri = new Uri("http://" + u);
+                    if (!u.Contains("null")) {
+                        MinerObject miner = new MinerObject(uri);
+                        if (miner.isInitialized)
+                        {
+                            Program.minerList.Add(miner);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex is ThreadAbortException != true)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -84,7 +111,8 @@ namespace XMR_Stak_Hashrate_Viewer
                     int ind = tabControl1.SelectedIndex;
                     tabControl1.TabPages.Remove(tabControl1.SelectedTab);
                     Program.minerList.RemoveAt(ind);
-                    if(Program.minerList.Count == 0)
+                    Properties.Settings.Default.IPs.RemoveAt(ind);
+                    if (Program.minerList.Count == 0)
                     {
                         highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
                         averageHashrate.Text = "Total Hashrate: 0 H/s";
