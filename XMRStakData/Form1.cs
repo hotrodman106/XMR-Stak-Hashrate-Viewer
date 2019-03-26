@@ -9,7 +9,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
     public partial class MainPage : Form
     {
-        public int delay = 5000;
+        public int delay;
         private Point _imageLocation = new Point(16, 3);
         private Point _imgHitArea = new Point(16, 0);
         BackgroundThread background;
@@ -30,12 +30,21 @@ namespace XMR_Stak_Hashrate_Viewer
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
         {
             background.state = false;
+            Properties.Settings.Default.IPs.Clear();
+            Properties.Settings.Default.Height = this.Height;
+            Properties.Settings.Default.Width = this.Width;
+            Properties.Settings.Default.WindowLocation = this.Location;
+            if (this.WindowState == FormWindowState.Maximized)
+            {
+                Properties.Settings.Default.Maximized = true;
+            }
+            else
+            {
+                Properties.Settings.Default.Maximized = false;
+            }
             foreach (MinerObject miner in Program.minerList)
             {
-                if (!Properties.Settings.Default.IPs.Contains(miner.name))
-                {
-                    Properties.Settings.Default.IPs.Add(miner.name);
-                }
+               Properties.Settings.Default.IPs.Add(miner.name);
             }
             Properties.Settings.Default.Save();
         }
@@ -44,7 +53,15 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             CloseImage = Properties.Resources.close;
             tabControl1.Padding = new Point(10, 3);
-            toolStripComboBox1.SelectedIndex = 4;
+            delay = Properties.Settings.Default.RefreshRate;
+            toolStripComboBox1.SelectedIndex = (delay / 1000) - 1;
+            this.Height = Properties.Settings.Default.Height;
+            this.Width = Properties.Settings.Default.Width;
+            this.Location = Properties.Settings.Default.WindowLocation;
+            if (Properties.Settings.Default.Maximized)
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
             foreach (string u in Properties.Settings.Default.IPs)
             {
                 try
@@ -67,7 +84,6 @@ namespace XMR_Stak_Hashrate_Viewer
                     }
                 }
             }
-
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -164,6 +180,8 @@ namespace XMR_Stak_Hashrate_Viewer
                     delay = 10000;
                     break;
             }
+            Properties.Settings.Default.RefreshRate = delay;
+            Properties.Settings.Default.Save();
         }
     }
 }

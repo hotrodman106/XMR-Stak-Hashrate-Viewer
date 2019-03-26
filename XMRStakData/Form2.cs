@@ -28,7 +28,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     uri = new Uri("http://" + url);
                 }
 
-                if (Program.minerExists(uri.Authority) == true)
+                if (minerExists(uri.Authority) == true)
                 {
                     MessageBox.Show("Miner already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine("Miner already exists!");
@@ -54,7 +54,17 @@ namespace XMR_Stak_Hashrate_Viewer
 
         }
 
-        
 
+        private bool minerExists(string name)
+        {
+            foreach (MinerObject miner in Program.minerList)
+            {
+                if (miner.name == name)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

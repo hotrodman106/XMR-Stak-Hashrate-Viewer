@@ -112,8 +112,6 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -197,6 +195,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     Program.mainPage.Invoke((MethodInvoker)delegate
                     {
                         Login l = new Login();
+                        l.Text = "Connect to: " + urlAddress;
                         l.ShowDialog();
                         cache.Add(uri, "Digest", new NetworkCredential(l.username, l.password));
                     });

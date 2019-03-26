@@ -36,5 +36,65 @@ namespace XMR_Stak_Hashrate_Viewer.Properties {
                 this["IPs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000")]
+        public int RefreshRate {
+            get {
+                return ((int)(this["RefreshRate"]));
+            }
+            set {
+                this["RefreshRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("600")]
+        public int Height {
+            get {
+                return ((int)(this["Height"]));
+            }
+            set {
+                this["Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("800")]
+        public int Width {
+            get {
+                return ((int)(this["Width"]));
+            }
+            set {
+                this["Width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Maximized {
+            get {
+                return ((bool)(this["Maximized"]));
+            }
+            set {
+                this["Maximized"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        public global::System.Drawing.Point WindowLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["WindowLocation"]));
+            }
+            set {
+                this["WindowLocation"] = value;
+            }
+        }
     }
 }

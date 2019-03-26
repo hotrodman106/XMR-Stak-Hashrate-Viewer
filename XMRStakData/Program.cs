@@ -27,16 +27,5 @@ namespace XMR_Stak_Hashrate_Viewer
       
         }
 
-        public static bool minerExists(string name)
-        {
-            foreach (MinerObject miner in minerList)
-            {
-                if (miner.name == name)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
  }
