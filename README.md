@@ -21,3 +21,7 @@ In the highest total hashrate window, the sum of the highest hashrates across **
 
 ### Total Hashrate Window
 In the total hashrate window, the total hashrate across **ALL** miners will be displayed. These values are updated at every refresh interval.
+
+## Program Screenshots
+![GUI1](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/hashrate%20viewer%20documentation.PNG)
+![GUI2](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/hashrate%20viewer%20documentation%202.PNG)
