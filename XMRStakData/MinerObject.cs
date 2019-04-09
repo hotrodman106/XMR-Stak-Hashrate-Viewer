@@ -15,6 +15,7 @@ namespace XMR_Stak_Hashrate_Viewer
         private Uri uri;
         private Uri uriApi;
         public string name = null;
+        public string xmrstakversion = null;
         private int coreCount = 0;
         private List<List<string>> netdata = new List<List<string>>();
         private List<string> headerdata = new List<string>();
@@ -34,8 +35,8 @@ namespace XMR_Stak_Hashrate_Viewer
                 cred = requiresLogin(uri);
                 if (cred != null)
                 {
-                    netdata = getHashvalues(uriApi, cred);
-                    headerdata = getHeaderValues(uri, cred);
+                    netdata = getNetData(uriApi, cred);
+                    headerdata = getHeaderData(uri, cred);
                 }
                 else
                 {
@@ -65,10 +66,10 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
-                    netdata = getHashvalues(uriApi, cred);
+                    netdata = getNetData(uriApi, cred);
                     coreCount = netdata[0].Count;
-                    total = float.Parse(netdata[1][0]);
-                    highest = float.Parse(netdata[1][1]);
+                    total = float.Parse(netdata[1][0].ToString());
+                    highest = float.Parse(netdata[1][1].ToString());
                     return true;
                 }
                 catch (NullReferenceException)
@@ -101,18 +102,36 @@ namespace XMR_Stak_Hashrate_Viewer
                     tree.BeginUpdate();
                     foreach (string q in netdata[0])
                     {
-                        tree.Nodes[0].Nodes[i].Nodes.Clear();
-                        tree.Nodes[0].Nodes[i].Nodes.Add(netdata[0][i] + " H/s");
+                        tree.Nodes[1].Nodes[i].Nodes.Clear();
+                        tree.Nodes[1].Nodes[i].Nodes.Add(netdata[0][i] + " H/s");
                         i++;
                     }
-                    tree.Nodes[0].Nodes[i].Nodes.Clear();
-                    tree.Nodes[0].Nodes[i].Nodes.Add(netdata[1][0] + " H/s");
+                    tree.Nodes[1].Nodes[i].Nodes.Clear();
+                    tree.Nodes[1].Nodes[i].Nodes.Add(netdata[1][0] + " H/s");
                     i++;
-                    tree.Nodes[0].Nodes[i].Nodes.Clear();
-                    tree.Nodes[0].Nodes[i].Nodes.Add(netdata[1][1] + " H/s");
+                    tree.Nodes[1].Nodes[i].Nodes.Clear();
+                    tree.Nodes[1].Nodes[i].Nodes.Add(netdata[1][1] + " H/s");
+
+                    i = 0;
+                    tree.Nodes[2].Nodes[0].Nodes.Clear();
+                    tree.Nodes[2].Nodes[0].Nodes.Add(netdata[2][0]);
+                    tree.Nodes[2].Nodes[1].Nodes.Clear();
+                    tree.Nodes[2].Nodes[1].Nodes.Add(netdata[2][1]);
+                    tree.Nodes[2].Nodes[2].Nodes.Clear();
+                    tree.Nodes[2].Nodes[2].Nodes.Add(netdata[2][2]);
+                    tree.Nodes[2].Nodes[3].Nodes.Clear();
+                    tree.Nodes[2].Nodes[3].Nodes.Add(netdata[2][3] + " s");
+                    tree.Nodes[2].Nodes[4].Nodes.Clear();
+                    tree.Nodes[2].Nodes[4].Nodes.Add(netdata[2][4]);
+
+                    tree.Nodes[3].Nodes[0].Nodes.Clear();
+                    tree.Nodes[3].Nodes[0].Nodes.Add(netdata[3][0]);
+                    tree.Nodes[3].Nodes[1].Nodes.Clear();
+                    tree.Nodes[3].Nodes[1].Nodes.Add(netdata[3][1] + " s");
+                    tree.Nodes[3].Nodes[2].Nodes.Clear();
+                    tree.Nodes[3].Nodes[2].Nodes.Add(netdata[3][2] + " ms");
 
                     tree.EndUpdate();
-                    tree.ExpandAll();
                     tree.Refresh();
                 }
                 catch (Exception ex)
@@ -138,21 +157,42 @@ namespace XMR_Stak_Hashrate_Viewer
                     tab.Name = name;
                     TreeView content = new TreeView();
                     tab.Controls.Add(content);
-
-                    content.Nodes.Add("Hash Values");
+                    content.Nodes.Add("XMR-Stak Version");
+                    content.Nodes[0].Nodes.Add(xmrstakversion);
+                    content.Nodes.Add("Hashrates");
 
                     int index = 0;
                     foreach (string header in headerdata)
                     {
-                        content.Nodes[0].Nodes.Add(header);
-                        content.Nodes[0].Nodes[index].Nodes.Add(netdata[0][index] + " H/s");
+                        content.Nodes[1].Nodes.Add(header);
+                        content.Nodes[1].Nodes[index].Nodes.Add(netdata[0][index] + " H/s");
                         index++;
                     }
-                    content.Nodes[0].Nodes.Add("Total: ");
-                    content.Nodes[0].Nodes[index].Nodes.Add(netdata[1][0] + " H/s");
+                    content.Nodes[1].Nodes.Add("Total");
+                    content.Nodes[1].Nodes[index].Nodes.Add(netdata[1][0] + " H/s");
                     index++;
-                    content.Nodes[0].Nodes.Add("Highest: ");
-                    content.Nodes[0].Nodes[index].Nodes.Add(netdata[1][1] + " H/s");
+                    content.Nodes[1].Nodes.Add("Highest");
+                    content.Nodes[1].Nodes[index].Nodes.Add(netdata[1][1] + " H/s");
+
+                    content.Nodes.Add("Results");
+                    content.Nodes[2].Nodes.Add("Current Difficulty");
+                    content.Nodes[2].Nodes[0].Nodes.Add(netdata[2][0]);
+                    content.Nodes[2].Nodes.Add("Good Shares");
+                    content.Nodes[2].Nodes[1].Nodes.Add(netdata[2][1]);
+                    content.Nodes[2].Nodes.Add("Total Shares");
+                    content.Nodes[2].Nodes[2].Nodes.Add(netdata[2][2]);
+                    content.Nodes[2].Nodes.Add("Average Result Time");
+                    content.Nodes[2].Nodes[3].Nodes.Add(netdata[2][3] + " s");
+                    content.Nodes[2].Nodes.Add("Pool-Side Hashes");
+                    content.Nodes[2].Nodes[4].Nodes.Add(netdata[2][4]);
+
+                    content.Nodes.Add("Connection");
+                    content.Nodes[3].Nodes.Add("Pool Address");
+                    content.Nodes[3].Nodes[0].Nodes.Add(netdata[3][0]);
+                    content.Nodes[3].Nodes.Add("Uptime");
+                    content.Nodes[3].Nodes[1].Nodes.Add(netdata[3][1] + " s");
+                    content.Nodes[3].Nodes.Add("Ping");
+                    content.Nodes[3].Nodes[2].Nodes.Add(netdata[3][2] + " ms");
 
                     content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
                     content.Size = tab.Size;
@@ -221,7 +261,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 }
             }
         }
-        private List<List<string>> getHashvalues(Uri urlAddress, CredentialCache cred)
+        private List<List<string>> getNetData(Uri urlAddress, CredentialCache cred)
         {
             try
             {
@@ -247,10 +287,12 @@ namespace XMR_Stak_Hashrate_Viewer
                         readStream = new StreamReader(receiveStream, System.Text.Encoding.GetEncoding(response.CharacterSet));
                     }
                     dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
-                    string xmrstakversion = json.version;
+                    xmrstakversion = json.version;
                     if (xmrstakversion.Contains("xmr-stak"))
                     {
                         List<List<string>> threadhashrates = new List<List<string>>();
+                        threadhashrates.Add(new List<string>());
+                        threadhashrates.Add(new List<string>());
                         threadhashrates.Add(new List<string>());
                         threadhashrates.Add(new List<string>());
 
@@ -260,6 +302,16 @@ namespace XMR_Stak_Hashrate_Viewer
                         }
                         threadhashrates[1].Add(json.hashrate.total[0].ToString());
                         threadhashrates[1].Add(json.hashrate.highest.ToString());
+
+                        threadhashrates[2].Add(json.results.diff_current.ToString());
+                        threadhashrates[2].Add(json.results.shares_good.ToString());
+                        threadhashrates[2].Add(json.results.shares_total.ToString());
+                        threadhashrates[2].Add(json.results.avg_time.ToString());
+                        threadhashrates[2].Add(json.results.hashes_total.ToString());
+
+                        threadhashrates[3].Add(json.connection.pool.ToString());
+                        threadhashrates[3].Add(json.connection.uptime.ToString());
+                        threadhashrates[3].Add(json.connection.ping.ToString());
 
                         return threadhashrates;
                     }
@@ -291,7 +343,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 return null;
             }
         }
-        private List<string> getHeaderValues(Uri urlAddress, CredentialCache cred)
+        private List<string>getHeaderData(Uri urlAddress, CredentialCache cred)
         {
             try
             {
@@ -328,7 +380,7 @@ namespace XMR_Stak_Hashrate_Viewer
                             if (!q.Value.Equals("<th></th>") && !q.Value.Contains("10s") && !q.Value.Contains("60s") && !q.Value.Contains("15m"))
                             {
                                 string parsedString = q.Value.Replace("<th>", string.Empty).Replace("</th>", string.Empty).Replace(" ", string.Empty);
-                                dataOut.Add(parsedString.Remove(parsedString.IndexOf(":") + 1));
+                                dataOut.Add(parsedString.Remove(parsedString.IndexOf(":")));
                             }
                             count++;
                         }

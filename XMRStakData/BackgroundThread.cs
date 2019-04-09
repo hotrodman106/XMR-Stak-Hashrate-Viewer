@@ -31,25 +31,27 @@ namespace XMR_Stak_Hashrate_Viewer
 
                         foreach (MinerObject miner in Program.minerList)
                         {
-
-                            if (!miner.updateMinerData() || !miner.redrawMinerScreen())
+                            new Thread(() =>
                             {
-                                miner.isInitialized = false;
+                                if (!miner.updateMinerData() || !miner.redrawMinerScreen())
+                                {
+                                    miner.isInitialized = false;
 
-                                if (Program.mainPage.InvokeRequired)
-                                    Program.mainPage.Invoke(new MethodInvoker(delegate ()
+                                    if (Program.mainPage.InvokeRequired)
+                                        Program.mainPage.Invoke(new MethodInvoker(delegate ()
+                                        {
+                                            Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
+                                        }));
+                                    else
                                     {
                                         Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
-                                    }));
-                                else
-                                {
-                                    Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
+                                    }
+
+                                    tempMinerList.Remove(miner);
                                 }
-                            
-                                tempMinerList.Remove(miner);
-                            }
-                            Program.totals.Add(miner.total);
-                            Program.highestValues.Add(miner.highest);
+                                Program.totals.Add(miner.total);
+                                Program.highestValues.Add(miner.highest);
+                            }).Start();
                         }
 
                         if (Program.mainPage.InvokeRequired)
