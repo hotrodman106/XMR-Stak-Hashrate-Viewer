@@ -31,29 +31,25 @@ namespace XMR_Stak_Hashrate_Viewer
 
                         foreach (MinerObject miner in Program.minerList)
                         {
-                            new Thread(() =>
+                            if (!miner.updateMinerData() || !miner.redrawMinerScreen())
                             {
-                                if (!miner.updateMinerData() || !miner.redrawMinerScreen())
-                                {
-                                    miner.isInitialized = false;
+                                miner.isInitialized = false;
 
-                                    if (Program.mainPage.InvokeRequired)
-                                        Program.mainPage.Invoke(new MethodInvoker(delegate ()
-                                        {
-                                            Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
-                                        }));
-                                    else
+                                if (Program.mainPage.InvokeRequired)
+                                    Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                     {
                                         Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
-                                    }
-
-                                    tempMinerList.Remove(miner);
+                                    }));
+                                else
+                                {
+                                    Program.mainPage.tabControl1.GetControl(tempMinerList.IndexOf(miner)).Dispose();
                                 }
-                                Program.totals.Add(miner.total);
-                                Program.highestValues.Add(miner.highest);
-                            }).Start();
-                        }
 
+                                tempMinerList.Remove(miner);
+                            }
+                            Program.totals.Add(miner.total);
+                            Program.highestValues.Add(miner.highest);
+                        }
                         if (Program.mainPage.InvokeRequired)
                             Program.mainPage.Invoke(new MethodInvoker(delegate ()
                             {

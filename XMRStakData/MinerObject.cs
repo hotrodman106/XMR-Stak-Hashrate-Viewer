@@ -68,8 +68,8 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     netdata = getNetData(uriApi, cred);
                     coreCount = netdata[0].Count;
-                    total = float.Parse(netdata[1][0].ToString());
-                    highest = float.Parse(netdata[1][1].ToString());
+                    if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
+                    if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
                     return true;
                 }
                 catch (NullReferenceException)
