@@ -26,3 +26,6 @@ In the total hashrate window, the total hashrate across **ALL** miners will be d
 ![GUI1](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/MainScreen.png)
 ![GUI2](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/AddMinerScreen.png)
 ![GUI3](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/LoginScreen.png)
+
+## Buy Me a Beer
+Monero: 41mkhbZFybM9wBiT4wHzFX17gZukZo9qQZKNJLRwVMb8V2cE8iyNNdHgfbfnzmr8Ej38yGADHV5m6MnQaLie1Yx976UQhXg
