@@ -4,9 +4,10 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Web.Security;
+using System.Text;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -22,26 +23,34 @@ namespace XMR_Stak_Hashrate_Viewer
         public float total = 0;
         public float highest = 0;
         public bool isInitialized = false;
-        public CredentialCache cred;
+        public string password = null;
+        public string username = null;
+        private string passwordTemp = null;
+        private string usernameTemp = null;
+        private CredentialCache credentialCache = new CredentialCache();
 
-        public MinerObject(Uri u)
+
+        public MinerObject(Uri u, string us, string p)
         {
             try
             {
                 uri = u;
-                uriApi = new Uri(u.AbsoluteUri.ToString() + "api.json");
+                passwordTemp = p;
+                usernameTemp = us;
+                uriApi = new Uri(uri.AbsoluteUri.ToString() + "api.json");
                 name = uri.Authority;
-                cred = requiresLogin(uri);
-                if (cred != null)
+
+                if (requiresLogin(uri))
                 {
-                    netdata = getNetData(uriApi, cred, false);
-                    headerdata = getNetData(uri, cred, true)[0];
+                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, Convert.ToBase64String(MachineKey.Unprotect(Convert.FromBase64String(password), "Password", "Recipient: " + username))));
                 }
                 else
                 {
-                    netdata = null;
-                    headerdata = null;
+                    credentialCache.Add(uri, "Digest", new NetworkCredential("", ""));
                 }
+
+                netdata = getNetData(uriApi, false);
+                headerdata = getNetData(uri, true)[0];
 
                 if (netdata != null && headerdata != null)
                 {
@@ -64,7 +73,7 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
-                    netdata = getNetData(uriApi, cred, false);
+                    netdata = getNetData(uriApi, false);
                     if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
                     if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
                     return true;
@@ -265,23 +274,22 @@ namespace XMR_Stak_Hashrate_Viewer
             }
         }
 
-        private CredentialCache requiresLogin(Uri urlAddress)
+        private bool requiresLogin(Uri urlAddress)
         {
-            CredentialCache cache = new CredentialCache();
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
                 request.Timeout = 5000;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response.StatusCode != HttpStatusCode.OK)
                 {
-                    cache.Add(uri, "Digest", new NetworkCredential("", ""));
-                    return cache;
+                    throw new Exception("Request Error");
+
                 }
                 else
                 {
-                    throw new Exception("Request Error");
+                    return false;
                 }
 
             }
@@ -289,34 +297,39 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 if (ex.Message.Contains("401"))
                 {
-
-                    Program.mainPage.Invoke((MethodInvoker)delegate
+                    if(usernameTemp != null && passwordTemp != null)
                     {
-                        Login l = new Login();
-                        l.Text = "Connect to: " + urlAddress;
-                        l.ShowDialog();
-                        cache.Add(uri, "Digest", new NetworkCredential(l.username, l.password));
-                    });
+                        username = usernameTemp;
+                        password = passwordTemp;
+                    }
+                    else
+                    {
+                        Program.mainPage.Invoke((MethodInvoker)delegate
+                        {
+                            Login l = new Login();
+                            l.Text = "Connect to: " + urlAddress;
+                            l.ShowDialog();
+                            username = l.username;
+                            password = Convert.ToBase64String(MachineKey.Protect(Convert.FromBase64String(l.password), "Password", "Recipient: " + l.username));
+                        });
+                    }
 
-                    return cache;
+                    return true;
                 }
                 else
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine(ex.Message);
-                    return null;
+                    throw new Exception("Request Error");
                 }
             }
         }
-        private List<List<string>> getNetData(Uri urlAddress, CredentialCache cred, bool getHeaderData)
+        private List<List<string>> getNetData(Uri urlAddress, bool getHeaderData)
         {
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                if (cred != null)
-                {
-                    request.Credentials = cred;
-                }
+                request.Credentials = credentialCache;
                 request.Timeout = 5000;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
@@ -332,7 +345,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     }
                     else
                     {
-                        readStream = new StreamReader(receiveStream, System.Text.Encoding.GetEncoding(response.CharacterSet));
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
                     }
 
                     if (getHeaderData)
@@ -355,9 +368,9 @@ namespace XMR_Stak_Hashrate_Viewer
                             count++;
                         }
 
+                        output.Add(dataOut);
                         response.Close();
                         readStream.Close();
-                        output.Add(dataOut);
 
                         return output;
                     }
@@ -418,6 +431,8 @@ namespace XMR_Stak_Hashrate_Viewer
                                 }
                             }
 
+                            response.Close();
+                            readStream.Close();
                             return threadhashrates;
                         }
                         else
@@ -427,6 +442,7 @@ namespace XMR_Stak_Hashrate_Viewer
                             return null;
                         }
                     }
+
             } else
                 {
                     return null;

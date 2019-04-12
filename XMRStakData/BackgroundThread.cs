@@ -67,7 +67,7 @@ namespace XMR_Stak_Hashrate_Viewer
                         Thread.Sleep(Program.mainPage.delay);
 
                     }
-                }catch(InvalidOperationException ex)
+                }catch(InvalidOperationException)
                 {
                     continue;
                     

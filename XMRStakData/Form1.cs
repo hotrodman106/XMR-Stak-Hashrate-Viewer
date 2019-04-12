@@ -31,6 +31,8 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             background.state = false;
             Properties.Settings.Default.IPs.Clear();
+            Properties.Settings.Default.Usernames.Clear();
+            Properties.Settings.Default.Passwords.Clear();
             Properties.Settings.Default.Height = this.Height;
             Properties.Settings.Default.Width = this.Width;
             Properties.Settings.Default.WindowLocation = this.Location;
@@ -45,6 +47,8 @@ namespace XMR_Stak_Hashrate_Viewer
             foreach (MinerObject miner in Program.minerList)
             {
                Properties.Settings.Default.IPs.Add(miner.name);
+               Properties.Settings.Default.Usernames.Add(miner.username);
+               Properties.Settings.Default.Passwords.Add(miner.password);
             }
             Properties.Settings.Default.Save();
         }
@@ -62,18 +66,18 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 this.WindowState = FormWindowState.Maximized;
             }
+            int index = 0;
             foreach (string u in Properties.Settings.Default.IPs)
             {
                 try
                 {
                     Uri uri = new Uri("http://" + u);
-                    if (!u.Contains("null")) {
-                        MinerObject miner = new MinerObject(uri);
-                        if (miner.isInitialized)
-                        {
-                            Program.minerList.Add(miner);
-                        }
+                    MinerObject miner = new MinerObject(uri, Properties.Settings.Default.Usernames[index], Properties.Settings.Default.Passwords[index]);
+                    if (miner.isInitialized)
+                    {
+                      Program.minerList.Add(miner);
                     }
+                    index++;
                 }
                 catch (Exception ex)
                 {
