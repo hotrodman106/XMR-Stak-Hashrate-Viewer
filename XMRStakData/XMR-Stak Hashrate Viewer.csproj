@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackgroundThread.cs" />
+    <Compile Include="CryptographyEngine.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -42,7 +42,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
                 if (requiresLogin(uri))
                 {
-                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, Convert.ToBase64String(MachineKey.Unprotect(Convert.FromBase64String(password), "Password", "Recipient: " + username))));
+                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password)));
                 }
                 else
                 {
@@ -310,7 +310,7 @@ namespace XMR_Stak_Hashrate_Viewer
                             l.Text = "Connect to: " + urlAddress;
                             l.ShowDialog();
                             username = l.username;
-                            password = Convert.ToBase64String(MachineKey.Protect(Convert.FromBase64String(l.password), "Password", "Recipient: " + l.username));
+                            password = CryptographyEngine.EncryptString(l.password);
                         });
                     }
 
