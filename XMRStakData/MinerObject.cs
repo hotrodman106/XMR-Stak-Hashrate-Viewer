@@ -30,7 +30,7 @@ namespace XMR_Stak_Hashrate_Viewer
         private string usernameTemp = null;
         private CredentialCache credentialCache = new CredentialCache();
         public Thread minerThread;
-        private bool connectionsuccess = true; 
+        private bool connectionsuccess = true;
 
         public MinerObject(Uri u, string us, string p)
         {
@@ -44,7 +44,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
                 if (requiresLogin(uri))
                 {
-                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password)));
+                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password, uriApi.AbsolutePath)));
                 }
                 else
                 {
@@ -80,6 +80,26 @@ namespace XMR_Stak_Hashrate_Viewer
                     netdata = getNetData(uriApi, false);
                     if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
                     if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
+
+                    int identifierindex = Program.minerList.IndexOf(this);
+                    if (Program.totals.Count < Program.minerList.Count && Program.totals.Count != 0)
+                    {
+                        Program.totals.Add(total);
+                    }
+                    else if (Program.totals.Count == Program.minerList.Count)
+                    {
+                        Program.totals[identifierindex] = total;
+                    }
+
+                    if (Program.highestValues.Count < Program.minerList.Count && Program.totals.Count != 0)
+                    {
+                        Program.highestValues.Add(total);
+                    }
+                    else if (Program.highestValues.Count == Program.minerList.Count)
+                    {
+                        Program.highestValues[identifierindex] = highest;
+                    }
+
                     return true;
                 }
                 catch (NullReferenceException)
@@ -311,7 +331,7 @@ namespace XMR_Stak_Hashrate_Viewer
                             l.Text = "Connect to: " + urlAddress;
                             l.ShowDialog();
                             username = l.username;
-                            password = CryptographyEngine.EncryptString(l.password);
+                            password = CryptographyEngine.EncryptString(l.password, uriApi.AbsolutePath);
                         });
                     }
 
@@ -321,7 +341,8 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine(ex.Message);
-                    throw new Exception("Request Error");
+                    connectionsuccess = false;
+                    return false;   
                 }
             }
         }
@@ -479,26 +500,25 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
+                    int identifierindex = Program.minerList.IndexOf(this);
+
                     if (!updateMinerData() || !redrawMinerScreen())
                     {
                        isInitialized = false;
-                        int index = Program.minerList.IndexOf(this);
-                        if(index >= 0){
+                        if(identifierindex >= 0){
                             if (Program.mainPage.InvokeRequired)
                                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                 {
-                                Program.mainPage.tabControl1.GetControl(Program.minerList.IndexOf(this)).Dispose();
+                                Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
                                 }));
                                 else
                                 {
-                              Program.mainPage.tabControl1.GetControl(Program.minerList.IndexOf(this)).Dispose();
+                              Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
                                 }
                         }
                     }
                     else
                     {
-                        Program.totals.Add(total);
-                        Program.highestValues.Add(highest);
                         Thread.Sleep(Program.mainPage.delay);
                     }
                 }

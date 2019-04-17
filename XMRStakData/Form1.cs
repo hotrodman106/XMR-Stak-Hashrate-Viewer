@@ -12,7 +12,7 @@ namespace XMR_Stak_Hashrate_Viewer
         public int delay;
         private Point _imageLocation = new Point(16, 3);
         private Point _imgHitArea = new Point(16, 0);
-        ValueUpdater background;
+        public static ValueUpdater background;
 
         Image CloseImage;
 
@@ -132,11 +132,9 @@ namespace XMR_Stak_Hashrate_Viewer
                     tabControl1.TabPages.Remove(tabControl1.SelectedTab);
                     Program.minerList[ind].minerThread.Interrupt();
                     Program.minerList.RemoveAt(ind);
-                    if (Program.minerList.Count == 0)
-                    {
-                        highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
-                        averageHashrate.Text = "Total Hashrate: 0 H/s";
-                    }
+                    Program.totals.RemoveAt(ind);
+                    Program.highestValues.RemoveAt(ind);
+                    background.thread.Interrupt();
                 }
             }
             catch (Exception ex)
