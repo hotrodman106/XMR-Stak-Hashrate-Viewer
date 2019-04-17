@@ -12,14 +12,14 @@ namespace XMR_Stak_Hashrate_Viewer
         public int delay;
         private Point _imageLocation = new Point(16, 3);
         private Point _imgHitArea = new Point(16, 0);
-        BackgroundThread background;
+        ValueUpdater background;
 
         Image CloseImage;
 
         public MainPage()
         {
             InitializeComponent();
-            background = new BackgroundThread();
+            background = new ValueUpdater();
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
@@ -30,6 +30,7 @@ namespace XMR_Stak_Hashrate_Viewer
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
         {
             background.state = false;
+            background.thread.Interrupt();
             Properties.Settings.Default.IPs.Clear();
             Properties.Settings.Default.Usernames.Clear();
             Properties.Settings.Default.Passwords.Clear();
@@ -49,6 +50,7 @@ namespace XMR_Stak_Hashrate_Viewer
                Properties.Settings.Default.IPs.Add(miner.name);
                Properties.Settings.Default.Usernames.Add(miner.username);
                Properties.Settings.Default.Passwords.Add(miner.password);
+                miner.minerThread.Interrupt();
             }
             Properties.Settings.Default.Save();
         }
@@ -76,16 +78,14 @@ namespace XMR_Stak_Hashrate_Viewer
                     if (miner.isInitialized)
                     {
                       Program.minerList.Add(miner);
+                        miner.startLoop();
                     }
                     index++;
                 }
                 catch (Exception ex)
                 {
-                    if (ex is ThreadAbortException != true)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine(ex.Message);
-                    }
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -130,8 +130,8 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     int ind = tabControl1.SelectedIndex;
                     tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    Program.minerList[ind].minerThread.Interrupt();
                     Program.minerList.RemoveAt(ind);
-                    Properties.Settings.Default.IPs.RemoveAt(ind);
                     if (Program.minerList.Count == 0)
                     {
                         highestHashrate.Text = "Highest Total Hashrate: 0 H/s";

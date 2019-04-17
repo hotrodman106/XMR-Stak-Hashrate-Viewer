@@ -39,6 +39,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     if (miner.isInitialized)
                     {
                         Program.minerList.Add(miner);
+                        miner.startLoop();
                     }
                 }
             }

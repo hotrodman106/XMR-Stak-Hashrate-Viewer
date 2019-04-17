@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Web.Security;
 using System.Text;
+using System.Threading;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -28,7 +29,8 @@ namespace XMR_Stak_Hashrate_Viewer
         private string passwordTemp = null;
         private string usernameTemp = null;
         private CredentialCache credentialCache = new CredentialCache();
-
+        public Thread minerThread;
+        private bool connectionsuccess = true; 
 
         public MinerObject(Uri u, string us, string p)
         {
@@ -62,11 +64,13 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if(!(ex is NullReferenceException))
+                {
+                    Console.WriteLine(ex.Message);
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
-
         public bool updateMinerData()
         {
             if (netdata != null && headerdata != null)
@@ -94,7 +98,6 @@ namespace XMR_Stak_Hashrate_Viewer
                 return false;
             }
         }
-
         public bool redrawMinerScreen()
         {
             try
@@ -170,7 +173,6 @@ namespace XMR_Stak_Hashrate_Viewer
                 return false;
             }
         }
-
         public TreeView createTreeView()
         {
             try
@@ -273,7 +275,6 @@ namespace XMR_Stak_Hashrate_Viewer
                 return null;
             }
         }
-
         private bool requiresLogin(Uri urlAddress)
         {
             try
@@ -328,6 +329,8 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             try
             {
+                if (connectionsuccess == true)
+                {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
                 request.Credentials = credentialCache;
                 request.Timeout = 5000;
@@ -447,6 +450,11 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     return null;
                 }
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch (Exception ex)
             {
@@ -454,6 +462,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     MessageBox.Show("Username or password incorrect, please try again!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine("Username or password incorrect, please try again!");
+                    connectionsuccess = false;
                 }
                 else
                 {
@@ -463,6 +472,60 @@ namespace XMR_Stak_Hashrate_Viewer
 
                 return null;
             }
+        }
+        private void updateLoop(object parameters)
+        {
+            while (isInitialized)
+            {
+                try
+                {
+                    if (!updateMinerData() || !redrawMinerScreen())
+                    {
+                       isInitialized = false;
+                        int index = Program.minerList.IndexOf(this);
+                        if(index >= 0){
+                            if (Program.mainPage.InvokeRequired)
+                                Program.mainPage.Invoke(new MethodInvoker(delegate ()
+                                {
+                                Program.mainPage.tabControl1.GetControl(Program.minerList.IndexOf(this)).Dispose();
+                                }));
+                                else
+                                {
+                              Program.mainPage.tabControl1.GetControl(Program.minerList.IndexOf(this)).Dispose();
+                                }
+                        }
+                    }
+                    else
+                    {
+                        Program.totals.Add(total);
+                        Program.highestValues.Add(highest);
+                        Thread.Sleep(Program.mainPage.delay);
+                    }
+                }
+                catch (InvalidOperationException)
+                {
+                    continue;
+
+                }
+                catch (ThreadInterruptedException)
+                {
+                    isInitialized = false;
+                    break;
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
+                    break;
+                }
+
+            }
+        }
+        public void startLoop()
+        {
+            minerThread = new Thread(new ParameterizedThreadStart(updateLoop));
+            minerThread.Start();
         }
     }
 }
