@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -22,10 +24,31 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            ListEmbeddedResourceNames();
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
             mainPage = new MainPage();
             Application.Run(mainPage);
       
         }
+
+        static void ListEmbeddedResourceNames()
+        {
+            Trace.WriteLine("Listing Embedded Resource Names");
+
+            foreach (var resource in Assembly.GetExecutingAssembly().GetManifestResourceNames())
+                Trace.WriteLine("Resource: " + resource);
+        }
+
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XMR_Stak_Hashrate_Viewer.EmbeddedAssemblies.Newtonsoft.Json.dll"))
+            {
+                var assemblyData = new Byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
+        }
+
 
     }
  }
