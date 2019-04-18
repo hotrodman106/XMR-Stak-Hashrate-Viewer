@@ -35,10 +35,12 @@ namespace XMR_Stak_Hashrate_Viewer
                 }
                 else
                 {
-                    MinerObject miner = new MinerObject(uri);
+                    MinerObject miner = new MinerObject(uri, null, null);
                     if (miner.isInitialized)
                     {
                         Program.minerList.Add(miner);
+                        miner.startLoop();
+                        MainPage.background.thread.Interrupt();
                     }
                 }
             }

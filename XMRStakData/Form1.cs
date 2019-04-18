@@ -12,14 +12,13 @@ namespace XMR_Stak_Hashrate_Viewer
         public int delay;
         private Point _imageLocation = new Point(16, 3);
         private Point _imgHitArea = new Point(16, 0);
-        BackgroundThread background;
+        public static ValueUpdater background;
 
         Image CloseImage;
 
         public MainPage()
         {
             InitializeComponent();
-            background = new BackgroundThread();
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
@@ -30,7 +29,10 @@ namespace XMR_Stak_Hashrate_Viewer
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
         {
             background.state = false;
+            background.thread.Interrupt();
             Properties.Settings.Default.IPs.Clear();
+            Properties.Settings.Default.Usernames.Clear();
+            Properties.Settings.Default.Passwords.Clear();
             Properties.Settings.Default.Height = this.Height;
             Properties.Settings.Default.Width = this.Width;
             Properties.Settings.Default.WindowLocation = this.Location;
@@ -45,6 +47,9 @@ namespace XMR_Stak_Hashrate_Viewer
             foreach (MinerObject miner in Program.minerList)
             {
                Properties.Settings.Default.IPs.Add(miner.name);
+               Properties.Settings.Default.Usernames.Add(miner.username);
+               Properties.Settings.Default.Passwords.Add(miner.password);
+                miner.minerThread.Interrupt();
             }
             Properties.Settings.Default.Save();
         }
@@ -62,28 +67,27 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 this.WindowState = FormWindowState.Maximized;
             }
+            int index = 0;
             foreach (string u in Properties.Settings.Default.IPs)
             {
                 try
                 {
                     Uri uri = new Uri("http://" + u);
-                    if (!u.Contains("null")) {
-                        MinerObject miner = new MinerObject(uri);
-                        if (miner.isInitialized)
-                        {
-                            Program.minerList.Add(miner);
-                        }
+                    MinerObject miner = new MinerObject(uri, Properties.Settings.Default.Usernames[index], Properties.Settings.Default.Passwords[index]);
+                    if (miner.isInitialized)
+                    {
+                      Program.minerList.Add(miner);
+                        miner.startLoop();
                     }
+                    index++;
                 }
                 catch (Exception ex)
                 {
-                    if (ex is ThreadAbortException != true)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Console.WriteLine(ex.Message);
-                    }
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
                 }
             }
+            background = new ValueUpdater();
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -126,13 +130,11 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     int ind = tabControl1.SelectedIndex;
                     tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    Program.minerList[ind].minerThread.Interrupt();
                     Program.minerList.RemoveAt(ind);
-                    Properties.Settings.Default.IPs.RemoveAt(ind);
-                    if (Program.minerList.Count == 0)
-                    {
-                        highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
-                        averageHashrate.Text = "Total Hashrate: 0 H/s";
-                    }
+                    Program.totals.RemoveAt(ind);
+                    Program.highestValues.RemoveAt(ind);
+                    background.thread.Interrupt();
                 }
             }
             catch (Exception ex)
@@ -182,6 +184,11 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             Properties.Settings.Default.RefreshRate = delay;
             Properties.Settings.Default.Save();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
