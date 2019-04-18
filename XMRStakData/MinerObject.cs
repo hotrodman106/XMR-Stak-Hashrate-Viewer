@@ -9,13 +9,14 @@ using Newtonsoft.Json.Linq;
 using System.Web.Security;
 using System.Text;
 using System.Threading;
+using XMR_Stak_Hashrate_Viewer;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
     class MinerObject
     {
         private Uri uri;
-        private Uri uriApi;
+        public Uri uriApi;
         public string name = null;
         public string xmrstakversion = null;
         private List<List<string>> netdata = new List<List<string>>();
@@ -26,11 +27,11 @@ namespace XMR_Stak_Hashrate_Viewer
         public bool isInitialized = false;
         public string password = null;
         public string username = null;
-        private string passwordTemp = null;
-        private string usernameTemp = null;
-        private CredentialCache credentialCache = new CredentialCache();
+        public string passwordTemp = null;
+        public string usernameTemp = null;
+        public CredentialCache credentialCache = new CredentialCache();
         public Thread minerThread;
-        private bool connectionsuccess = true;
+        public bool connectionsuccess = true;
 
         public MinerObject(Uri u, string us, string p)
         {
@@ -42,7 +43,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 uriApi = new Uri(uri.AbsoluteUri.ToString() + "api.json");
                 name = uri.Authority;
 
-                if (requiresLogin(uri))
+                if (NetworkGatherer.requiresLogin(uri, this))
                 {
                     credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password, uriApi.AbsolutePath)));
                 }
@@ -51,13 +52,15 @@ namespace XMR_Stak_Hashrate_Viewer
                     credentialCache.Add(uri, "Digest", new NetworkCredential("", ""));
                 }
 
-                netdata = getNetData(uriApi, false);
-                headerdata = getNetData(uri, true)[0];
+                netdata = NetworkGatherer.getNetData(uriApi, false, this);
+                headerdata = NetworkGatherer.getNetData(uri, true, this)[0];
 
                 if (netdata != null && headerdata != null)
                 {
                     total = float.Parse(netdata[1][0]);
                     highest = float.Parse(netdata[1][1]);
+                    Program.highestValues.Add(highest);
+                    Program.totals.Add(total);
                     tree = createTreeView();
                     isInitialized = true;
                 }
@@ -77,7 +80,7 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
-                    netdata = getNetData(uriApi, false);
+                    netdata = NetworkGatherer.getNetData(uriApi, false, this);
                     if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
                     if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
 
@@ -188,7 +191,7 @@ namespace XMR_Stak_Hashrate_Viewer
             });
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -279,9 +282,6 @@ namespace XMR_Stak_Hashrate_Viewer
                     Program.mainPage.tabControl1.Controls.Add(tab);
                     content.ExpandAll();
 
-                    Program.highestValues.Add(highest);
-                    Program.totals.Add(total);
-
                     return content;
                 }
                 else
@@ -295,205 +295,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 return null;
             }
         }
-        private bool requiresLogin(Uri urlAddress)
-        {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.Timeout = 5000;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Request Error");
-
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-            catch (WebException ex)
-            {
-                if (ex.Message.Contains("401"))
-                {
-                    if(usernameTemp != null && passwordTemp != null)
-                    {
-                        username = usernameTemp;
-                        password = passwordTemp;
-                    }
-                    else
-                    {
-                        Program.mainPage.Invoke((MethodInvoker)delegate
-                        {
-                            Login l = new Login();
-                            l.Text = "Connect to: " + urlAddress;
-                            l.ShowDialog();
-                            username = l.username;
-                            password = CryptographyEngine.EncryptString(l.password, uriApi.AbsolutePath);
-                        });
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine(ex.Message);
-                    connectionsuccess = false;
-                    return false;   
-                }
-            }
-        }
-        private List<List<string>> getNetData(Uri urlAddress, bool getHeaderData)
-        {
-            try
-            {
-                if (connectionsuccess == true)
-                {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.Credentials = credentialCache;
-                request.Timeout = 5000;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-
-                    Stream receiveStream = response.GetResponseStream();
-                    StreamReader readStream = null;
-
-                    if (response.CharacterSet == null)
-                    {
-                        readStream = new StreamReader(receiveStream);
-                    }
-                    else
-                    {
-                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                    }
-
-                    if (getHeaderData)
-                    {
-                        string data = readStream.ReadToEnd();
-                        Regex headerrgx = new Regex(@"(<th>([^<th>])*<\/th>)");
-                        MatchCollection headerdataIn = headerrgx.Matches(data);
-                        List<string> dataOut = new List<string>();
-                        List<List<string>> output = new List<List<string>>();
-
-                        int count = 0;
-
-                        foreach (Match q in headerdataIn)
-                        {
-                            if (!q.Value.Equals("<th></th>") && !q.Value.Contains("10s") && !q.Value.Contains("60s") && !q.Value.Contains("15m"))
-                            {
-                                string parsedString = q.Value.Replace("<th>", string.Empty).Replace("</th>", string.Empty).Replace(" ", string.Empty);
-                                dataOut.Add(parsedString.Remove(parsedString.IndexOf(":")));
-                            }
-                            count++;
-                        }
-
-                        output.Add(dataOut);
-                        response.Close();
-                        readStream.Close();
-
-                        return output;
-                    }
-                    else
-                    {
-                        dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
-                        xmrstakversion = json.version;
-                        if (xmrstakversion.Contains("xmr-stak"))
-                        {
-                            List<List<string>> threadhashrates = new List<List<string>>();
-
-                            for (int i = 0; i != 4; i++)
-                            {
-                                threadhashrates.Add(new List<string>());
-                            }
-
-                            foreach (JProperty hashrates in json.hashrate)
-                            {
-                                if (hashrates.Name.Equals("threads"))
-                                {
-                                    foreach (JArray values in hashrates.Value)
-                                    {
-                                        threadhashrates[0].Add(values.First.ToString());
-                                    }
-                                }
-                                else if (hashrates.Name.Equals("total"))
-                                {
-                                    threadhashrates[1].Add(hashrates.Value.First.ToString());
-                                }
-                                else
-                                {
-                                    threadhashrates[1].Add(hashrates.Value.ToString());
-                                }
-                            }
-
-                            foreach (JProperty results in json.results)
-                            {
-                                if (!results.Name.Equals("best"))
-                                {
-                                    threadhashrates[2].Add(results.First.ToString());
-                                }
-                                else
-                                {
-                                    break;
-                                }
-
-                            }
-
-                            foreach (JProperty connection in json.connection)
-                            {
-                                if (!connection.Name.Equals("error_log"))
-                                {
-                                    threadhashrates[3].Add(connection.First.ToString());
-                                }
-                                else
-                                {
-                                    break;
-                                }
-                            }
-
-                            response.Close();
-                            readStream.Close();
-                            return threadhashrates;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Not a valid XMR-Stak Miner!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            Console.WriteLine("Not a valid XMR-Stak Miner!");
-                            return null;
-                        }
-                    }
-
-            } else
-                {
-                    return null;
-                }
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("401"))
-                {
-                    MessageBox.Show("Username or password incorrect, please try again!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("Username or password incorrect, please try again!");
-                    connectionsuccess = false;
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine(ex.Message);
-                }
-
-                return null;
-            }
-        }
+        
         private void updateLoop(object parameters)
         {
             while (isInitialized)
