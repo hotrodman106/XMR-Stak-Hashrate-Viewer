@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using MetroFramework.Forms;
 
 namespace XMR_Stak_Hashrate_Viewer
 {

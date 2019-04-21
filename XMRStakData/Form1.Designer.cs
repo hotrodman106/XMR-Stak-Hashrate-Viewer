@@ -35,10 +35,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.moneropricetext = new System.Windows.Forms.Label();
+            this.weeklyrevenuetext = new System.Windows.Forms.Label();
             this.highestHashrate = new System.Windows.Forms.Label();
             this.averageHashrate = new System.Windows.Forms.Label();
-            this.weeklyrevenuetext = new System.Windows.Forms.Label();
-            this.moneropricetext = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -54,7 +54,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(15, 5, 15, 5);
-            this.toolStrip1.Size = new System.Drawing.Size(782, 38);
+            this.toolStrip1.Size = new System.Drawing.Size(782, 37);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -63,7 +63,7 @@
             this.toolStripButton1.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.addminer;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(103, 25);
+            this.toolStripButton1.Size = new System.Drawing.Size(87, 24);
             this.toolStripButton1.Text = "Add Miner";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click_1);
             // 
@@ -83,7 +83,7 @@
             "9s",
             "10s"});
             this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(80, 28);
+            this.toolStripComboBox1.Size = new System.Drawing.Size(75, 27);
             this.toolStripComboBox1.ToolTipText = "Refresh Interval";
             this.toolStripComboBox1.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox1_SelectionChanged);
             // 
@@ -93,9 +93,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.tabControl1);
-            this.panel1.Location = new System.Drawing.Point(12, 41);
+            this.panel1.Location = new System.Drawing.Point(10, 36);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(758, 451);
+            this.panel1.Size = new System.Drawing.Size(762, 464);
             this.panel1.TabIndex = 2;
             // 
             // tabControl1
@@ -108,7 +108,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(5);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(758, 451);
+            this.tabControl1.Size = new System.Drawing.Size(762, 464);
             this.tabControl1.TabIndex = 1;
             this.tabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
             this.tabControl1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tabControl1_MouseClick);
@@ -124,14 +124,43 @@
             this.tableLayoutPanel1.Controls.Add(this.weeklyrevenuetext, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.highestHashrate, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.averageHashrate, 1, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(16, 498);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 506);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(750, 43);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(755, 37);
             this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // moneropricetext
+            // 
+            this.moneropricetext.AutoSize = true;
+            this.moneropricetext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.moneropricetext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.moneropricetext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moneropricetext.Location = new System.Drawing.Point(0, 20);
+            this.moneropricetext.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.moneropricetext.Name = "moneropricetext";
+            this.moneropricetext.Size = new System.Drawing.Size(374, 17);
+            this.moneropricetext.TabIndex = 3;
+            this.moneropricetext.Text = "Current Monero Value: $0.00";
+            this.moneropricetext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.moneropricetext.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // weeklyrevenuetext
+            // 
+            this.weeklyrevenuetext.AutoSize = true;
+            this.weeklyrevenuetext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.weeklyrevenuetext.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weeklyrevenuetext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.weeklyrevenuetext.Location = new System.Drawing.Point(380, 20);
+            this.weeklyrevenuetext.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
+            this.weeklyrevenuetext.Name = "weeklyrevenuetext";
+            this.weeklyrevenuetext.Size = new System.Drawing.Size(375, 17);
+            this.weeklyrevenuetext.TabIndex = 2;
+            this.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $0.00";
+            this.weeklyrevenuetext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // highestHashrate
             // 
@@ -142,7 +171,7 @@
             this.highestHashrate.Location = new System.Drawing.Point(0, 0);
             this.highestHashrate.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.highestHashrate.Name = "highestHashrate";
-            this.highestHashrate.Size = new System.Drawing.Size(372, 23);
+            this.highestHashrate.Size = new System.Drawing.Size(374, 20);
             this.highestHashrate.TabIndex = 1;
             this.highestHashrate.Text = "Highest Total Hashrate: 0 H/s";
             this.highestHashrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -153,52 +182,23 @@
             this.averageHashrate.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.averageHashrate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.averageHashrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.averageHashrate.Location = new System.Drawing.Point(378, 0);
+            this.averageHashrate.Location = new System.Drawing.Point(380, 0);
             this.averageHashrate.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.averageHashrate.Name = "averageHashrate";
-            this.averageHashrate.Size = new System.Drawing.Size(372, 23);
+            this.averageHashrate.Size = new System.Drawing.Size(375, 20);
             this.averageHashrate.TabIndex = 0;
             this.averageHashrate.Text = "Total Hashrate: 0 H/s";
             this.averageHashrate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // weeklyrevenuetext
-            // 
-            this.weeklyrevenuetext.AutoSize = true;
-            this.weeklyrevenuetext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.weeklyrevenuetext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.weeklyrevenuetext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.weeklyrevenuetext.Location = new System.Drawing.Point(378, 23);
-            this.weeklyrevenuetext.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
-            this.weeklyrevenuetext.Name = "weeklyrevenuetext";
-            this.weeklyrevenuetext.Size = new System.Drawing.Size(372, 20);
-            this.weeklyrevenuetext.TabIndex = 2;
-            this.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $0.00";
-            this.weeklyrevenuetext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // moneropricetext
-            // 
-            this.moneropricetext.AutoSize = true;
-            this.moneropricetext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.moneropricetext.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.moneropricetext.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.moneropricetext.Location = new System.Drawing.Point(0, 23);
-            this.moneropricetext.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.moneropricetext.Name = "moneropricetext";
-            this.moneropricetext.Size = new System.Drawing.Size(372, 20);
-            this.moneropricetext.TabIndex = 3;
-            this.moneropricetext.Text = "Current Monero Value: $0.00";
-            this.moneropricetext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.moneropricetext.Click += new System.EventHandler(this.label2_Click);
-            // 
             // MainPage
             // 
-            this.AutoScaleBaseSize = new System.Drawing.Size(6, 15);
+            this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(700, 300);
+            this.MinimumSize = new System.Drawing.Size(583, 260);
             this.Name = "MainPage";
             this.Text = "XMR-Stak Hashrate Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);

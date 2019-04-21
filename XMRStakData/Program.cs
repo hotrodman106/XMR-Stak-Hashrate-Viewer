@@ -26,9 +26,10 @@ namespace XMR_Stak_Hashrate_Viewer
             Application.SetCompatibleTextRenderingDefault(false);
             ListEmbeddedResourceNames();
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            mainPage = new MainPage();
-            Application.Run(mainPage);
-      
+            //mainPage = new MainPage();
+            //Application.Run(mainPage);
+            Application.Run(new Form4());
+
         }
 
         static void ListEmbeddedResourceNames()
