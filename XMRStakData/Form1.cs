@@ -19,7 +19,6 @@ namespace XMR_Stak_Hashrate_Viewer
         public MainPage()
         {
             InitializeComponent();
-            background = new ValueUpdater();
         }
 
         private void toolStripButton1_Click_1(object sender, EventArgs e)
@@ -88,6 +87,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     Console.WriteLine(ex.Message);
                 }
             }
+            background = new ValueUpdater();
         }
 
         private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -184,6 +184,11 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             Properties.Settings.Default.RefreshRate = delay;
             Properties.Settings.Default.Save();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
