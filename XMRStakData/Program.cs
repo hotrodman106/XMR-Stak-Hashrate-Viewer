@@ -25,7 +25,10 @@ namespace XMR_Stak_Hashrate_Viewer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ListEmbeddedResourceNames();
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_ResolveNewtonsoft;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_ResolveMetroFramework;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_ResolveMetroFrameworkFonts;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_ResolveMetroFrameworkDesign;
             //mainPage = new MainPage();
             //Application.Run(mainPage);
             Application.Run(new Form4());
@@ -40,9 +43,39 @@ namespace XMR_Stak_Hashrate_Viewer
                 Trace.WriteLine("Resource: " + resource);
         }
 
-        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        static Assembly CurrentDomain_ResolveNewtonsoft(object sender, ResolveEventArgs args)
         {
             using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XMR_Stak_Hashrate_Viewer.EmbeddedAssemblies.Newtonsoft.Json.dll"))
+            {
+                var assemblyData = new Byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
+        }
+
+        static Assembly CurrentDomain_ResolveMetroFramework(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XMR_Stak_Hashrate_Viewer.EmbeddedAssemblies.MetroFramework.dll"))
+            {
+                var assemblyData = new Byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
+        }
+
+        static Assembly CurrentDomain_ResolveMetroFrameworkFonts(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XMR_Stak_Hashrate_Viewer.EmbeddedAssemblies.MetroFramework.Fonts.dll"))
+            {
+                var assemblyData = new Byte[stream.Length];
+                stream.Read(assemblyData, 0, assemblyData.Length);
+                return Assembly.Load(assemblyData);
+            }
+        }
+
+        static Assembly CurrentDomain_ResolveMetroFrameworkDesign(object sender, ResolveEventArgs args)
+        {
+            using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("XMR_Stak_Hashrate_Viewer.EmbeddedAssemblies.MetroFramework.Design.dll"))
             {
                 var assemblyData = new Byte[stream.Length];
                 stream.Read(assemblyData, 0, assemblyData.Length);
