@@ -18,28 +18,15 @@ namespace XMR_Stak_Hashrate_Viewer
         public static List<MinerObject> minerList = new List<MinerObject>();
         public static List<float> totals = new List<float>();
         public static List<float> highestValues = new List<float>();
-
+        public static Assembly assembly = Assembly.GetCallingAssembly();
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //mainPage = new MainPage();
-            //Application.Run(mainPage);
-            Application.Run(new Form4());
-
-        }
-
-        static void ListEmbeddedResourceNames()
-        {
-            Trace.WriteLine("Listing Embedded Resource Names");
-
-            foreach (var resource in Assembly.GetExecutingAssembly().GetManifestResourceNames())
-                Trace.WriteLine("Resource: " + resource);
-        }
-
-
-
+            mainPage = new MainPage();
+            Application.Run(mainPage);
+           }
 
     }
  }

@@ -27,17 +27,17 @@ namespace XMR_Stak_Hashrate_Viewer
             if (Program.mainPage.InvokeRequired)
                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                 {
-                    Program.mainPage.highestHashrate.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
-                    Program.mainPage.averageHashrate.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
-                    Program.mainPage.moneropricetext.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
-                    Program.mainPage.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
+                    //Program.mainPage.highestHashrate.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
+                    //Program.mainPage.averageHashrate.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
+                    //Program.mainPage.moneropricetext.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
+                    //Program.mainPage.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
                 }));
             else
             {
-                Program.mainPage.highestHashrate.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
-                Program.mainPage.averageHashrate.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
-                Program.mainPage.moneropricetext.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
-                Program.mainPage.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
+                //Program.mainPage.highestHashrate.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
+               // Program.mainPage.averageHashrate.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
+                //Program.mainPage.moneropricetext.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
+                //Program.mainPage.weeklyrevenuetext.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
             }
         }
 
@@ -55,14 +55,14 @@ namespace XMR_Stak_Hashrate_Viewer
 
                     updateValues();
                     
-                    if(Program.mainPage.delay == 1000)
+                    /*if(Program.mainPage.delay == 1000)
                     {
                         Thread.Sleep(2000);
                     }
                     else
                     {
                         Thread.Sleep(Program.mainPage.delay);
-                    }
+                    }*/
                     
                 }
                 catch (ThreadInterruptedException)

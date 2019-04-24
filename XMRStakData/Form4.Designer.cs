@@ -1,6 +1,6 @@
 ﻿namespace XMR_Stak_Hashrate_Viewer
 {
-    partial class Form4
+    partial class MainPage
     {
         /// <summary>
         /// Required designer variable.
@@ -28,291 +28,406 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.metroPanel4 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
-            this.metroPanel3 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
-            this.metroPanel2 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
-            this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.metroPanel6 = new MetroFramework.Controls.MetroPanel();
-            this.metroPanel5 = new MetroFramework.Controls.MetroPanel();
-            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.metroPanel4.SuspendLayout();
-            this.metroPanel3.SuspendLayout();
-            this.metroPanel2.SuspendLayout();
-            this.metroPanel1.SuspendLayout();
-            this.metroPanel6.SuspendLayout();
-            this.metroPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
+            this.mainpanel = new System.Windows.Forms.TableLayoutPanel();
+            this.sidepanel = new System.Windows.Forms.TableLayoutPanel();
+            this.weeklyrevenuecontainer = new MetroFramework.Controls.MetroPanel();
+            this.weeklyrevenuelabel = new MetroFramework.Controls.MetroLabel();
+            this.monerovaluecontainer = new MetroFramework.Controls.MetroPanel();
+            this.monerovaluelabel = new MetroFramework.Controls.MetroLabel();
+            this.totalhashratecontainer = new MetroFramework.Controls.MetroPanel();
+            this.totalhashratelabel = new MetroFramework.Controls.MetroLabel();
+            this.highesthashratecontainer = new MetroFramework.Controls.MetroPanel();
+            this.highesthashratelabel = new MetroFramework.Controls.MetroLabel();
+            this.logocontainer = new MetroFramework.Controls.MetroPanel();
+            this.logo = new System.Windows.Forms.PictureBox();
+            this.maintabcontrolcontainer = new MetroFramework.Controls.MetroPanel();
+            this.maintabcontrol = new MetroFramework.Controls.MetroTabControl();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.refreshintervalcontainer = new MetroFramework.Controls.MetroPanel();
+            this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
+            this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
+            this.attributioncontainer = new MetroFramework.Controls.MetroPanel();
+            this.attributionlabel = new MetroFramework.Controls.MetroLabel();
+            this.mainpanel.SuspendLayout();
+            this.sidepanel.SuspendLayout();
+            this.weeklyrevenuecontainer.SuspendLayout();
+            this.monerovaluecontainer.SuspendLayout();
+            this.totalhashratecontainer.SuspendLayout();
+            this.highesthashratecontainer.SuspendLayout();
+            this.logocontainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
+            this.maintabcontrolcontainer.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            this.refreshintervalcontainer.SuspendLayout();
+            this.attributioncontainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tableLayoutPanel1
+            // mainpanel
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.mainpanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.metroPanel5, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(23, 63);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(937, 575);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.mainpanel.ColumnCount = 2;
+            this.mainpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.mainpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mainpanel.Controls.Add(this.sidepanel, 1, 0);
+            this.mainpanel.Controls.Add(this.maintabcontrolcontainer, 0, 0);
+            this.mainpanel.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.mainpanel.Controls.Add(this.attributioncontainer, 1, 1);
+            this.mainpanel.Location = new System.Drawing.Point(23, 63);
+            this.mainpanel.Margin = new System.Windows.Forms.Padding(0);
+            this.mainpanel.Name = "mainpanel";
+            this.mainpanel.RowCount = 2;
+            this.mainpanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.mainpanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.mainpanel.Size = new System.Drawing.Size(972, 633);
+            this.mainpanel.TabIndex = 0;
             // 
-            // tableLayoutPanel2
+            // sidepanel
             // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.sidepanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 1;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.metroPanel4, 0, 4);
-            this.tableLayoutPanel2.Controls.Add(this.metroPanel3, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.metroPanel2, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.metroPanel1, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.metroPanel6, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(625, 0);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 5;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(312, 575);
-            this.tableLayoutPanel2.TabIndex = 1;
+            this.sidepanel.ColumnCount = 1;
+            this.sidepanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.sidepanel.Controls.Add(this.weeklyrevenuecontainer, 0, 4);
+            this.sidepanel.Controls.Add(this.monerovaluecontainer, 0, 3);
+            this.sidepanel.Controls.Add(this.totalhashratecontainer, 0, 2);
+            this.sidepanel.Controls.Add(this.highesthashratecontainer, 0, 1);
+            this.sidepanel.Controls.Add(this.logocontainer, 0, 0);
+            this.sidepanel.Location = new System.Drawing.Point(660, 0);
+            this.sidepanel.Margin = new System.Windows.Forms.Padding(0);
+            this.sidepanel.Name = "sidepanel";
+            this.sidepanel.RowCount = 5;
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.sidepanel.Size = new System.Drawing.Size(312, 569);
+            this.sidepanel.TabIndex = 0;
             // 
-            // metroPanel4
+            // weeklyrevenuecontainer
             // 
-            this.metroPanel4.Controls.Add(this.metroLabel4);
-            this.metroPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroPanel4.HorizontalScrollbarBarColor = true;
-            this.metroPanel4.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel4.HorizontalScrollbarSize = 10;
-            this.metroPanel4.Location = new System.Drawing.Point(3, 519);
-            this.metroPanel4.Name = "metroPanel4";
-            this.metroPanel4.Size = new System.Drawing.Size(306, 53);
-            this.metroPanel4.TabIndex = 3;
-            this.metroPanel4.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel4.VerticalScrollbarBarColor = true;
-            this.metroPanel4.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel4.VerticalScrollbarSize = 10;
+            this.weeklyrevenuecontainer.Controls.Add(this.weeklyrevenuelabel);
+            this.weeklyrevenuecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weeklyrevenuecontainer.HorizontalScrollbarBarColor = true;
+            this.weeklyrevenuecontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.weeklyrevenuecontainer.HorizontalScrollbarSize = 10;
+            this.weeklyrevenuecontainer.Location = new System.Drawing.Point(3, 512);
+            this.weeklyrevenuecontainer.Name = "weeklyrevenuecontainer";
+            this.weeklyrevenuecontainer.Size = new System.Drawing.Size(306, 54);
+            this.weeklyrevenuecontainer.TabIndex = 3;
+            this.weeklyrevenuecontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.weeklyrevenuecontainer.VerticalScrollbarBarColor = true;
+            this.weeklyrevenuecontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.weeklyrevenuecontainer.VerticalScrollbarSize = 10;
             // 
-            // metroLabel4
+            // weeklyrevenuelabel
             // 
-            this.metroLabel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel4.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel4.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel4.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel4.Margin = new System.Windows.Forms.Padding(0);
-            this.metroLabel4.Name = "metroLabel4";
-            this.metroLabel4.Size = new System.Drawing.Size(306, 53);
-            this.metroLabel4.TabIndex = 3;
-            this.metroLabel4.Text = "Estimated Weekly Revenue: $0.00";
-            this.metroLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroLabel4.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.weeklyrevenuelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weeklyrevenuelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.weeklyrevenuelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.weeklyrevenuelabel.Location = new System.Drawing.Point(0, 0);
+            this.weeklyrevenuelabel.Margin = new System.Windows.Forms.Padding(0);
+            this.weeklyrevenuelabel.Name = "weeklyrevenuelabel";
+            this.weeklyrevenuelabel.Size = new System.Drawing.Size(306, 54);
+            this.weeklyrevenuelabel.TabIndex = 3;
+            this.weeklyrevenuelabel.Text = "Estimated Weekly Revenue: $0.00";
+            this.weeklyrevenuelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.weeklyrevenuelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroPanel3
+            // monerovaluecontainer
             // 
-            this.metroPanel3.Controls.Add(this.metroLabel3);
-            this.metroPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroPanel3.HorizontalScrollbarBarColor = true;
-            this.metroPanel3.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.HorizontalScrollbarSize = 10;
-            this.metroPanel3.Location = new System.Drawing.Point(3, 462);
-            this.metroPanel3.Name = "metroPanel3";
-            this.metroPanel3.Size = new System.Drawing.Size(306, 51);
-            this.metroPanel3.TabIndex = 2;
-            this.metroPanel3.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel3.VerticalScrollbarBarColor = true;
-            this.metroPanel3.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel3.VerticalScrollbarSize = 10;
+            this.monerovaluecontainer.Controls.Add(this.monerovaluelabel);
+            this.monerovaluecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.monerovaluecontainer.HorizontalScrollbarBarColor = true;
+            this.monerovaluecontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.monerovaluecontainer.HorizontalScrollbarSize = 10;
+            this.monerovaluecontainer.Location = new System.Drawing.Point(3, 456);
+            this.monerovaluecontainer.Name = "monerovaluecontainer";
+            this.monerovaluecontainer.Size = new System.Drawing.Size(306, 50);
+            this.monerovaluecontainer.TabIndex = 2;
+            this.monerovaluecontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.monerovaluecontainer.VerticalScrollbarBarColor = true;
+            this.monerovaluecontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.monerovaluecontainer.VerticalScrollbarSize = 10;
             // 
-            // metroLabel3
+            // monerovaluelabel
             // 
-            this.metroLabel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel3.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel3.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel3.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(306, 51);
-            this.metroLabel3.TabIndex = 3;
-            this.metroLabel3.Text = "Current Monero Value: $0.00";
-            this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroLabel3.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.monerovaluelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.monerovaluelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.monerovaluelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.monerovaluelabel.Location = new System.Drawing.Point(0, 0);
+            this.monerovaluelabel.Name = "monerovaluelabel";
+            this.monerovaluelabel.Size = new System.Drawing.Size(306, 50);
+            this.monerovaluelabel.TabIndex = 3;
+            this.monerovaluelabel.Text = "Current Monero Value: $0.00";
+            this.monerovaluelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.monerovaluelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroPanel2
+            // totalhashratecontainer
             // 
-            this.metroPanel2.Controls.Add(this.metroLabel2);
-            this.metroPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroPanel2.HorizontalScrollbarBarColor = true;
-            this.metroPanel2.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel2.HorizontalScrollbarSize = 10;
-            this.metroPanel2.Location = new System.Drawing.Point(3, 405);
-            this.metroPanel2.Name = "metroPanel2";
-            this.metroPanel2.Size = new System.Drawing.Size(306, 51);
-            this.metroPanel2.TabIndex = 1;
-            this.metroPanel2.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel2.VerticalScrollbarBarColor = true;
-            this.metroPanel2.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel2.VerticalScrollbarSize = 10;
+            this.totalhashratecontainer.Controls.Add(this.totalhashratelabel);
+            this.totalhashratecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.totalhashratecontainer.HorizontalScrollbarBarColor = true;
+            this.totalhashratecontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.totalhashratecontainer.HorizontalScrollbarSize = 10;
+            this.totalhashratecontainer.Location = new System.Drawing.Point(3, 400);
+            this.totalhashratecontainer.Name = "totalhashratecontainer";
+            this.totalhashratecontainer.Size = new System.Drawing.Size(306, 50);
+            this.totalhashratecontainer.TabIndex = 1;
+            this.totalhashratecontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.totalhashratecontainer.VerticalScrollbarBarColor = true;
+            this.totalhashratecontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.totalhashratecontainer.VerticalScrollbarSize = 10;
             // 
-            // metroLabel2
+            // totalhashratelabel
             // 
-            this.metroLabel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel2.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel2.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel2.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel2.Name = "metroLabel2";
-            this.metroLabel2.Size = new System.Drawing.Size(306, 51);
-            this.metroLabel2.TabIndex = 3;
-            this.metroLabel2.Text = "Total Hashrate: 0 H/s";
-            this.metroLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroLabel2.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.totalhashratelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.totalhashratelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.totalhashratelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.totalhashratelabel.Location = new System.Drawing.Point(0, 0);
+            this.totalhashratelabel.Name = "totalhashratelabel";
+            this.totalhashratelabel.Size = new System.Drawing.Size(306, 50);
+            this.totalhashratelabel.TabIndex = 3;
+            this.totalhashratelabel.Text = "Total Hashrate: 0 H/s";
+            this.totalhashratelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.totalhashratelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroPanel1
+            // highesthashratecontainer
             // 
-            this.metroPanel1.Controls.Add(this.metroLabel1);
-            this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroPanel1.HorizontalScrollbarBarColor = true;
-            this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(3, 348);
-            this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(306, 51);
-            this.metroPanel1.TabIndex = 0;
-            this.metroPanel1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel1.VerticalScrollbarBarColor = true;
-            this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.VerticalScrollbarSize = 10;
+            this.highesthashratecontainer.Controls.Add(this.highesthashratelabel);
+            this.highesthashratecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.highesthashratecontainer.HorizontalScrollbarBarColor = true;
+            this.highesthashratecontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.highesthashratecontainer.HorizontalScrollbarSize = 10;
+            this.highesthashratecontainer.Location = new System.Drawing.Point(3, 344);
+            this.highesthashratecontainer.Name = "highesthashratecontainer";
+            this.highesthashratecontainer.Size = new System.Drawing.Size(306, 50);
+            this.highesthashratecontainer.TabIndex = 0;
+            this.highesthashratecontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.highesthashratecontainer.VerticalScrollbarBarColor = true;
+            this.highesthashratecontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.highesthashratecontainer.VerticalScrollbarSize = 10;
             // 
-            // metroLabel1
+            // highesthashratelabel
             // 
-            this.metroLabel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
-            this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel1.Location = new System.Drawing.Point(0, 0);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(306, 51);
-            this.metroLabel1.TabIndex = 2;
-            this.metroLabel1.Text = "Highest Total Hashrate: 0 H/s";
-            this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.metroLabel1.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.highesthashratelabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.highesthashratelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.highesthashratelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
+            this.highesthashratelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
+            this.highesthashratelabel.Location = new System.Drawing.Point(0, 0);
+            this.highesthashratelabel.Name = "highesthashratelabel";
+            this.highesthashratelabel.Size = new System.Drawing.Size(306, 50);
+            this.highesthashratelabel.TabIndex = 2;
+            this.highesthashratelabel.Text = "Highest Total Hashrate: 0 H/s";
+            this.highesthashratelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.highesthashratelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // metroPanel6
+            // logocontainer
             // 
-            this.metroPanel6.Controls.Add(this.pictureBox1);
-            this.metroPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroPanel6.HorizontalScrollbarBarColor = true;
-            this.metroPanel6.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel6.HorizontalScrollbarSize = 10;
-            this.metroPanel6.Location = new System.Drawing.Point(0, 0);
-            this.metroPanel6.Margin = new System.Windows.Forms.Padding(0);
-            this.metroPanel6.Name = "metroPanel6";
-            this.metroPanel6.Size = new System.Drawing.Size(312, 345);
-            this.metroPanel6.TabIndex = 4;
-            this.metroPanel6.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel6.VerticalScrollbarBarColor = true;
-            this.metroPanel6.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel6.VerticalScrollbarSize = 10;
+            this.logocontainer.Controls.Add(this.logo);
+            this.logocontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logocontainer.HorizontalScrollbarBarColor = true;
+            this.logocontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.logocontainer.HorizontalScrollbarSize = 10;
+            this.logocontainer.Location = new System.Drawing.Point(0, 0);
+            this.logocontainer.Margin = new System.Windows.Forms.Padding(0);
+            this.logocontainer.Name = "logocontainer";
+            this.logocontainer.Size = new System.Drawing.Size(312, 341);
+            this.logocontainer.TabIndex = 4;
+            this.logocontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.logocontainer.VerticalScrollbarBarColor = true;
+            this.logocontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.logocontainer.VerticalScrollbarSize = 10;
             // 
-            // metroPanel5
+            // logo
             // 
-            this.metroPanel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logo.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.icon;
+            this.logo.Location = new System.Drawing.Point(0, 0);
+            this.logo.Name = "logo";
+            this.logo.Size = new System.Drawing.Size(312, 341);
+            this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.logo.TabIndex = 2;
+            this.logo.TabStop = false;
+            this.logo.WaitOnLoad = true;
+            // 
+            // maintabcontrolcontainer
+            // 
+            this.maintabcontrolcontainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.metroPanel5.Controls.Add(this.metroTabControl1);
-            this.metroPanel5.HorizontalScrollbarBarColor = true;
-            this.metroPanel5.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel5.HorizontalScrollbarSize = 10;
-            this.metroPanel5.Location = new System.Drawing.Point(0, 0);
-            this.metroPanel5.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
-            this.metroPanel5.Name = "metroPanel5";
-            this.metroPanel5.Size = new System.Drawing.Size(620, 575);
-            this.metroPanel5.TabIndex = 2;
-            this.metroPanel5.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroPanel5.VerticalScrollbarBarColor = true;
-            this.metroPanel5.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel5.VerticalScrollbarSize = 10;
+            this.maintabcontrolcontainer.Controls.Add(this.maintabcontrol);
+            this.maintabcontrolcontainer.HorizontalScrollbarBarColor = true;
+            this.maintabcontrolcontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.maintabcontrolcontainer.HorizontalScrollbarSize = 10;
+            this.maintabcontrolcontainer.Location = new System.Drawing.Point(0, 0);
+            this.maintabcontrolcontainer.Margin = new System.Windows.Forms.Padding(0, 0, 5, 0);
+            this.maintabcontrolcontainer.Name = "maintabcontrolcontainer";
+            this.maintabcontrolcontainer.Size = new System.Drawing.Size(655, 569);
+            this.maintabcontrolcontainer.TabIndex = 2;
+            this.maintabcontrolcontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintabcontrolcontainer.VerticalScrollbarBarColor = true;
+            this.maintabcontrolcontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.maintabcontrolcontainer.VerticalScrollbarSize = 10;
             // 
-            // metroTabControl1
+            // maintabcontrol
             // 
-            this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroTabControl1.Location = new System.Drawing.Point(0, 0);
-            this.metroTabControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.Size = new System.Drawing.Size(620, 575);
-            this.metroTabControl1.TabIndex = 2;
-            this.metroTabControl1.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.metroTabControl1.UseSelectable = true;
+            this.maintabcontrol.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.maintabcontrol.Location = new System.Drawing.Point(0, 0);
+            this.maintabcontrol.Margin = new System.Windows.Forms.Padding(0);
+            this.maintabcontrol.Name = "maintabcontrol";
+            this.maintabcontrol.Size = new System.Drawing.Size(655, 569);
+            this.maintabcontrol.TabIndex = 2;
+            this.maintabcontrol.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintabcontrol.UseSelectable = true;
             // 
-            // pictureBox1
+            // tableLayoutPanel3
             // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.icon;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(312, 345);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.WaitOnLoad = true;
+            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.refreshintervalcontainer, 0, 0);
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 572);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(654, 58);
+            this.tableLayoutPanel3.TabIndex = 3;
             // 
-            // Form4
+            // refreshintervalcontainer
+            // 
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervallabel);
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervaltrackbar);
+            this.refreshintervalcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.refreshintervalcontainer.HorizontalScrollbarBarColor = true;
+            this.refreshintervalcontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.refreshintervalcontainer.HorizontalScrollbarSize = 10;
+            this.refreshintervalcontainer.Location = new System.Drawing.Point(3, 3);
+            this.refreshintervalcontainer.Name = "refreshintervalcontainer";
+            this.refreshintervalcontainer.Size = new System.Drawing.Size(157, 52);
+            this.refreshintervalcontainer.TabIndex = 5;
+            this.refreshintervalcontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.refreshintervalcontainer.VerticalScrollbarBarColor = true;
+            this.refreshintervalcontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.refreshintervalcontainer.VerticalScrollbarSize = 10;
+            // 
+            // refreshintervallabel
+            // 
+            this.refreshintervallabel.AutoSize = true;
+            this.refreshintervallabel.Location = new System.Drawing.Point(3, 7);
+            this.refreshintervallabel.Name = "refreshintervallabel";
+            this.refreshintervallabel.Size = new System.Drawing.Size(133, 19);
+            this.refreshintervallabel.TabIndex = 3;
+            this.refreshintervallabel.Text = "Refresh Interval: 1.00s";
+            this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // refreshintervaltrackbar
+            // 
+            this.refreshintervaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshintervaltrackbar.BackColor = System.Drawing.Color.Transparent;
+            this.refreshintervaltrackbar.LargeChange = 500;
+            this.refreshintervaltrackbar.Location = new System.Drawing.Point(3, 29);
+            this.refreshintervaltrackbar.Maximum = 10000;
+            this.refreshintervaltrackbar.Minimum = 1000;
+            this.refreshintervaltrackbar.MouseWheelBarPartitions = 18;
+            this.refreshintervaltrackbar.Name = "refreshintervaltrackbar";
+            this.refreshintervaltrackbar.Size = new System.Drawing.Size(151, 23);
+            this.refreshintervaltrackbar.SmallChange = 500;
+            this.refreshintervaltrackbar.TabIndex = 2;
+            this.refreshintervaltrackbar.Text = "metroTrackBar1";
+            this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.refreshintervaltrackbar.Value = 1000;
+            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnValueChanged);
+            // 
+            // attributioncontainer
+            // 
+            this.attributioncontainer.Controls.Add(this.attributionlabel);
+            this.attributioncontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.attributioncontainer.HorizontalScrollbarBarColor = true;
+            this.attributioncontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.attributioncontainer.HorizontalScrollbarSize = 10;
+            this.attributioncontainer.Location = new System.Drawing.Point(663, 572);
+            this.attributioncontainer.Name = "attributioncontainer";
+            this.attributioncontainer.Size = new System.Drawing.Size(306, 58);
+            this.attributioncontainer.TabIndex = 4;
+            this.attributioncontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.attributioncontainer.VerticalScrollbarBarColor = true;
+            this.attributioncontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.attributioncontainer.VerticalScrollbarSize = 10;
+            // 
+            // attributionlabel
+            // 
+            this.attributionlabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.attributionlabel.Location = new System.Drawing.Point(0, 0);
+            this.attributionlabel.Name = "attributionlabel";
+            this.attributionlabel.Size = new System.Drawing.Size(306, 58);
+            this.attributionlabel.TabIndex = 2;
+            this.attributionlabel.Text = "metroLabel6";
+            this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(983, 658);
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(500, 500);
-            this.Name = "Form4";
+            this.ClientSize = new System.Drawing.Size(1018, 716);
+            this.Controls.Add(this.mainpanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(600, 650);
+            this.Name = "MainPage";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.Load += new System.EventHandler(this.Form4_FormLoad);
             this.Resize += new System.EventHandler(this.resize);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.metroPanel4.ResumeLayout(false);
-            this.metroPanel3.ResumeLayout(false);
-            this.metroPanel2.ResumeLayout(false);
-            this.metroPanel1.ResumeLayout(false);
-            this.metroPanel6.ResumeLayout(false);
-            this.metroPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.mainpanel.ResumeLayout(false);
+            this.sidepanel.ResumeLayout(false);
+            this.weeklyrevenuecontainer.ResumeLayout(false);
+            this.monerovaluecontainer.ResumeLayout(false);
+            this.totalhashratecontainer.ResumeLayout(false);
+            this.highesthashratecontainer.ResumeLayout(false);
+            this.logocontainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
+            this.maintabcontrolcontainer.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.refreshintervalcontainer.ResumeLayout(false);
+            this.refreshintervalcontainer.PerformLayout();
+            this.attributioncontainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private MetroFramework.Controls.MetroPanel metroPanel4;
-        private MetroFramework.Controls.MetroPanel metroPanel3;
-        private MetroFramework.Controls.MetroPanel metroPanel2;
-        private MetroFramework.Controls.MetroPanel metroPanel1;
-        private MetroFramework.Controls.MetroLabel metroLabel4;
-        private MetroFramework.Controls.MetroPanel metroPanel5;
-        private MetroFramework.Controls.MetroTabControl metroTabControl1;
-        private MetroFramework.Controls.MetroLabel metroLabel3;
-        private MetroFramework.Controls.MetroLabel metroLabel2;
-        private MetroFramework.Controls.MetroLabel metroLabel1;
-        private MetroFramework.Controls.MetroPanel metroPanel6;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TableLayoutPanel mainpanel;
+        private System.Windows.Forms.TableLayoutPanel sidepanel;
+        private MetroFramework.Controls.MetroPanel weeklyrevenuecontainer;
+        private MetroFramework.Controls.MetroPanel monerovaluecontainer;
+        private MetroFramework.Controls.MetroPanel totalhashratecontainer;
+        private MetroFramework.Controls.MetroPanel highesthashratecontainer;
+        private MetroFramework.Controls.MetroLabel weeklyrevenuelabel;
+        private MetroFramework.Controls.MetroPanel maintabcontrolcontainer;
+        private MetroFramework.Controls.MetroTabControl maintabcontrol;
+        private MetroFramework.Controls.MetroLabel monerovaluelabel;
+        private MetroFramework.Controls.MetroLabel totalhashratelabel;
+        private MetroFramework.Controls.MetroLabel highesthashratelabel;
+        private MetroFramework.Controls.MetroPanel logocontainer;
+        private System.Windows.Forms.PictureBox logo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private MetroFramework.Controls.MetroPanel refreshintervalcontainer;
+        private MetroFramework.Controls.MetroLabel refreshintervallabel;
+        private MetroFramework.Controls.MetroTrackBar refreshintervaltrackbar;
+        private MetroFramework.Controls.MetroPanel attributioncontainer;
+        private MetroFramework.Controls.MetroLabel attributionlabel;
     }
 }

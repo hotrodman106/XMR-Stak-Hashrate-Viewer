@@ -40,7 +40,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     {
                         Program.minerList.Add(miner);
                         miner.startLoop();
-                        MainPage.background.thread.Interrupt();
+                        //Form4.background.thread.Interrupt();
                     }
                 }
             }

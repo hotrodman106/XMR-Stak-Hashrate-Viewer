@@ -279,7 +279,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
                     content.Size = tab.Size;
 
-                    Program.mainPage.tabControl1.Controls.Add(tab);
+                    //Program.mainPage.tabControl1.Controls.Add(tab);
                     content.ExpandAll();
 
                     return content;
@@ -311,17 +311,17 @@ namespace XMR_Stak_Hashrate_Viewer
                             if (Program.mainPage.InvokeRequired)
                                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                 {
-                                Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
+                                //Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
                                 }));
                                 else
                                 {
-                              Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
+                              //Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
                                 }
                         }
                     }
                     else
                     {
-                        Thread.Sleep(Program.mainPage.delay);
+                        //Thread.Sleep(Program.mainPage.delay);
                     }
                 }
                 catch (InvalidOperationException)
