@@ -10,6 +10,7 @@ using System.Web.Security;
 using System.Text;
 using System.Threading;
 using XMR_Stak_Hashrate_Viewer;
+using MetroFramework.Controls;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -205,7 +206,9 @@ namespace XMR_Stak_Hashrate_Viewer
                     TabPage tab = new TabPage(name);
                     tab.Name = name;
                     TreeView content = new TreeView();
-                    tab.Controls.Add(content);
+                    content.BackColor = Program.mainPage.backcolor;
+                    content.ForeColor = Program.mainPage.textcolor;
+                    
                     int i = 0;
 
                     content.Nodes.Add("XMR-Stak Version");
@@ -227,6 +230,11 @@ namespace XMR_Stak_Hashrate_Viewer
                     content.Nodes[3].Nodes.Add("Pool Address");
                     content.Nodes[3].Nodes.Add("Uptime");
                     content.Nodes[3].Nodes.Add("Ping");
+
+                    content.Nodes[0].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[1].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[2].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[3].ForeColor = Program.mainPage.accentcolor;
 
                     foreach (string q in netdata[0])
                     {
@@ -279,7 +287,9 @@ namespace XMR_Stak_Hashrate_Viewer
                     content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
                     content.Size = tab.Size;
 
-                    //Program.mainPage.tabControl1.Controls.Add(tab);
+                    content.ShowPlusMinus = false;
+                    tab.Controls.Add(content);
+                    Program.mainPage.maintabcontrol.Controls.Add(tab);
                     content.ExpandAll();
 
                     return content;
@@ -311,17 +321,17 @@ namespace XMR_Stak_Hashrate_Viewer
                             if (Program.mainPage.InvokeRequired)
                                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                 {
-                                //Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
+                                Program.mainPage.maintabcontrol.GetControl(identifierindex).Dispose();
                                 }));
                                 else
                                 {
-                              //Program.mainPage.tabControl1.GetControl(identifierindex).Dispose();
-                                }
+                                Program.mainPage.maintabcontrol.GetControl(identifierindex).Dispose();
+                            }
                         }
                     }
                     else
                     {
-                        //Thread.Sleep(Program.mainPage.delay);
+                        Thread.Sleep(Program.mainPage.delay);
                     }
                 }
                 catch (InvalidOperationException)

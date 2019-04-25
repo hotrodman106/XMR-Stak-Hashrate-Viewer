@@ -128,7 +128,7 @@
             this.passwordtextbox.MaxLength = 32767;
             this.passwordtextbox.Name = "passwordtextbox";
             this.passwordtextbox.PasswordChar = '*';
-            this.passwordtextbox.PromptText = "Password";
+            this.passwordtextbox.WaterMark = "Password";
             this.passwordtextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.passwordtextbox.SelectedText = "";
             this.passwordtextbox.SelectionLength = 0;
@@ -180,7 +180,7 @@
             this.usernametextbox.MaxLength = 32767;
             this.usernametextbox.Name = "usernametextbox";
             this.usernametextbox.PasswordChar = '\0';
-            this.usernametextbox.PromptText = "Username";
+            this.usernametextbox.WaterMark = "Username";
             this.usernametextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.usernametextbox.SelectedText = "";
             this.usernametextbox.SelectionLength = 0;

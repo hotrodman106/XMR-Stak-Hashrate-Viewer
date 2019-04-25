@@ -128,7 +128,7 @@
             this.ipaddresstextbox.MaxLength = 32767;
             this.ipaddresstextbox.Name = "ipaddresstextbox";
             this.ipaddresstextbox.PasswordChar = '\0';
-            this.ipaddresstextbox.PromptText = "IP Address:Port";
+            this.ipaddresstextbox.WaterMark = "IP Address:Port";
             this.ipaddresstextbox.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.ipaddresstextbox.SelectedText = "";
             this.ipaddresstextbox.SelectionLength = 0;
