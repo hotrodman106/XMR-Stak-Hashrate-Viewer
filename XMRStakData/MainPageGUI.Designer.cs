@@ -44,11 +44,11 @@
             this.maintabcontrolcontainer = new MetroFramework.Controls.MetroPanel();
             this.maintabcontrol = new MetroFramework.Controls.MetroTabControl();
             this.controlcontainer = new System.Windows.Forms.TableLayoutPanel();
-            this.refreshintervalcontainer = new MetroFramework.Controls.MetroPanel();
-            this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
-            this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
             this.attributioncontainer = new MetroFramework.Controls.MetroPanel();
             this.attributionlabel = new MetroFramework.Controls.MetroLabel();
+            this.refreshintervalcontainer = new System.Windows.Forms.TableLayoutPanel();
+            this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
+            this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
             this.mainpanel.SuspendLayout();
             this.sidepanel.SuspendLayout();
             this.weeklyrevenuecontainer.SuspendLayout();
@@ -59,8 +59,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.maintabcontrolcontainer.SuspendLayout();
             this.controlcontainer.SuspendLayout();
-            this.refreshintervalcontainer.SuspendLayout();
             this.attributioncontainer.SuspendLayout();
+            this.refreshintervalcontainer.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainpanel
@@ -299,8 +299,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.controlcontainer.ColumnCount = 2;
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.controlcontainer.Controls.Add(this.refreshintervalcontainer, 0, 0);
             this.controlcontainer.Location = new System.Drawing.Point(4, 715);
             this.controlcontainer.Margin = new System.Windows.Forms.Padding(4);
@@ -309,56 +310,6 @@
             this.controlcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.controlcontainer.Size = new System.Drawing.Size(817, 72);
             this.controlcontainer.TabIndex = 3;
-            // 
-            // refreshintervalcontainer
-            // 
-            this.refreshintervalcontainer.Controls.Add(this.refreshintervallabel);
-            this.refreshintervalcontainer.Controls.Add(this.refreshintervaltrackbar);
-            this.refreshintervalcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.refreshintervalcontainer.HorizontalScrollbarBarColor = true;
-            this.refreshintervalcontainer.HorizontalScrollbarHighlightOnWheel = false;
-            this.refreshintervalcontainer.HorizontalScrollbarSize = 12;
-            this.refreshintervalcontainer.Location = new System.Drawing.Point(4, 4);
-            this.refreshintervalcontainer.Margin = new System.Windows.Forms.Padding(4);
-            this.refreshintervalcontainer.Name = "refreshintervalcontainer";
-            this.refreshintervalcontainer.Size = new System.Drawing.Size(400, 64);
-            this.refreshintervalcontainer.TabIndex = 5;
-            this.refreshintervalcontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.refreshintervalcontainer.VerticalScrollbarBarColor = true;
-            this.refreshintervalcontainer.VerticalScrollbarHighlightOnWheel = false;
-            this.refreshintervalcontainer.VerticalScrollbarSize = 12;
-            // 
-            // refreshintervallabel
-            // 
-            this.refreshintervallabel.AutoSize = true;
-            this.refreshintervallabel.Location = new System.Drawing.Point(4, 9);
-            this.refreshintervallabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.refreshintervallabel.Name = "refreshintervallabel";
-            this.refreshintervallabel.Size = new System.Drawing.Size(143, 20);
-            this.refreshintervallabel.TabIndex = 3;
-            this.refreshintervallabel.Text = "Refresh Interval: 1.00s";
-            this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
-            // 
-            // refreshintervaltrackbar
-            // 
-            this.refreshintervaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshintervaltrackbar.BackColor = System.Drawing.Color.Transparent;
-            this.refreshintervaltrackbar.LargeChange = 500;
-            this.refreshintervaltrackbar.Location = new System.Drawing.Point(4, 36);
-            this.refreshintervaltrackbar.Margin = new System.Windows.Forms.Padding(4);
-            this.refreshintervaltrackbar.Maximum = 10000;
-            this.refreshintervaltrackbar.Minimum = 1000;
-            this.refreshintervaltrackbar.MouseWheelBarPartitions = 18;
-            this.refreshintervaltrackbar.Name = "refreshintervaltrackbar";
-            this.refreshintervaltrackbar.Size = new System.Drawing.Size(393, 28);
-            this.refreshintervaltrackbar.SmallChange = 500;
-            this.refreshintervaltrackbar.TabIndex = 2;
-            this.refreshintervaltrackbar.Text = "metroTrackBar1";
-            this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.refreshintervaltrackbar.Value = 1000;
-            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
             // 
             // attributioncontainer
             // 
@@ -389,6 +340,57 @@
             this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
+            // refreshintervalcontainer
+            // 
+            this.refreshintervalcontainer.ColumnCount = 1;
+            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervaltrackbar, 0, 1);
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervallabel, 0, 0);
+            this.refreshintervalcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.refreshintervalcontainer.Location = new System.Drawing.Point(3, 3);
+            this.refreshintervalcontainer.Name = "refreshintervalcontainer";
+            this.refreshintervalcontainer.RowCount = 2;
+            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.refreshintervalcontainer.Size = new System.Drawing.Size(279, 66);
+            this.refreshintervalcontainer.TabIndex = 0;
+            // 
+            // refreshintervallabel
+            // 
+            this.refreshintervallabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshintervallabel.AutoSize = true;
+            this.refreshintervallabel.Location = new System.Drawing.Point(4, 0);
+            this.refreshintervallabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.refreshintervallabel.Name = "refreshintervallabel";
+            this.refreshintervallabel.Size = new System.Drawing.Size(271, 33);
+            this.refreshintervallabel.TabIndex = 5;
+            this.refreshintervallabel.Text = "Refresh Interval: 1.00s";
+            this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            // 
+            // refreshintervaltrackbar
+            // 
+            this.refreshintervaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshintervaltrackbar.BackColor = System.Drawing.Color.Transparent;
+            this.refreshintervaltrackbar.LargeChange = 500;
+            this.refreshintervaltrackbar.Location = new System.Drawing.Point(4, 37);
+            this.refreshintervaltrackbar.Margin = new System.Windows.Forms.Padding(4);
+            this.refreshintervaltrackbar.Maximum = 10000;
+            this.refreshintervaltrackbar.Minimum = 1000;
+            this.refreshintervaltrackbar.MouseWheelBarPartitions = 18;
+            this.refreshintervaltrackbar.Name = "refreshintervaltrackbar";
+            this.refreshintervaltrackbar.Size = new System.Drawing.Size(271, 25);
+            this.refreshintervaltrackbar.SmallChange = 500;
+            this.refreshintervaltrackbar.TabIndex = 4;
+            this.refreshintervaltrackbar.Text = "metroTrackBar1";
+            this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.refreshintervaltrackbar.Value = 1000;
+            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
+            // 
             // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -414,9 +416,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.maintabcontrolcontainer.ResumeLayout(false);
             this.controlcontainer.ResumeLayout(false);
+            this.attributioncontainer.ResumeLayout(false);
             this.refreshintervalcontainer.ResumeLayout(false);
             this.refreshintervalcontainer.PerformLayout();
-            this.attributioncontainer.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -433,9 +435,6 @@
         private MetroFramework.Controls.MetroPanel logocontainer;
         private System.Windows.Forms.PictureBox logo;
         private System.Windows.Forms.TableLayoutPanel controlcontainer;
-        private MetroFramework.Controls.MetroPanel refreshintervalcontainer;
-        private MetroFramework.Controls.MetroLabel refreshintervallabel;
-        private MetroFramework.Controls.MetroTrackBar refreshintervaltrackbar;
         private MetroFramework.Controls.MetroPanel attributioncontainer;
         private MetroFramework.Controls.MetroLabel attributionlabel;
         public MetroFramework.Controls.MetroTabControl maintabcontrol;
@@ -443,5 +442,8 @@
         public MetroFramework.Controls.MetroLabel monerovaluelabel;
         public MetroFramework.Controls.MetroLabel totalhashratelabel;
         public MetroFramework.Controls.MetroLabel highesthashratelabel;
+        private System.Windows.Forms.TableLayoutPanel refreshintervalcontainer;
+        private MetroFramework.Controls.MetroTrackBar refreshintervaltrackbar;
+        private MetroFramework.Controls.MetroLabel refreshintervallabel;
     }
 }

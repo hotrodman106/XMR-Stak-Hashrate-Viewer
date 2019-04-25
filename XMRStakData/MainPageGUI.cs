@@ -10,8 +10,6 @@ namespace XMR_Stak_Hashrate_Viewer
     {
 
         private MetroContextMenu rightclickmenu;
-        private ToolStripMenuItem addmineritem;
-        private ToolStripMenuItem removemineritem;
         public static ValueUpdater background;
         public int delay;
 
@@ -27,19 +25,18 @@ namespace XMR_Stak_Hashrate_Viewer
         private void MainPage_FormLoad(object sender, EventArgs e)
         {
             rightclickmenu = new MetroContextMenu(Container);
-            rightclickmenu.Theme = MetroFramework.MetroThemeStyle.Dark;
+            rightclickmenu.BackColor = backcolor;
+            rightclickmenu.ForeColor = textcolor;
 
-            addmineritem = new ToolStripMenuItem("Add Miner");
-            removemineritem = new ToolStripMenuItem("Remove Selected Miner");
-            addmineritem.Image = Properties.Resources.addminer;
-            rightclickmenu.Items.Add(addmineritem);
+            rightclickmenu.Items.Add("Add Miner", Properties.Resources.addminer);
             rightclickmenu.Items[0].Click += new EventHandler(onAddMinerClick);
-            removemineritem.Image = Properties.Resources.removeminer;
-            rightclickmenu.Items.Add(removemineritem);
+            rightclickmenu.Items.Add("Remove Selected Miner", Properties.Resources.removeminer);
             rightclickmenu.Items[1].Click += new EventHandler(onRemoveMinerClick);
           
             ContextMenuStrip = rightclickmenu;
 
+            refreshintervalcontainer.MinimumSize = new Size(200, 50);
+            refreshintervaltrackbar.MaximumSize = new Size(195, 50);
             sidepanel.MaximumSize = new Size(Int32.MaxValue, 800);
             attributionlabel.Text = Program.assembly.GetName().Name + " v" +Program.assembly.GetName().Version;
 
