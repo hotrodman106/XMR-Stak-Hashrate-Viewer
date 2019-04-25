@@ -43,7 +43,7 @@
             this.logo = new System.Windows.Forms.PictureBox();
             this.maintabcontrolcontainer = new MetroFramework.Controls.MetroPanel();
             this.maintabcontrol = new MetroFramework.Controls.MetroTabControl();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.controlcontainer = new System.Windows.Forms.TableLayoutPanel();
             this.refreshintervalcontainer = new MetroFramework.Controls.MetroPanel();
             this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
             this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
@@ -58,7 +58,7 @@
             this.logocontainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.maintabcontrolcontainer.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            this.controlcontainer.SuspendLayout();
             this.refreshintervalcontainer.SuspendLayout();
             this.attributioncontainer.SuspendLayout();
             this.SuspendLayout();
@@ -73,7 +73,7 @@
             this.mainpanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.mainpanel.Controls.Add(this.sidepanel, 1, 0);
             this.mainpanel.Controls.Add(this.maintabcontrolcontainer, 0, 0);
-            this.mainpanel.Controls.Add(this.tableLayoutPanel3, 0, 1);
+            this.mainpanel.Controls.Add(this.controlcontainer, 0, 1);
             this.mainpanel.Controls.Add(this.attributioncontainer, 1, 1);
             this.mainpanel.Location = new System.Drawing.Point(23, 63);
             this.mainpanel.Margin = new System.Windows.Forms.Padding(0);
@@ -285,23 +285,23 @@
             this.maintabcontrol.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.maintabcontrol.UseSelectable = true;
             // 
-            // tableLayoutPanel3
+            // controlcontainer
             // 
-            this.tableLayoutPanel3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.controlcontainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel3.ColumnCount = 4;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Controls.Add(this.refreshintervalcontainer, 0, 0);
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 572);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(654, 58);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.controlcontainer.ColumnCount = 4;
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.controlcontainer.Controls.Add(this.refreshintervalcontainer, 0, 0);
+            this.controlcontainer.Location = new System.Drawing.Point(3, 572);
+            this.controlcontainer.Name = "controlcontainer";
+            this.controlcontainer.RowCount = 1;
+            this.controlcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.controlcontainer.Size = new System.Drawing.Size(654, 58);
+            this.controlcontainer.TabIndex = 3;
             // 
             // refreshintervalcontainer
             // 
@@ -348,7 +348,7 @@
             this.refreshintervaltrackbar.Text = "metroTrackBar1";
             this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.refreshintervaltrackbar.Value = 1000;
-            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnValueChanged);
+            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
             // 
             // attributioncontainer
             // 
@@ -373,7 +373,7 @@
             this.attributionlabel.Name = "attributionlabel";
             this.attributionlabel.Size = new System.Drawing.Size(306, 58);
             this.attributionlabel.TabIndex = 2;
-            this.attributionlabel.Text = "metroLabel6";
+            this.attributionlabel.Text = "XMR-Stak Hashrate Viewer v0.0.0.0";
             this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
@@ -388,8 +388,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 650);
             this.Name = "MainPage";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.Load += new System.EventHandler(this.Form4_FormLoad);
-            this.Resize += new System.EventHandler(this.resize);
+            this.Load += new System.EventHandler(this.MainPage_FormLoad);
             this.mainpanel.ResumeLayout(false);
             this.sidepanel.ResumeLayout(false);
             this.weeklyrevenuecontainer.ResumeLayout(false);
@@ -399,7 +398,7 @@
             this.logocontainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.maintabcontrolcontainer.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
+            this.controlcontainer.ResumeLayout(false);
             this.refreshintervalcontainer.ResumeLayout(false);
             this.refreshintervalcontainer.PerformLayout();
             this.attributioncontainer.ResumeLayout(false);
@@ -423,7 +422,7 @@
         private MetroFramework.Controls.MetroLabel highesthashratelabel;
         private MetroFramework.Controls.MetroPanel logocontainer;
         private System.Windows.Forms.PictureBox logo;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.TableLayoutPanel controlcontainer;
         private MetroFramework.Controls.MetroPanel refreshintervalcontainer;
         private MetroFramework.Controls.MetroLabel refreshintervallabel;
         private MetroFramework.Controls.MetroTrackBar refreshintervaltrackbar;

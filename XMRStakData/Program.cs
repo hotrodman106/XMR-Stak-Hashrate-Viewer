@@ -26,7 +26,7 @@ namespace XMR_Stak_Hashrate_Viewer
             Application.SetCompatibleTextRenderingDefault(false);
             mainPage = new MainPage();
             Application.Run(mainPage);
-           }
+        }
 
     }
  }

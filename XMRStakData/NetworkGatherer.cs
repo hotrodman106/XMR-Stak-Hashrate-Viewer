@@ -46,7 +46,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     {
                         Program.mainPage.Invoke((MethodInvoker)delegate
                         {
-                            Login l = new Login();
+                            LoginScreen l = new LoginScreen();
                             l.Text = "Connect to: " + urlAddress.Authority;
                             l.ShowDialog();
                             miner.username = l.username;

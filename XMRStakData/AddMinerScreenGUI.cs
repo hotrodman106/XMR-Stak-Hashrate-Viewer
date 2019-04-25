@@ -1,24 +1,24 @@
-﻿using System;
+﻿using MetroFramework.Forms;
+using System;
 using System.Threading;
 using System.Windows.Forms;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
-    public partial class Settings : Form
+    public partial class AddMinerScreen : MetroForm
     {
 
-        public Settings()
+        public AddMinerScreen()
         {
             InitializeComponent();
-            ActiveControl = textBox1;
+            ActiveControl = ipaddresstextbox;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void addminerbutton_Click(object sender, EventArgs e)
         {
-            Visible = false;
             try
             {
                 Uri uri;
-                string url = textBox1.Text;
+                string url = ipaddresstextbox.Text;
                 if (url.Contains("http://"))
                 {
                     uri = new Uri(url);
@@ -43,6 +43,8 @@ namespace XMR_Stak_Hashrate_Viewer
                         //Form4.background.thread.Interrupt();
                     }
                 }
+
+                Dispose();
             }
             catch (Exception ex)
             {
