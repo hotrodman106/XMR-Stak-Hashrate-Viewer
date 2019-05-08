@@ -49,20 +49,13 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     highestvalue = Math.Round(Program.highestValues.Sum(), 1);
                     totalvalue = Math.Round(Program.totals.Sum(), 1);
-                    List<double> monerodata = NetworkGatherer.getMoneroData(totalvalue);
+                    List<double> monerodata = NetworkGatherer.getMoneroData(totalvalue, 3);
                     moneroprice = Math.Round(monerodata[0], 2);
                     weeklyrevenue = Math.Round(monerodata[1], 2);
 
                     updateValues();
-                    
-                    if(Program.mainPage.delay == 1000)
-                    {
-                        Thread.Sleep(2000);
-                    }
-                    else
-                    {
-                        Thread.Sleep(Program.mainPage.delay);
-                    }
+    
+                    Thread.Sleep(Program.mainPage.delay);
                     
                 }
                 catch (ThreadInterruptedException)

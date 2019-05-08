@@ -53,8 +53,8 @@ namespace XMR_Stak_Hashrate_Viewer
                     credentialCache.Add(uri, "Digest", new NetworkCredential("", ""));
                 }
 
-                netdata = NetworkGatherer.getNetData(uriApi, false, this);
-                headerdata = NetworkGatherer.getNetData(uri, true, this)[0];
+                netdata = NetworkGatherer.getNetData(uriApi, false, this, 3);
+                headerdata = NetworkGatherer.getNetData(uri, true, this, 3)[0];
 
                 if (netdata != null && headerdata != null)
                 {
@@ -68,11 +68,18 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             catch (Exception ex)
             {
-                if(!(ex is NullReferenceException))
+                if(ex is NullReferenceException){
+
+                } else if (ex is FormatException)
+                {
+                    MessageBox.Show("Miner is not yet initialized, please try again momentarily!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Miner is not yet initialized, please try again momentarily!");
+                }else
                 {
                     Console.WriteLine(ex.Message);
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+               
             }
         }
         public bool updateMinerData()
@@ -81,7 +88,7 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
-                    netdata = NetworkGatherer.getNetData(uriApi, false, this);
+                    netdata = NetworkGatherer.getNetData(uriApi, false, this, 3);
                     if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
                     if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
 
@@ -291,6 +298,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     tab.Controls.Add(content);
                     Program.mainPage.maintabcontrol.Controls.Add(tab);
                     content.ExpandAll();
+                    
 
                     return content;
                 }
@@ -321,11 +329,31 @@ namespace XMR_Stak_Hashrate_Viewer
                             if (Program.mainPage.InvokeRequired)
                                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                 {
-                                Program.mainPage.maintabcontrol.GetControl(identifierindex).Dispose();
+                                    Program.mainPage.maintabcontrol.TabPages.RemoveAt(identifierindex);
+                                    Program.minerList[identifierindex].minerThread.Interrupt();
+                                    Program.minerList.RemoveAt(identifierindex);
+                                    Program.totals.RemoveAt(identifierindex);
+                                    Program.highestValues.RemoveAt(identifierindex);
+                                    Program.mainPage.background.thread.Interrupt();
+
+                                    if (Program.mainPage.maintabcontrol.Controls.Count == 0)
+                                    {
+                                        Program.mainPage.removeminerbutton.Visible = false;
+                                    }
                                 }));
                                 else
                                 {
-                                Program.mainPage.maintabcontrol.GetControl(identifierindex).Dispose();
+                                Program.mainPage.maintabcontrol.TabPages.RemoveAt(identifierindex);
+                                Program.minerList[identifierindex].minerThread.Interrupt();
+                                Program.minerList.RemoveAt(identifierindex);
+                                Program.totals.RemoveAt(identifierindex);
+                                Program.highestValues.RemoveAt(identifierindex);
+                                Program.mainPage.background.thread.Interrupt();
+
+                                if (Program.mainPage.maintabcontrol.Controls.Count == 0)
+                                {
+                                    Program.mainPage.removeminerbutton.Visible = false;
+                                }
                             }
                         }
                     }

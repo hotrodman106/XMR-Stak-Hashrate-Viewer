@@ -12,61 +12,62 @@ using System.Windows.Forms;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
-    class NetworkGatherer
+class NetworkGatherer
+{
+public static bool requiresLogin(Uri urlAddress, MinerObject miner)
+{
+try
+{
+HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
+request.Timeout = 5000;
+HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+if (response.StatusCode != HttpStatusCode.OK)
+{
+    throw new Exception("Request Error");
+
+}
+else
+{
+    return false;
+}
+
+}
+catch (WebException ex)
+{
+if (ex.Message.Contains("401"))
+{
+    if (miner.usernameTemp != null && miner.passwordTemp != null)
     {
-        public static bool requiresLogin(Uri urlAddress, MinerObject miner)
+        miner.username = miner.usernameTemp;
+        miner.password = miner.passwordTemp;
+    }
+    else
+    {
+        Program.mainPage.Invoke((MethodInvoker)delegate
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
-                request.Timeout = 5000;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            LoginScreen l = new LoginScreen();
+            l.Text = "Connect to: " + urlAddress.Authority;
+            l.ShowDialog();
+            miner.username = l.username;
+            miner.password = CryptographyEngine.EncryptString(l.password, miner.uriApi.AbsolutePath);
+        });
+    }
 
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new Exception("Request Error");
-
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-            catch (WebException ex)
-            {
-                if (ex.Message.Contains("401"))
-                {
-                    if (miner.usernameTemp != null && miner.passwordTemp != null)
-                    {
-                        miner.username = miner.usernameTemp;
-                        miner.password = miner.passwordTemp;
-                    }
-                    else
-                    {
-                        Program.mainPage.Invoke((MethodInvoker)delegate
-                        {
-                            LoginScreen l = new LoginScreen();
-                            l.Text = "Connect to: " + urlAddress.Authority;
-                            l.ShowDialog();
-                            miner.username = l.username;
-                            miner.password = CryptographyEngine.EncryptString(l.password, miner.uriApi.AbsolutePath);
-                        });
-                    }
-
-                    return true;
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine(ex.Message);
-                    miner.connectionsuccess = false;
-                    return false;
-                }
-            }
-        }
-        public static List<List<string>> getNetData(Uri urlAddress, bool getHeaderData, MinerObject miner)
-        {
+    return true;
+}
+else
+{
+    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    Console.WriteLine(ex.Message);
+    miner.connectionsuccess = false;
+    return false;
+}
+}
+}
+public static List<List<string>> getNetData(Uri urlAddress, bool getHeaderData, MinerObject miner, int retries)
+{
+while(retries != 0) {
             try
             {
                 if (miner.connectionsuccess == true)
@@ -185,84 +186,62 @@ namespace XMR_Stak_Hashrate_Viewer
                                 return null;
                             }
                         }
-
                     }
-                    else
-                    {
-                        return null;
-                    }
-                }
-                else
-                {
-                    return null;
                 }
             }
-            catch (Exception ex)
+
+            catch (Exception)
             {
-                if (ex.Message.Contains("401"))
-                {
-                    MessageBox.Show("Username or password incorrect, please try again!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine("Username or password incorrect, please try again!");
-                    miner.connectionsuccess = false;
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Console.WriteLine(ex.Message);
-                    miner.connectionsuccess = false;
-                }
-
-                return null;
+                retries--;
+                continue;
             }
-        }
+}
+    miner.connectionsuccess = false;
+    return null;
+}
 
-        public static List<double> getMoneroData(double totalHashrates)
-        {
-            try
-            {
-                List<double> moneroData = new List<double>();
+public static List<double> getMoneroData(double totalHashrates, int retries)
+{
+while(retries != 0)
+{
+try
+{
+    List<double> moneroData = new List<double>();
 
-                if (totalHashrates == 0)
-                {
-                    moneroData.Add(0);
-                    moneroData.Add(0);
+    if (totalHashrates == 0)
+    {
+        moneroData.Add(0);
+        moneroData.Add(0);
 
-                    return moneroData;
-                }
-                else
-                {
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://api.nanopool.org/v1/xmr/approximated_earnings/" + totalHashrates.ToString()));
-                    request.Timeout = 5000;
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-
-                        Stream receiveStream = response.GetResponseStream();
-                        StreamReader readStream = null;
-                        readStream = new StreamReader(receiveStream, Encoding.UTF8);
-                        
-                        dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
-                        moneroData.Add(double.Parse(json["data"].prices["price_usd"].Value.ToString()));
-                        moneroData.Add(double.Parse(json["data"].week["dollars"].Value.ToString()));
-
-                        response.Close();
-                        readStream.Close();
-                        return moneroData;
-                    }
-                    else
-                    {
-                        return null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Console.WriteLine(ex.Message);
-
-                return null;
-            }
-        }    
+        return moneroData;
     }
+    else
+    {
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://api.nanopool.org/v1/xmr/approximated_earnings/" + totalHashrates.ToString()));
+        request.Timeout = 5000;
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            Stream receiveStream = response.GetResponseStream();
+            StreamReader readStream = null;
+            readStream = new StreamReader(receiveStream, Encoding.UTF8);
+
+            dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
+            moneroData.Add(double.Parse(json["data"].prices["price_usd"].Value.ToString()));
+            moneroData.Add(double.Parse(json["data"].week["dollars"].Value.ToString()));
+
+            response.Close();
+            readStream.Close();
+            return moneroData;
+
+    }
+}
+catch (Exception)
+{
+        retries--;
+        continue;
+}
+}
+return null;
+}    
+}
 }

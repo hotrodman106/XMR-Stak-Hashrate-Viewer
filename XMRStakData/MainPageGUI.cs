@@ -9,8 +9,7 @@ namespace XMR_Stak_Hashrate_Viewer
     public partial class MainPage : MetroForm
     {
 
-        private MetroContextMenu rightclickmenu;
-        public static ValueUpdater background;
+        public ValueUpdater background;
         public int delay;
 
         public Color accentcolor = Color.FromArgb(45, 137, 239);
@@ -24,20 +23,6 @@ namespace XMR_Stak_Hashrate_Viewer
 
         private void MainPage_FormLoad(object sender, EventArgs e)
         {
-            rightclickmenu = new MetroContextMenu(Container);
-            rightclickmenu.BackColor = backcolor;
-            rightclickmenu.ForeColor = textcolor;
-
-            rightclickmenu.Items.Add("Add Miner", Properties.Resources.addminer);
-            rightclickmenu.Items[0].Click += new EventHandler(onAddMinerClick);
-            rightclickmenu.Items.Add("Remove Selected Miner", Properties.Resources.removeminer);
-            rightclickmenu.Items[1].Click += new EventHandler(onRemoveMinerClick);
-          
-            ContextMenuStrip = rightclickmenu;
-
-            refreshintervalcontainer.MinimumSize = new Size(200, 50);
-            refreshintervaltrackbar.MaximumSize = new Size(195, 50);
-            sidepanel.MaximumSize = new Size(Int32.MaxValue, 800);
             attributionlabel.Text = Program.assembly.GetName().Name + " v" +Program.assembly.GetName().Version;
 
             delay = Properties.Settings.Default.RefreshRate;
@@ -77,11 +62,11 @@ namespace XMR_Stak_Hashrate_Viewer
 
             if (maintabcontrol.Controls.Count != 0)
             {
-                rightclickmenu.Items[1].Visible = true;
+                removeminerbutton.Visible = true;
             }
             else
             {
-                rightclickmenu.Items[1].Visible = false;
+                removeminerbutton.Visible = false;
             }
 
             background = new ValueUpdater();
@@ -94,7 +79,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
             if (maintabcontrol.Controls.Count != 0)
             {
-                rightclickmenu.Items[1].Visible = true;
+                removeminerbutton.Visible = true;
             }
             
         }
@@ -118,7 +103,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
             if (maintabcontrol.Controls.Count == 0)
             {
-                rightclickmenu.Items[1].Visible = false;
+                removeminerbutton.Visible = false;
             }
             
         }
