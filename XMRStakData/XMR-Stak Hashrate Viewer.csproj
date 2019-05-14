@@ -52,11 +52,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>2E82EE71374EB4A263E4FA41979F03A5BBD4FE88</ManifestCertificateThumbprint>
@@ -73,6 +72,7 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -173,6 +173,7 @@
     <Content Include="Docs\AddMinerScreen.PNG" />
     <Content Include="Docs\LoginScreen.PNG" />
     <Content Include="Docs\MainScreen.PNG" />
+    <Content Include="icon.ico" />
     <Content Include="Resources\highesttotalhashrate.png" />
     <Content Include="Resources\monerovalue.png" />
     <Content Include="Resources\addminer.png" />
