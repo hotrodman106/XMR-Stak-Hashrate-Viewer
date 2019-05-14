@@ -33,6 +33,7 @@ namespace XMR_Stak_Hashrate_Viewer
         public CredentialCache credentialCache = new CredentialCache();
         public Thread minerThread;
         public bool connectionsuccess = true;
+        private NetworkGatherer networkGatherer = new NetworkGatherer();
 
         public MinerObject(Uri u, string us, string p)
         {
@@ -43,43 +44,82 @@ namespace XMR_Stak_Hashrate_Viewer
                 usernameTemp = us;
                 uriApi = new Uri(uri.AbsoluteUri.ToString() + "api.json");
                 name = uri.Authority;
+                int state = networkGatherer.isXMRStakMiner(uri, this);
 
-                if (NetworkGatherer.requiresLogin(uri, this))
-                {
-                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password, uriApi.AbsolutePath)));
-                }
-                else
+                if (state == 0)
                 {
                     credentialCache.Add(uri, "Digest", new NetworkCredential("", ""));
+
+                    netdata = networkGatherer.getNetData(uriApi, false, this, 2);
+                    headerdata = networkGatherer.getNetData(uri, true, this, 2)[0];
+
+                    if (netdata != null && headerdata != null)
+                    {
+                        total = float.Parse(netdata[1][0]);
+                        highest = float.Parse(netdata[1][1]);
+                        Program.highestValues.Add(highest);
+                        Program.totals.Add(total);
+                        tree = createTreeView();
+                        isInitialized = true;
+                    }
                 }
-
-                netdata = NetworkGatherer.getNetData(uriApi, false, this, 3);
-                headerdata = NetworkGatherer.getNetData(uri, true, this, 3)[0];
-
-                if (netdata != null && headerdata != null)
+                else if (state == 1)
                 {
-                    total = float.Parse(netdata[1][0]);
-                    highest = float.Parse(netdata[1][1]);
-                    Program.highestValues.Add(highest);
-                    Program.totals.Add(total);
-                    tree = createTreeView();
-                    isInitialized = true;
+                    MessageBox.Show("Request Timed Out!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Request Timed Out!");
                 }
-            }
+                else if (state == 2 || (username != null && password != null))
+                {
+                    credentialCache.Add(uri, "Digest", new NetworkCredential(username, CryptographyEngine.DecryptString(password, uriApi.AbsolutePath)));
+
+                    netdata = networkGatherer.getNetData(uriApi, false, this, 2);
+                    if(netdata == null)
+                    {
+                        headerdata = null;
+                    }
+                    else
+                    {
+                        headerdata = networkGatherer.getNetData(uri, true, this, 2)[0];
+                    }
+
+                    if (netdata != null && headerdata != null)
+                    {
+                        total = float.Parse(netdata[1][0]);
+                        highest = float.Parse(netdata[1][1]);
+                        Program.highestValues.Add(highest);
+                        Program.totals.Add(total);
+                        tree = createTreeView();
+                        isInitialized = true;
+                    }
+                    else
+                    {
+                        isInitialized = false;
+                        connectionsuccess = false;
+                        MessageBox.Show("Username or Password Incorrect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Console.WriteLine("Username or Password Incorrect!");
+                    }
+                }
+                else if (state == 3)
+                {
+
+                    MessageBox.Show("Invalid XMR-Stak Miner", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine("Invalid XMR-Stak Miner");
+                }
+                    }
             catch (Exception ex)
             {
-                if(ex is NullReferenceException){
+                if (ex is NullReferenceException) {
 
                 } else if (ex is FormatException)
                 {
                     MessageBox.Show("Miner is not yet initialized, please try again momentarily!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine("Miner is not yet initialized, please try again momentarily!");
-                }else
+                } else
                 {
                     Console.WriteLine(ex.Message);
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-               
+
             }
         }
         public bool updateMinerData()
@@ -88,7 +128,7 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 try
                 {
-                    netdata = NetworkGatherer.getNetData(uriApi, false, this, 3);
+                    netdata = networkGatherer.getNetData(uriApi, false, this, 3);
                     if(!netdata[1][0].Equals("")){ total = float.Parse(netdata[1][0]); }
                     if (!netdata[1][1].Equals("")) { highest = float.Parse(netdata[1][1]); }
 
@@ -144,14 +184,29 @@ namespace XMR_Stak_Hashrate_Viewer
                     foreach (string q in netdata[0])
                     {
                         tree.Nodes[1].Nodes[i].Nodes.Clear();
-                        tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        if(q != null)
+                        {
+                            tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        }
+                        else
+                        {
+                            tree.Nodes[1].Nodes[i].Nodes.Add("0 H/s");
+                        }
+                        
                         i++;
                     }
 
                     foreach (string q in netdata[1])
                     {
                         tree.Nodes[1].Nodes[i].Nodes.Clear();
-                        tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        if (q != null)
+                        {
+                            tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        }
+                        else
+                        {
+                            tree.Nodes[1].Nodes[i].Nodes.Add("0 H/s");
+                        }
                         i++;
                     }
                     i = 0;
@@ -159,13 +214,17 @@ namespace XMR_Stak_Hashrate_Viewer
                     foreach (string q in netdata[2])
                     {
                         tree.Nodes[2].Nodes[i].Nodes.Clear();
-                        if(i == 3)
+                        if(i == 3 && q != null)
                         {
                             tree.Nodes[2].Nodes[i].Nodes.Add(q + " s");
                         }
-                        else
+                        else if(q != null)
                         {
                             tree.Nodes[2].Nodes[i].Nodes.Add(q);
+                        }
+                        else
+                        {
+                            tree.Nodes[2].Nodes[i].Nodes.Add("0");
                         }
                         i++;
                     }
@@ -174,25 +233,30 @@ namespace XMR_Stak_Hashrate_Viewer
                     foreach (string q in netdata[3])
                     {
                         tree.Nodes[3].Nodes[i].Nodes.Clear();
-                        if (i == 1)
+                        if (i == 1 && q != null)
                         {
                             tree.Nodes[3].Nodes[i].Nodes.Add(q + " s");
                         }
-                        else if(i == 2)
+                        else if(i == 2 && q != null)
                         {
                             tree.Nodes[3].Nodes[i].Nodes.Add(q + " ms");
                         }
-                        else
+                        else if(q != null)
                         {
                             tree.Nodes[3].Nodes[i].Nodes.Add(q);
+                        }
+                        else
+                        {
+                            tree.Nodes[3].Nodes[i].Nodes.Add("0");
                         }
                         i++;
                     }
 
                     tree.EndUpdate();
                     tree.Refresh();
-                }
-                catch (Exception ex)
+                }catch (InvalidOperationException)
+            { }
+            catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -212,6 +276,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     TabPage tab = new TabPage(name);
                     tab.Name = name;
+
                     TreeView content = new TreeView();
                     content.BackColor = Program.mainPage.backcolor;
                     content.ForeColor = Program.mainPage.textcolor;
@@ -239,9 +304,15 @@ namespace XMR_Stak_Hashrate_Viewer
                     content.Nodes[3].Nodes.Add("Ping");
 
                     content.Nodes[0].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[0].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
                     content.Nodes[1].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[1].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
                     content.Nodes[2].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[2].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
                     content.Nodes[3].ForeColor = Program.mainPage.accentcolor;
+                    content.Nodes[3].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
+
+                    content.Font = MetroFramework.MetroFonts.Default(12);
 
                     foreach (string q in netdata[0])
                     {
@@ -293,13 +364,11 @@ namespace XMR_Stak_Hashrate_Viewer
 
                     content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
                     content.Size = tab.Size;
-
                     content.ShowPlusMinus = false;
+
                     tab.Controls.Add(content);
                     Program.mainPage.maintabcontrol.Controls.Add(tab);
                     content.ExpandAll();
-                    
-
                     return content;
                 }
                 else
@@ -326,7 +395,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     {
                        isInitialized = false;
                         if(identifierindex >= 0){
-                            if (Program.mainPage.InvokeRequired)
+                            try { 
                                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                                 {
                                     Program.mainPage.maintabcontrol.TabPages.RemoveAt(identifierindex);
@@ -341,20 +410,9 @@ namespace XMR_Stak_Hashrate_Viewer
                                         Program.mainPage.removeminerbutton.Visible = false;
                                     }
                                 }));
-                                else
-                                {
-                                Program.mainPage.maintabcontrol.TabPages.RemoveAt(identifierindex);
-                                Program.minerList[identifierindex].minerThread.Interrupt();
-                                Program.minerList.RemoveAt(identifierindex);
-                                Program.totals.RemoveAt(identifierindex);
-                                Program.highestValues.RemoveAt(identifierindex);
-                                Program.mainPage.background.thread.Interrupt();
-
-                                if (Program.mainPage.maintabcontrol.Controls.Count == 0)
-                                {
-                                    Program.mainPage.removeminerbutton.Visible = false;
-                                }
                             }
+                            catch (InvalidOperationException)
+                            { }
                         }
                     }
                     else
@@ -362,9 +420,17 @@ namespace XMR_Stak_Hashrate_Viewer
                         Thread.Sleep(Program.mainPage.delay);
                     }
                 }
-                catch (InvalidOperationException)
+                catch (InvalidOperationException ex)
                 {
-                    continue;
+                    if (ex.Message.Contains("Invoke or BeginInvoke"))
+                    {
+                        isInitialized = false;
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
 
                 }
                 catch (ThreadInterruptedException)

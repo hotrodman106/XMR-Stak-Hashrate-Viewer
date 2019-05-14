@@ -7,7 +7,7 @@ namespace XMR_Stak_Hashrate_Viewer
 {
     public partial class AddMinerScreen : MetroForm
     {
-
+        private NetworkGatherer networkGatherer = new NetworkGatherer();
         public AddMinerScreen()
         {
             InitializeComponent();
@@ -35,15 +35,20 @@ namespace XMR_Stak_Hashrate_Viewer
                 }
                 else
                 {
+                    Visible = false;
                     MinerObject miner = new MinerObject(uri, null, null);
                     if (miner.isInitialized)
+                        {
+                            Program.minerList.Add(miner);
+                            miner.startLoop();
+                        
+                        Dispose();
+                    }
+                    else
                     {
-                        Program.minerList.Add(miner);
-                        miner.startLoop();
-                        //Form4.background.thread.Interrupt();
+                        Dispose();
                     }
                 }
-
                 Dispose();
             }
             catch (Exception ex)

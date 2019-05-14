@@ -16,6 +16,7 @@ namespace XMR_Stak_Hashrate_Viewer
         private double totalvalue;
         private double moneroprice;
         private double weeklyrevenue;
+        private NetworkGatherer networkGatherer = new NetworkGatherer();
 
         public ValueUpdater()
         {
@@ -24,21 +25,18 @@ namespace XMR_Stak_Hashrate_Viewer
         }
         private void updateValues()
         {
-            if (Program.mainPage.InvokeRequired)
+            try
+            {
                 Program.mainPage.Invoke(new MethodInvoker(delegate ()
                 {
-                    Program.mainPage.highesthashratelabel.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
-                    Program.mainPage.totalhashratelabel.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
-                    Program.mainPage.monerovaluelabel.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
-                    Program.mainPage.weeklyrevenuelabel.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
+                    Program.mainPage.highesthashratelabel.Text = highestvalue.ToString() + " H/s";
+                    Program.mainPage.totalhashratelabel.Text = totalvalue.ToString() + " H/s";
+                    Program.mainPage.monerovaluelabel.Text = "$" + moneroprice.ToString("N2");
+                    Program.mainPage.weeklyrevenuelabel.Text = "$" + weeklyrevenue.ToString("N2");
                 }));
-            else
-            {
-                Program.mainPage.highesthashratelabel.Text = "Highest Total Hashrate: " + highestvalue.ToString() + " H/s";
-                Program.mainPage.totalhashratelabel.Text = "Total Hashrate: " + totalvalue.ToString() + " H/s";
-                Program.mainPage.monerovaluelabel.Text = "Current Monero Value: $" + moneroprice.ToString("N2");
-                Program.mainPage.weeklyrevenuelabel.Text = "Estimated Weekly Revenue: $" + weeklyrevenue.ToString("N2");
-            }
+            }catch (InvalidOperationException)
+            { }
+               
         }
 
         private void loop(object parameters)
@@ -49,7 +47,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 {
                     highestvalue = Math.Round(Program.highestValues.Sum(), 1);
                     totalvalue = Math.Round(Program.totals.Sum(), 1);
-                    List<double> monerodata = NetworkGatherer.getMoneroData(totalvalue, 3);
+                    List<double> monerodata = networkGatherer.getMoneroData(totalvalue, 3);
                     moneroprice = Math.Round(monerodata[0], 2);
                     weeklyrevenue = Math.Round(monerodata[1], 2);
 
@@ -70,6 +68,10 @@ namespace XMR_Stak_Hashrate_Viewer
                         state = false;
                         break;
                     }
+                }
+                catch (InvalidOperationException)
+                {
+                    continue;
                 }
                 catch (Exception ex)
                 {

@@ -28,16 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
             this.mainpanel = new System.Windows.Forms.TableLayoutPanel();
             this.sidepanel = new System.Windows.Forms.TableLayoutPanel();
             this.weeklyrevenuecontainer = new MetroFramework.Controls.MetroPanel();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.weeklyrevenuelabel = new MetroFramework.Controls.MetroLabel();
             this.monerovaluecontainer = new MetroFramework.Controls.MetroPanel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.monerovaluelabel = new MetroFramework.Controls.MetroLabel();
             this.totalhashratecontainer = new MetroFramework.Controls.MetroPanel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.totalhashratelabel = new MetroFramework.Controls.MetroLabel();
             this.highesthashratecontainer = new MetroFramework.Controls.MetroPanel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.highesthashratelabel = new MetroFramework.Controls.MetroLabel();
             this.logocontainer = new MetroFramework.Controls.MetroPanel();
             this.logo = new System.Windows.Forms.PictureBox();
@@ -53,12 +58,17 @@
             this.addminerbutton = new MetroFramework.Controls.MetroButton();
             this.attributioncontainer = new MetroFramework.Controls.MetroPanel();
             this.attributionlabel = new MetroFramework.Controls.MetroLabel();
+            this.maintooltip = new System.Windows.Forms.ToolTip(this.components);
             this.mainpanel.SuspendLayout();
             this.sidepanel.SuspendLayout();
             this.weeklyrevenuecontainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.monerovaluecontainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.totalhashratecontainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.highesthashratecontainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.logocontainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.maintabcontrolcontainer.SuspendLayout();
@@ -106,52 +116,67 @@
             this.sidepanel.Margin = new System.Windows.Forms.Padding(0);
             this.sidepanel.Name = "sidepanel";
             this.sidepanel.RowCount = 5;
-            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.sidepanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.sidepanel.Size = new System.Drawing.Size(312, 569);
             this.sidepanel.TabIndex = 0;
             // 
             // weeklyrevenuecontainer
             // 
+            this.weeklyrevenuecontainer.Controls.Add(this.pictureBox4);
             this.weeklyrevenuecontainer.Controls.Add(this.weeklyrevenuelabel);
             this.weeklyrevenuecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.weeklyrevenuecontainer.HorizontalScrollbarBarColor = true;
             this.weeklyrevenuecontainer.HorizontalScrollbarHighlightOnWheel = false;
             this.weeklyrevenuecontainer.HorizontalScrollbarSize = 10;
-            this.weeklyrevenuecontainer.Location = new System.Drawing.Point(3, 512);
+            this.weeklyrevenuecontainer.Location = new System.Drawing.Point(3, 455);
             this.weeklyrevenuecontainer.Name = "weeklyrevenuecontainer";
-            this.weeklyrevenuecontainer.Size = new System.Drawing.Size(306, 54);
+            this.weeklyrevenuecontainer.Size = new System.Drawing.Size(306, 111);
             this.weeklyrevenuecontainer.TabIndex = 3;
             this.weeklyrevenuecontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.weeklyrevenuecontainer.VerticalScrollbarBarColor = true;
             this.weeklyrevenuecontainer.VerticalScrollbarHighlightOnWheel = false;
             this.weeklyrevenuecontainer.VerticalScrollbarSize = 10;
             // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.weeklyrevenue;
+            this.pictureBox4.Location = new System.Drawing.Point(93, -3);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(54, 54);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox4.TabIndex = 1003;
+            this.pictureBox4.TabStop = false;
+            this.maintooltip.SetToolTip(this.pictureBox4, "Estimated Weekly Revenue");
+            this.pictureBox4.WaitOnLoad = true;
+            // 
             // weeklyrevenuelabel
             // 
-            this.weeklyrevenuelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.weeklyrevenuelabel.AutoSize = true;
             this.weeklyrevenuelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.weeklyrevenuelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.weeklyrevenuelabel.Location = new System.Drawing.Point(0, 0);
+            this.weeklyrevenuelabel.Location = new System.Drawing.Point(153, 16);
             this.weeklyrevenuelabel.Margin = new System.Windows.Forms.Padding(0);
             this.weeklyrevenuelabel.Name = "weeklyrevenuelabel";
-            this.weeklyrevenuelabel.Size = new System.Drawing.Size(306, 54);
+            this.weeklyrevenuelabel.Size = new System.Drawing.Size(56, 25);
             this.weeklyrevenuelabel.TabIndex = 999;
-            this.weeklyrevenuelabel.Text = "Estimated Weekly Revenue: $0.00";
+            this.weeklyrevenuelabel.Text = "$0.00";
             this.weeklyrevenuelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.weeklyrevenuelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.weeklyrevenuelabel, "Estimated Weekly Revenue");
             // 
             // monerovaluecontainer
             // 
+            this.monerovaluecontainer.Controls.Add(this.pictureBox3);
             this.monerovaluecontainer.Controls.Add(this.monerovaluelabel);
             this.monerovaluecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.monerovaluecontainer.HorizontalScrollbarBarColor = true;
             this.monerovaluecontainer.HorizontalScrollbarHighlightOnWheel = false;
             this.monerovaluecontainer.HorizontalScrollbarSize = 10;
-            this.monerovaluecontainer.Location = new System.Drawing.Point(3, 456);
+            this.monerovaluecontainer.Location = new System.Drawing.Point(3, 399);
             this.monerovaluecontainer.Name = "monerovaluecontainer";
             this.monerovaluecontainer.Size = new System.Drawing.Size(306, 50);
             this.monerovaluecontainer.TabIndex = 2;
@@ -160,27 +185,41 @@
             this.monerovaluecontainer.VerticalScrollbarHighlightOnWheel = false;
             this.monerovaluecontainer.VerticalScrollbarSize = 10;
             // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.monerovalue;
+            this.pictureBox3.Location = new System.Drawing.Point(93, 0);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(54, 50);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 1002;
+            this.pictureBox3.TabStop = false;
+            this.maintooltip.SetToolTip(this.pictureBox3, "Monero Value");
+            this.pictureBox3.WaitOnLoad = true;
+            // 
             // monerovaluelabel
             // 
-            this.monerovaluelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.monerovaluelabel.AutoSize = true;
             this.monerovaluelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.monerovaluelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.monerovaluelabel.Location = new System.Drawing.Point(0, 0);
+            this.monerovaluelabel.Location = new System.Drawing.Point(153, 13);
             this.monerovaluelabel.Name = "monerovaluelabel";
-            this.monerovaluelabel.Size = new System.Drawing.Size(306, 50);
+            this.monerovaluelabel.Size = new System.Drawing.Size(56, 25);
             this.monerovaluelabel.TabIndex = 999;
-            this.monerovaluelabel.Text = "Current Monero Value: $0.00";
+            this.monerovaluelabel.Text = "$0.00";
             this.monerovaluelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.monerovaluelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.monerovaluelabel, "Monero Value");
             // 
             // totalhashratecontainer
             // 
+            this.totalhashratecontainer.Controls.Add(this.pictureBox2);
             this.totalhashratecontainer.Controls.Add(this.totalhashratelabel);
             this.totalhashratecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.totalhashratecontainer.HorizontalScrollbarBarColor = true;
             this.totalhashratecontainer.HorizontalScrollbarHighlightOnWheel = false;
             this.totalhashratecontainer.HorizontalScrollbarSize = 10;
-            this.totalhashratecontainer.Location = new System.Drawing.Point(3, 400);
+            this.totalhashratecontainer.Location = new System.Drawing.Point(3, 343);
             this.totalhashratecontainer.Name = "totalhashratecontainer";
             this.totalhashratecontainer.Size = new System.Drawing.Size(306, 50);
             this.totalhashratecontainer.TabIndex = 1;
@@ -189,27 +228,41 @@
             this.totalhashratecontainer.VerticalScrollbarHighlightOnWheel = false;
             this.totalhashratecontainer.VerticalScrollbarSize = 10;
             // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.totalhashrate;
+            this.pictureBox2.Location = new System.Drawing.Point(93, 0);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(54, 50);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 1001;
+            this.pictureBox2.TabStop = false;
+            this.maintooltip.SetToolTip(this.pictureBox2, "Total Hashrate");
+            this.pictureBox2.WaitOnLoad = true;
+            // 
             // totalhashratelabel
             // 
-            this.totalhashratelabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.totalhashratelabel.AutoSize = true;
             this.totalhashratelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.totalhashratelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.totalhashratelabel.Location = new System.Drawing.Point(0, 0);
+            this.totalhashratelabel.Location = new System.Drawing.Point(153, 11);
             this.totalhashratelabel.Name = "totalhashratelabel";
-            this.totalhashratelabel.Size = new System.Drawing.Size(306, 50);
+            this.totalhashratelabel.Size = new System.Drawing.Size(55, 25);
             this.totalhashratelabel.TabIndex = 999;
-            this.totalhashratelabel.Text = "Total Hashrate: 0 H/s";
+            this.totalhashratelabel.Text = "0 H/s";
             this.totalhashratelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.totalhashratelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.totalhashratelabel, "Total Hashrate");
             // 
             // highesthashratecontainer
             // 
+            this.highesthashratecontainer.Controls.Add(this.pictureBox1);
             this.highesthashratecontainer.Controls.Add(this.highesthashratelabel);
             this.highesthashratecontainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.highesthashratecontainer.HorizontalScrollbarBarColor = true;
             this.highesthashratecontainer.HorizontalScrollbarHighlightOnWheel = false;
             this.highesthashratecontainer.HorizontalScrollbarSize = 10;
-            this.highesthashratecontainer.Location = new System.Drawing.Point(3, 344);
+            this.highesthashratecontainer.Location = new System.Drawing.Point(3, 287);
             this.highesthashratecontainer.Name = "highesthashratecontainer";
             this.highesthashratecontainer.Size = new System.Drawing.Size(306, 50);
             this.highesthashratecontainer.TabIndex = 0;
@@ -218,19 +271,32 @@
             this.highesthashratecontainer.VerticalScrollbarHighlightOnWheel = false;
             this.highesthashratecontainer.VerticalScrollbarSize = 10;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.highesttotalhashrate;
+            this.pictureBox1.Location = new System.Drawing.Point(93, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(54, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 1000;
+            this.pictureBox1.TabStop = false;
+            this.maintooltip.SetToolTip(this.pictureBox1, "Highest Hashrate");
+            this.pictureBox1.WaitOnLoad = true;
+            // 
             // highesthashratelabel
             // 
+            this.highesthashratelabel.AutoSize = true;
             this.highesthashratelabel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.highesthashratelabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.highesthashratelabel.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.highesthashratelabel.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.highesthashratelabel.Location = new System.Drawing.Point(0, 0);
+            this.highesthashratelabel.Location = new System.Drawing.Point(153, 12);
             this.highesthashratelabel.Name = "highesthashratelabel";
-            this.highesthashratelabel.Size = new System.Drawing.Size(306, 50);
+            this.highesthashratelabel.Size = new System.Drawing.Size(55, 25);
             this.highesthashratelabel.TabIndex = 999;
-            this.highesthashratelabel.Text = "Highest Total Hashrate: 0 H/s";
+            this.highesthashratelabel.Text = "0 H/s";
             this.highesthashratelabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.highesthashratelabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.highesthashratelabel, "Highest Hashrate");
             // 
             // logocontainer
             // 
@@ -242,7 +308,7 @@
             this.logocontainer.Location = new System.Drawing.Point(0, 0);
             this.logocontainer.Margin = new System.Windows.Forms.Padding(0);
             this.logocontainer.Name = "logocontainer";
-            this.logocontainer.Size = new System.Drawing.Size(312, 341);
+            this.logocontainer.Size = new System.Drawing.Size(312, 284);
             this.logocontainer.TabIndex = 4;
             this.logocontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.logocontainer.VerticalScrollbarBarColor = true;
@@ -251,11 +317,13 @@
             // 
             // logo
             // 
-            this.logo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.logo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.logo.Image = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.icon;
-            this.logo.Location = new System.Drawing.Point(0, 0);
+            this.logo.Location = new System.Drawing.Point(36, 34);
             this.logo.Name = "logo";
-            this.logo.Size = new System.Drawing.Size(312, 341);
+            this.logo.Size = new System.Drawing.Size(242, 220);
             this.logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logo.TabIndex = 2;
             this.logo.TabStop = false;
@@ -342,6 +410,7 @@
             this.removeminerbutton.Size = new System.Drawing.Size(100, 52);
             this.removeminerbutton.TabIndex = 3;
             this.removeminerbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.removeminerbutton, "Remove Miner");
             this.removeminerbutton.UseSelectable = true;
             this.removeminerbutton.Click += new System.EventHandler(this.onRemoveMinerClick);
             // 
@@ -381,6 +450,7 @@
             this.refreshintervaltrackbar.TabIndex = 1;
             this.refreshintervaltrackbar.Text = "metroTrackBar1";
             this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.refreshintervaltrackbar, "Refresh Interval");
             this.refreshintervaltrackbar.Value = 2000;
             this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
             // 
@@ -394,9 +464,10 @@
             this.refreshintervallabel.Name = "refreshintervallabel";
             this.refreshintervallabel.Size = new System.Drawing.Size(197, 27);
             this.refreshintervallabel.TabIndex = 5;
-            this.refreshintervallabel.Text = "Refresh Interval: 1.00s";
+            this.refreshintervallabel.Text = "Refresh Interval: 2.00s";
             this.refreshintervallabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.refreshintervallabel, "Refresh Interval");
             // 
             // addminerbuttoncontainer
             // 
@@ -427,6 +498,7 @@
             this.addminerbutton.Size = new System.Drawing.Size(100, 52);
             this.addminerbutton.TabIndex = 2;
             this.addminerbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.addminerbutton, "Add Miner");
             this.addminerbutton.UseSelectable = true;
             this.addminerbutton.Click += new System.EventHandler(this.onAddMinerClick);
             // 
@@ -456,6 +528,12 @@
             this.attributionlabel.Text = "XMR-Stak Hashrate Viewer v0.0.0.0";
             this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.attributionlabel, "Program by: hotrodman106, 2019\r\n");
+            // 
+            // maintooltip
+            // 
+            this.maintooltip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.maintooltip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(149)))), ((int)(((byte)(146)))));
             // 
             // MainPage
             // 
@@ -467,15 +545,24 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(850, 700);
             this.Name = "MainPage";
+            this.Text = "XMR-Stak Hashrate Viewer";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);
             this.Load += new System.EventHandler(this.MainPage_FormLoad);
             this.mainpanel.ResumeLayout(false);
             this.sidepanel.ResumeLayout(false);
             this.weeklyrevenuecontainer.ResumeLayout(false);
+            this.weeklyrevenuecontainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.monerovaluecontainer.ResumeLayout(false);
+            this.monerovaluecontainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.totalhashratecontainer.ResumeLayout(false);
+            this.totalhashratecontainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.highesthashratecontainer.ResumeLayout(false);
+            this.highesthashratecontainer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.logocontainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.maintabcontrolcontainer.ResumeLayout(false);
@@ -515,5 +602,10 @@
         private MetroFramework.Controls.MetroButton addminerbutton;
         private MetroFramework.Controls.MetroPanel removeminerbuttoncontainer;
         public MetroFramework.Controls.MetroButton removeminerbutton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.ToolTip maintooltip;
     }
 }

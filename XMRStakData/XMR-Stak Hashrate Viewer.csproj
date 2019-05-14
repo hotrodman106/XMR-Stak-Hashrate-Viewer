@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>C:\Users\hotro\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -28,8 +30,6 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -170,7 +170,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Docs\AddMinerScreen.PNG" />
+    <Content Include="Docs\LoginScreen.PNG" />
+    <Content Include="Docs\MainScreen.PNG" />
+    <Content Include="Resources\highesttotalhashrate.png" />
+    <Content Include="Resources\monerovalue.png" />
     <Content Include="Resources\addminer.png" />
+    <Content Include="Resources\totalhashrate.png" />
+    <Content Include="Resources\weeklyrevenue.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\icon.ico" />
@@ -178,9 +185,6 @@
     <Content Include="Resources\removeminer.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Docs\AddMinerScreen.png" />
-    <Content Include="Docs\LoginScreen.PNG" />
-    <Content Include="Docs\MainScreen.PNG" />
     <EmbeddedResource Include="EmbeddedAssemblies\Newtonsoft.Json.dll" />
     <EmbeddedResource Include="EmbeddedAssemblies\MetroFramework.Design.dll" />
     <EmbeddedResource Include="EmbeddedAssemblies\MetroFramework.dll" />

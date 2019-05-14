@@ -8,14 +8,23 @@ namespace XMR_Stak_Hashrate_Viewer
     {
         public string username;
         public string password;
+        private bool buttonclicked = false;
 
         public LoginScreen()
         {
             InitializeComponent();
             ActiveControl = usernametextbox;
         }
+        private void LoginScreen_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!buttonclicked)
+            {
+                username = "";
+                password = "";
+            }
+        }
 
-        private void loginbutton_Click(object sender, EventArgs e)
+            private void loginbutton_Click(object sender, EventArgs e)
         {
             username = usernametextbox.Text;
             password = passwordtextbox.Text;
@@ -31,6 +40,7 @@ namespace XMR_Stak_Hashrate_Viewer
             }
             else
             {
+                buttonclicked = true;
                 Dispose();
             }
 
