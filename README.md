@@ -23,10 +23,10 @@ In the highest total hashrate window, the sum of the highest hashrates across **
 In the total hashrate window, the total hashrate across **ALL** miners will be displayed. This value is updated at every refresh interval.
 
 ### Monero Price Window
-In the monero price window, the current market value of monero is displayed. This value is updated every refresh interval unless your refresh interval is one second. In that case, the value is updated every two seconds instead. This data is obtained using the Nanopool Monero API (https://xmr.nanopool.org/api).
+In the monero price window, the current market value of monero is displayed. This value is updated every refresh interval. In that case,This data is obtained using the Nanopool Monero API (https://xmr.nanopool.org/api).
 
 ### Estimated Weekly Revenue Window
-In the estimated weekly revenue window, the estimated weekly revenue is displayed as calculated using the **TOTAL** hashrate and the **NANOPOOL POOL VALUES**. This value is updated every refresh interval unless your refresh interval is one second. In that case, the value is updated every two seconds instead. This data is obtained using the Nanopool Monero API (https://xmr.nanopool.org/api).
+In the estimated weekly revenue window, the estimated weekly revenue is displayed as calculated using the **TOTAL** hashrate and the **NANOPOOL POOL VALUES**. This value is updated every refresh interval. This data is obtained using the Nanopool Monero API (https://xmr.nanopool.org/api).
 
 ## Program Screenshots
 ![GUI1](https://raw.githubusercontent.com/hotrodman106/XMR-Stak-Hashrate-Viewer/master/XMRStakData/Docs/MainScreen.png)
