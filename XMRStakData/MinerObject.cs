@@ -18,11 +18,18 @@ namespace XMR_Stak_Hashrate_Viewer
     {
         private Uri uri;
         public Uri uriApi;
-        public string name = null;
+        private Uri uriResults;
+        public string ip = null;
+        public string poolname = null;
         public string xmrstakversion = null;
         private List<List<string>> netdata = new List<List<string>>();
         private List<string> headerdata = new List<string>();
         private TreeView tree;
+        private TreeNode hashratenode = new TreeNode("Hashrates");
+        private TreeNode resultsnode = new TreeNode("Results");
+        private TreeNode connectionnode = new TreeNode("Connection");
+        private TreeNode versionnode = new TreeNode("XMR-Stak Version");
+        private TabPage tab;
         public float total = 0;
         public float highest = 0;
         public bool isInitialized = false;
@@ -43,7 +50,8 @@ namespace XMR_Stak_Hashrate_Viewer
                 passwordTemp = p;
                 usernameTemp = us;
                 uriApi = new Uri(uri.AbsoluteUri.ToString() + "api.json");
-                name = uri.Authority;
+                uriResults = new Uri(uri.AbsoluteUri.ToString() + "c");
+                ip = uri.Authority;
                 int state = networkGatherer.isXMRStakMiner(uri, this);
 
                 if (state == 0)
@@ -59,6 +67,7 @@ namespace XMR_Stak_Hashrate_Viewer
                         highest = float.Parse(netdata[1][1]);
                         Program.highestValues.Add(highest);
                         Program.totals.Add(total);
+                        poolname = networkGatherer.getRigID(uriResults, 2, this);
                         tree = createTreeView();
                         isInitialized = true;
                     }
@@ -88,6 +97,7 @@ namespace XMR_Stak_Hashrate_Viewer
                         highest = float.Parse(netdata[1][1]);
                         Program.highestValues.Add(highest);
                         Program.totals.Add(total);
+                        poolname = networkGatherer.getRigID(uriResults, 2, this);
                         tree = createTreeView();
                         isInitialized = true;
                     }
@@ -183,48 +193,29 @@ namespace XMR_Stak_Hashrate_Viewer
 
                     foreach (string q in netdata[0])
                     {
-                        tree.Nodes[1].Nodes[i].Nodes.Clear();
-                        if(q != null)
-                        {
-                            tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
-                        }
-                        else
-                        {
-                            tree.Nodes[1].Nodes[i].Nodes.Add("0 H/s");
-                        }
-                        
+                        hashratenode.Nodes[i].Nodes.Clear();
+                        hashratenode.Nodes[i].Nodes.Add(q + " H/s");
                         i++;
                     }
 
                     foreach (string q in netdata[1])
                     {
-                        tree.Nodes[1].Nodes[i].Nodes.Clear();
-                        if (q != null)
-                        {
-                            tree.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
-                        }
-                        else
-                        {
-                            tree.Nodes[1].Nodes[i].Nodes.Add("0 H/s");
-                        }
+                        hashratenode.Nodes[i].Nodes.Clear();
+                        hashratenode.Nodes[i].Nodes.Add(q + " H/s");
                         i++;
                     }
                     i = 0;
 
                     foreach (string q in netdata[2])
                     {
-                        tree.Nodes[2].Nodes[i].Nodes.Clear();
-                        if(i == 3 && q != null)
+                        resultsnode.Nodes[i].Nodes.Clear();
+                        if (i == 3)
                         {
-                            tree.Nodes[2].Nodes[i].Nodes.Add(q + " s");
-                        }
-                        else if(q != null)
-                        {
-                            tree.Nodes[2].Nodes[i].Nodes.Add(q);
+                            resultsnode.Nodes[i].Nodes.Add(q + " s");
                         }
                         else
                         {
-                            tree.Nodes[2].Nodes[i].Nodes.Add("0");
+                            resultsnode.Nodes[i].Nodes.Add(q);
                         }
                         i++;
                     }
@@ -232,29 +223,30 @@ namespace XMR_Stak_Hashrate_Viewer
 
                     foreach (string q in netdata[3])
                     {
-                        tree.Nodes[3].Nodes[i].Nodes.Clear();
-                        if (i == 1 && q != null)
+                        connectionnode.Nodes[i].Nodes.Clear();
+                        if (i == 1)
                         {
-                            tree.Nodes[3].Nodes[i].Nodes.Add(q + " s");
+                            connectionnode.Nodes[i].Nodes.Add(q + " s");
                         }
-                        else if(i == 2 && q != null)
+                        else if (i == 2)
                         {
-                            tree.Nodes[3].Nodes[i].Nodes.Add(q + " ms");
-                        }
-                        else if(q != null)
-                        {
-                            tree.Nodes[3].Nodes[i].Nodes.Add(q);
+                            connectionnode.Nodes[i].Nodes.Add(q + " ms");
                         }
                         else
                         {
-                            tree.Nodes[3].Nodes[i].Nodes.Add("0");
+                            connectionnode.Nodes[i].Nodes.Add(q);
                         }
                         i++;
-                    }
+                }
 
                     tree.EndUpdate();
                     tree.Refresh();
-                }catch (InvalidOperationException)
+                    if (Properties.Settings.Default.TabNameType == 1)
+                    {
+                        tab.Text = total.ToString() + " H/s";
+                    }
+                }
+                catch (InvalidOperationException)
             { }
             catch (Exception ex)
                 {
@@ -274,71 +266,91 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 if (netdata != null && headerdata != null)
                 {
-                    TabPage tab = new TabPage(name);
-                    tab.Name = name;
+                    if(Properties.Settings.Default.TabNameType == 0)
+                    {
+                      tab = new TabPage(ip);
+                    }
+                    else if(Properties.Settings.Default.TabNameType == 1)
+                    {
+                        tab = new TabPage(total.ToString() + " H/s");
+                    }
+                    else
+                    {
+                        if(poolname != null && poolname != "")
+                        {
+                            tab = new TabPage(poolname);
+                        }
+                        else
+                        {
+                            tab = new TabPage(ip);
+                        }
+                        
+                    }
+                    
 
                     TreeView content = new TreeView();
                     content.BackColor = Program.mainPage.backcolor;
                     content.ForeColor = Program.mainPage.textcolor;
-                    
+                    content.Font = MetroFramework.MetroFonts.Default(12);
+                    content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
+                    content.Size = tab.Size;
+                    content.ShowPlusMinus = false;
+
                     int i = 0;
 
-                    content.Nodes.Add("XMR-Stak Version");
-                    content.Nodes[0].Nodes.Add(xmrstakversion);
-                    content.Nodes.Add("Hashrates");
                     foreach (string header in headerdata)
                     {
-                        content.Nodes[1].Nodes.Add(header);
+                        hashratenode.Nodes.Add(header);
                     }
-                    content.Nodes[1].Nodes.Add("Total");
-                    content.Nodes[1].Nodes.Add("Highest");
-                    content.Nodes.Add("Results");
-                    content.Nodes[2].Nodes.Add("Current Difficulty");
-                    content.Nodes[2].Nodes.Add("Good Shares");
-                    content.Nodes[2].Nodes.Add("Total Shares");
-                    content.Nodes[2].Nodes.Add("Average Result Time");
-                    content.Nodes[2].Nodes.Add("Pool-Side Hashes");
-                    content.Nodes.Add("Connection");
-                    content.Nodes[3].Nodes.Add("Pool Address");
-                    content.Nodes[3].Nodes.Add("Uptime");
-                    content.Nodes[3].Nodes.Add("Ping");
 
-                    content.Nodes[0].ForeColor = Program.mainPage.accentcolor;
-                    content.Nodes[0].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
-                    content.Nodes[1].ForeColor = Program.mainPage.accentcolor;
-                    content.Nodes[1].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
-                    content.Nodes[2].ForeColor = Program.mainPage.accentcolor;
-                    content.Nodes[2].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
-                    content.Nodes[3].ForeColor = Program.mainPage.accentcolor;
-                    content.Nodes[3].NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
+                    hashratenode.Nodes.Add("Total");
+                    hashratenode.Nodes.Add("Highest");
+                    hashratenode.ForeColor = Program.mainPage.accentcolor;
+                    hashratenode.NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
 
-                    content.Font = MetroFramework.MetroFonts.Default(12);
+                    resultsnode.Nodes.Add("Current Difficulty");
+                    resultsnode.Nodes.Add("Good Shares");
+                    resultsnode.Nodes.Add("Total Shares");
+                    resultsnode.Nodes.Add("Average Result Time");
+                    resultsnode.Nodes.Add("Pool-Side Hashes");
+                    resultsnode.ForeColor = Program.mainPage.accentcolor;
+                    resultsnode.NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
+
+                    connectionnode.Nodes.Add("Pool Address");
+                    connectionnode.Nodes.Add("Uptime");
+                    connectionnode.Nodes.Add("Ping");
+                    connectionnode.ForeColor = Program.mainPage.accentcolor;
+                    connectionnode.NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
+
+                    versionnode.Nodes.Add(xmrstakversion);
+                    versionnode.ForeColor = Program.mainPage.accentcolor;
+                    versionnode.NodeFont = MetroFramework.MetroFonts.DefaultBold(14);
 
                     foreach (string q in netdata[0])
                     {
-                        content.Nodes[1].Nodes[i].Nodes.Clear();
-                        content.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        hashratenode.Nodes[i].Nodes.Clear();
+                        hashratenode.Nodes[i].Nodes.Add(q + " H/s");
                         i++;
                     }
 
                     foreach (string q in netdata[1])
                     {
-                        content.Nodes[1].Nodes[i].Nodes.Clear();
-                        content.Nodes[1].Nodes[i].Nodes.Add(q + " H/s");
+                        hashratenode.Nodes[i].Nodes.Clear();
+                        hashratenode.Nodes[i].Nodes.Add(q + " H/s");
                         i++;
                     }
                     i = 0;
 
                     foreach (string q in netdata[2])
                     {
-                        content.Nodes[2].Nodes[i].Nodes.Clear();
+                        resultsnode.Nodes[i].Nodes.Clear();
                         if (i == 3)
                         {
-                            content.Nodes[2].Nodes[i].Nodes.Add(q + " s");
+                            resultsnode.Nodes[i].Nodes.Add(q + " s");
                         }
                         else
                         {
-                            content.Nodes[2].Nodes[i].Nodes.Add(q);
+                            resultsnode.Nodes[i].Nodes.Add(q);
                         }
                         i++;
                     }
@@ -346,29 +358,56 @@ namespace XMR_Stak_Hashrate_Viewer
 
                     foreach (string q in netdata[3])
                     {
-                        content.Nodes[3].Nodes[i].Nodes.Clear();
+                        connectionnode.Nodes[i].Nodes.Clear();
                         if (i == 1)
                         {
-                            content.Nodes[3].Nodes[i].Nodes.Add(q + " s");
+                            connectionnode.Nodes[i].Nodes.Add(q + " s");
                         }
                         else if (i == 2)
                         {
-                            content.Nodes[3].Nodes[i].Nodes.Add(q + " ms");
+                            connectionnode.Nodes[i].Nodes.Add(q + " ms");
                         }
                         else
                         {
-                            content.Nodes[3].Nodes[i].Nodes.Add(q);
+                            connectionnode.Nodes[i].Nodes.Add(q);
                         }
                         i++;
+
                     }
 
-                    content.Anchor = (AnchorStyles.Bottom | AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right);
-                    content.Size = tab.Size;
-                    content.ShowPlusMinus = false;
+                    if (Properties.Settings.Default.ShowVersion) { 
+                        content.Nodes.Add(versionnode);
+                    }
+
+                    content.Nodes.Add(hashratenode);
+
+                    if (Properties.Settings.Default.ShowResults)
+                    {
+                        content.Nodes.Add(resultsnode);
+                    }
+
+                    if (Properties.Settings.Default.ShowConnection)
+                    {
+                        content.Nodes.Add(connectionnode);
+                    }
 
                     tab.Controls.Add(content);
                     Program.mainPage.maintabcontrol.Controls.Add(tab);
-                    content.ExpandAll();
+
+                    if (Properties.Settings.Default.ExpandAll)
+                    {
+                        content.ExpandAll();
+                    }
+                    else
+                    {
+                        foreach (TreeNode t in content.Nodes)
+                        {
+                            foreach (TreeNode r in t.Nodes)
+                            {
+                                r.ExpandAll();
+                            }
+                        }
+                    }
                     return content;
                 }
                 else

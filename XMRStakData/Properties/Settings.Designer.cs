@@ -121,5 +121,89 @@ namespace XMR_Stak_Hashrate_Viewer.Properties {
                 this["Passwords"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ExpandAll {
+            get {
+                return ((bool)(this["ExpandAll"]));
+            }
+            set {
+                this["ExpandAll"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TabNameType {
+            get {
+                return ((int)(this["TabNameType"]));
+            }
+            set {
+                this["TabNameType"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowVersion {
+            get {
+                return ((bool)(this["ShowVersion"]));
+            }
+            set {
+                this["ShowVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowResults {
+            get {
+                return ((bool)(this["ShowResults"]));
+            }
+            set {
+                this["ShowResults"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowConnection {
+            get {
+                return ((bool)(this["ShowConnection"]));
+            }
+            set {
+                this["ShowConnection"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ShowSidebar {
+            get {
+                return ((bool)(this["ShowSidebar"]));
+            }
+            set {
+                this["ShowSidebar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool CloseonExit {
+            get {
+                return ((bool)(this["CloseonExit"]));
+            }
+            set {
+                this["CloseonExit"] = value;
+            }
+        }
     }
 }

@@ -19,7 +19,7 @@ public int isXMRStakMiner(Uri urlAddress, MinerObject miner)
         {
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(urlAddress.AbsoluteUri.ToString() + "api.json"));
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(miner.uriApi);
                 request.Timeout = 3000;
                 request.AllowAutoRedirect = false;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -68,7 +68,69 @@ public int isXMRStakMiner(Uri urlAddress, MinerObject miner)
              }
 
             return 3;
-        } 
+        }
+
+        public string getRigID(Uri urlAddress, int retries, MinerObject miner)
+        {
+            while (retries != 0)
+            {
+                try
+                {
+                    if (miner.connectionsuccess == true)
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(urlAddress);
+                        request.Credentials = miner.credentialCache;
+                        request.Timeout = 5000;
+                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+
+                            Stream receiveStream = response.GetResponseStream();
+                            StreamReader readStream = null;
+
+                            if (response.CharacterSet == null)
+                            {
+                                readStream = new StreamReader(receiveStream);
+                            }
+                            else
+                            {
+                                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                            }
+
+                            string data = readStream.ReadToEnd();
+                            Regex headerrgx = new Regex(@"(<td>([^<td>])*<\/td>)");
+                            MatchCollection headerdataIn = headerrgx.Matches(data);
+                            response.Close();
+                            readStream.Close();
+
+                            return headerdataIn[0].Value.Replace("<td>", string.Empty).Replace("</td>", string.Empty);
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("401"))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        retries--;
+                        continue;
+                    }
+                }
+            }
+            return null;
+        }
 
 public List<List<string>> getNetData(Uri urlAddress, bool getHeaderData, MinerObject miner, int retries)
 {
@@ -209,53 +271,53 @@ public List<List<string>> getNetData(Uri urlAddress, bool getHeaderData, MinerOb
                         continue;
                     }
                 }
-}
-miner.connectionsuccess = false;
-return null;
-}
+        }
+        miner.connectionsuccess = false;
+        return null;
+    }
 
-public List<double> getMoneroData(double totalHashrates, int retries)
-{
-while(retries != 0)
-{
-try
-{
-List<double> moneroData = new List<double>();
+        public List<double> getMoneroData(double totalHashrates, int retries)
+        {
+            while(retries != 0)
+            {
+                try
+                {
+                List<double> moneroData = new List<double>();
 
-if (totalHashrates == 0)
-{
-    moneroData.Add(0);
-    moneroData.Add(0);
+                if (totalHashrates == 0)
+                {
+                    moneroData.Add(0);
+                    moneroData.Add(0);
 
-    return moneroData;
-}
-else
-{
-    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://api.nanopool.org/v1/xmr/approximated_earnings/" + totalHashrates.ToString()));
-    request.Timeout = 5000;
-    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                    return moneroData;
+                }
+                else
+                {
+                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri("https://api.nanopool.org/v1/xmr/approximated_earnings/" + totalHashrates.ToString()));
+                    request.Timeout = 5000;
+                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-        Stream receiveStream = response.GetResponseStream();
-        StreamReader readStream = null;
-        readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                        Stream receiveStream = response.GetResponseStream();
+                        StreamReader readStream = null;
+                        readStream = new StreamReader(receiveStream, Encoding.UTF8);
 
-        dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
-        moneroData.Add(double.Parse(json["data"].prices["price_usd"].Value.ToString()));
-        moneroData.Add(double.Parse(json["data"].week["dollars"].Value.ToString()));
+                        dynamic json = JsonConvert.DeserializeObject(readStream.ReadToEnd());
+                        moneroData.Add(double.Parse(json["data"].prices["price_usd"].Value.ToString()));
+                        moneroData.Add(double.Parse(json["data"].week["dollars"].Value.ToString()));
 
-        response.Close();
-        readStream.Close();
-        return moneroData;
+                        response.Close();
+                        readStream.Close();
+                        return moneroData;
 
-}
-}
-catch (Exception)
-{
-    retries--;
-    continue;
-}
-}
-return null;
-}    
+                }
+                }
+                catch (Exception)
+                {
+                    retries--;
+                    continue;
+                }
+        }
+        return null;
+        }    
 }
 }

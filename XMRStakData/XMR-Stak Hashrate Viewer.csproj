@@ -52,8 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -73,6 +72,7 @@
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
@@ -110,6 +110,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SettingsScreenGUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsScreenGUI.Designer.cs">
+      <DependentUpon>SettingsScreenGUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainPageGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <EmbeddedResource Include="AddMinerScreenGUI.resx">
       <DependentUpon>AddMinerScreenGUI.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SettingsScreenGUI.resx">
+      <DependentUpon>SettingsScreenGUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginScreenGUI.resx">
       <DependentUpon>LoginScreenGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,9 +182,11 @@
     <Content Include="Docs\AddMinerScreen.PNG" />
     <Content Include="Docs\LoginScreen.PNG" />
     <Content Include="Docs\MainScreen.PNG" />
+    <Content Include="icon.ico" />
     <Content Include="Resources\highesttotalhashrate.png" />
     <Content Include="Resources\monerovalue.png" />
     <Content Include="Resources\addminer.png" />
+    <None Include="Resources\settings.png" />
     <Content Include="Resources\totalhashrate.png" />
     <Content Include="Resources\weeklyrevenue.png" />
   </ItemGroup>

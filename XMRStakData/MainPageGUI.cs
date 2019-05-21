@@ -11,6 +11,8 @@ namespace XMR_Stak_Hashrate_Viewer
 
         public ValueUpdater background;
         public int delay;
+        private bool closeonexit;
+        private bool hasseenballon;
 
         public Color accentcolor = Color.FromArgb(45, 137, 239);
         public Color textcolor = Color.FromArgb(149, 149, 146);
@@ -31,6 +33,8 @@ namespace XMR_Stak_Hashrate_Viewer
             Width = Properties.Settings.Default.Width;
             Location = Properties.Settings.Default.WindowLocation;
 
+            closeonexit = Properties.Settings.Default.CloseonExit;
+
             if (Properties.Settings.Default.Maximized)
             {
                 WindowState = FormWindowState.Maximized;
@@ -38,8 +42,14 @@ namespace XMR_Stak_Hashrate_Viewer
 
             refreshintervaltrackbar.Value = delay;
             refreshintervallabel.Text = "Refresh Interval: " + Decimal.Divide(delay, 1000).ToString("0.00") + "s";
-          
-            int index = 0;
+
+            if (!Properties.Settings.Default.ShowSidebar)
+            {
+                sidepanel.Visible = false;
+                attributionlabelcontainer.Visible = false;
+            }
+
+                int index = 0;
             foreach (string u in Properties.Settings.Default.IPs)
             {
                 try
@@ -116,32 +126,79 @@ namespace XMR_Stak_Hashrate_Viewer
 
         private void MainPage_FormClosing(object sender, FormClosingEventArgs e)
         {
-            background.state = false;
-            background.thread.Interrupt();
-            Properties.Settings.Default.IPs.Clear();
-            Properties.Settings.Default.Usernames.Clear();
-            Properties.Settings.Default.Passwords.Clear();
-            Properties.Settings.Default.Height = Height;
-            Properties.Settings.Default.Width = Width;
-            Properties.Settings.Default.WindowLocation = Location;
-            Properties.Settings.Default.RefreshRate = delay;
-
-            if (WindowState == FormWindowState.Maximized)
+            if (closeonexit)
             {
-                Properties.Settings.Default.Maximized = true;
+                background.state = false;
+                background.thread.Interrupt();
+                Properties.Settings.Default.IPs.Clear();
+                Properties.Settings.Default.Usernames.Clear();
+                Properties.Settings.Default.Passwords.Clear();
+                Properties.Settings.Default.Height = Height;
+                Properties.Settings.Default.Width = Width;
+                Properties.Settings.Default.WindowLocation = Location;
+                Properties.Settings.Default.RefreshRate = delay;
+
+                if (WindowState == FormWindowState.Maximized)
+                {
+                    Properties.Settings.Default.Maximized = true;
+                }
+                else
+                {
+                    Properties.Settings.Default.Maximized = false;
+                }
+                foreach (MinerObject miner in Program.minerList)
+                {
+                    Properties.Settings.Default.IPs.Add(miner.ip);
+                    Properties.Settings.Default.Usernames.Add(miner.username);
+                    Properties.Settings.Default.Passwords.Add(miner.password);
+                    miner.minerThread.Interrupt();
+                }
+                Properties.Settings.Default.Save();
             }
             else
             {
-                Properties.Settings.Default.Maximized = false;
+                if (e.CloseReason == CloseReason.UserClosing)
+                {
+                    taskbaricon.Visible = true;
+                    if (!hasseenballon)
+                    {
+                        taskbaricon.ShowBalloonTip(1000);
+                        hasseenballon = true;
+                    }
+                    
+                    e.Cancel = true;
+                    Hide();
+                }
             }
-            foreach (MinerObject miner in Program.minerList)
-            {
-                Properties.Settings.Default.IPs.Add(miner.name);
-                Properties.Settings.Default.Usernames.Add(miner.username);
-                Properties.Settings.Default.Passwords.Add(miner.password);
-                miner.minerThread.Interrupt();
-            }
-            Properties.Settings.Default.Save();
+        }
+
+        private void settingsbutton_Click(object sender, EventArgs e)
+        {
+            new SettingsScreen().ShowDialog();
+        }
+
+        private void taskbaricon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            taskbaricon.Visible = false;
+        }
+
+        private void taskbaricon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            Show();
+            taskbaricon.Visible = false;
+        }
+
+        private void openprogrammenuitem_Click(object sender, EventArgs e)
+        {
+            Show();
+            taskbaricon.Visible = false;
+        }
+
+        private void exitprogrammenuitem_Click(object sender, EventArgs e)
+        {
+            closeonexit = true;
+            Close();
         }
     }
 

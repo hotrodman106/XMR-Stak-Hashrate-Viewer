@@ -68,7 +68,7 @@ namespace XMR_Stak_Hashrate_Viewer
         {
             foreach (MinerObject miner in Program.minerList)
             {
-                if (miner.name == name)
+                if (miner.ip == name)
                 {
                     return true;
                 }

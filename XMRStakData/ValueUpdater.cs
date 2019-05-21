@@ -17,6 +17,7 @@ namespace XMR_Stak_Hashrate_Viewer
         private double moneroprice;
         private double weeklyrevenue;
         private NetworkGatherer networkGatherer = new NetworkGatherer();
+        private int errorcount = 0;
 
         public ValueUpdater()
         {
@@ -34,8 +35,20 @@ namespace XMR_Stak_Hashrate_Viewer
                     Program.mainPage.monerovaluelabel.Text = "$" + moneroprice.ToString("N2");
                     Program.mainPage.weeklyrevenuelabel.Text = "$" + weeklyrevenue.ToString("N2");
                 }));
-            }catch (InvalidOperationException)
-            { }
+                errorcount = 0;
+            }
+            catch (InvalidOperationException)
+            {
+                if(errorcount < 3)
+                {
+                    errorcount++;
+                }
+                else
+                {
+                    thread.Abort();
+                }
+                
+            }
                
         }
 
@@ -72,6 +85,9 @@ namespace XMR_Stak_Hashrate_Viewer
                 catch (InvalidOperationException)
                 {
                     continue;
+                }catch (ThreadAbortException)
+                {
+                    break;
                 }
                 catch (Exception ex)
                 {
