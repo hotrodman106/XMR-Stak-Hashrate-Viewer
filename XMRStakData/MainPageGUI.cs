@@ -1,4 +1,5 @@
-﻿using MetroFramework.Controls;
+﻿using MetroFramework;
+using MetroFramework.Controls;
 using MetroFramework.Forms;
 using System;
 using System.Drawing;
@@ -26,6 +27,10 @@ namespace XMR_Stak_Hashrate_Viewer
         private void MainPage_FormLoad(object sender, EventArgs e)
         {
             attributionlabel.Text = Program.assembly.GetName().Name + " v" +Program.assembly.GetName().Version;
+
+            tooltrayiconrightclick.BackColor = backcolor;
+            tooltrayiconrightclick.ForeColor = textcolor;
+            tooltrayiconrightclick.ShowImageMargin = false;
 
             delay = Properties.Settings.Default.RefreshRate;
 
@@ -58,14 +63,15 @@ namespace XMR_Stak_Hashrate_Viewer
                     MinerObject miner = new MinerObject(uri, Properties.Settings.Default.Usernames[index], Properties.Settings.Default.Passwords[index]);
                     if (miner.isInitialized)
                     {
-                        Program.minerList.Add(miner);
-                        miner.startLoop();
+                        //miner.createTabPage();
+                        //Program.minerList.Add(miner);
+                        //miner.startLoop();
                     }
                     index++;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(this,ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Console.WriteLine(ex.Message);
                 }
             }
@@ -79,7 +85,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 removeminerbutton.Visible = false;
             }
 
-            background = new ValueUpdater();
+            //background = new ValueUpdater();
         }
 
         private void onAddMinerClick(object sender, EventArgs e)
@@ -159,10 +165,10 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 if (e.CloseReason == CloseReason.UserClosing)
                 {
-                    taskbaricon.Visible = true;
+                    tooltrayicon.Visible = true;
                     if (!hasseenballon)
                     {
-                        taskbaricon.ShowBalloonTip(1000);
+                        tooltrayicon.ShowBalloonTip(1000);
                         hasseenballon = true;
                     }
                     
@@ -180,25 +186,36 @@ namespace XMR_Stak_Hashrate_Viewer
         private void taskbaricon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Show();
-            taskbaricon.Visible = false;
+            tooltrayicon.Visible = false;
         }
 
         private void taskbaricon_BalloonTipClicked(object sender, EventArgs e)
         {
             Show();
-            taskbaricon.Visible = false;
+            tooltrayicon.Visible = false;
         }
 
-        private void openprogrammenuitem_Click(object sender, EventArgs e)
+        private void restoremenuitem_Click(object sender, EventArgs e)
         {
             Show();
-            taskbaricon.Visible = false;
+            tooltrayicon.Visible = false;
         }
 
-        private void exitprogrammenuitem_Click(object sender, EventArgs e)
+        private void exitmenuitem_Click(object sender, EventArgs e)
         {
             closeonexit = true;
             Close();
+        }
+
+        private void onResize(object sender, EventArgs e)
+        {
+            try
+            {
+                Console.WriteLine(maintabcontrol.TabPages[0].Controls[0].Controls[0].Size);
+            }
+            catch (Exception)
+            {}
+            
         }
     }
 

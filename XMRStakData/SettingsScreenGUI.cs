@@ -1,4 +1,5 @@
-﻿using MetroFramework.Forms;
+﻿using MetroFramework;
+using MetroFramework.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -64,7 +65,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
         private void SaveSettingsButton_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("The program must restart to save your settings, proceed?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult dialogResult = MetroMessageBox.Show(Program.mainPage, "The program must restart to save your settings, proceed?", "Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
             if(dialogResult == DialogResult.Yes) {
                 Properties.Settings.Default.ExpandAll = ExpandAllToggle.Checked;
                 Properties.Settings.Default.TabNameType = TabNameSelected;

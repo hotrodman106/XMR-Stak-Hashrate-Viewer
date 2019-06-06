@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Diagnostics;
 using System.Threading;
+using MetroFramework;
 
 namespace XMR_Stak_Hashrate_Viewer
 {
@@ -30,7 +31,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 
                 if (!mutex.WaitOne(0, false))
                 {
-                    MessageBox.Show("Cannot run more than one instance! Please close all other instances first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(mainPage,"Cannot run more than one instance! Please close all other instances first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 

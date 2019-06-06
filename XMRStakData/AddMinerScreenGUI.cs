@@ -1,4 +1,5 @@
-﻿using MetroFramework.Forms;
+﻿using MetroFramework;
+using MetroFramework.Forms;
 using System;
 using System.Threading;
 using System.Windows.Forms;
@@ -30,7 +31,7 @@ namespace XMR_Stak_Hashrate_Viewer
 
                 if (minerExists(uri.Authority) == true)
                 {
-                    MessageBox.Show("Miner already exists!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(this,"Miner already exists!", "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     Console.WriteLine("Miner already exists!");
                 }
                 else
@@ -55,7 +56,7 @@ namespace XMR_Stak_Hashrate_Viewer
             {
                 if (ex is ThreadAbortException != true)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(this, ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     Console.WriteLine(ex.Message);
                 }
             }

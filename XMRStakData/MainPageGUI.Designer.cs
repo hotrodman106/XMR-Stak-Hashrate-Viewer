@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPage));
             this.mainpanel = new System.Windows.Forms.TableLayoutPanel();
+            this.attributionlabelcontainer = new MetroFramework.Controls.MetroPanel();
+            this.attributionlabel = new MetroFramework.Controls.MetroLabel();
             this.sidepanel = new System.Windows.Forms.TableLayoutPanel();
             this.weeklyrevenuecontainer = new MetroFramework.Controls.MetroPanel();
             this.weeklyrevenueimage = new System.Windows.Forms.PictureBox();
@@ -48,24 +50,23 @@
             this.logo = new System.Windows.Forms.PictureBox();
             this.maintabcontrolcontainer = new MetroFramework.Controls.MetroPanel();
             this.maintabcontrol = new MetroFramework.Controls.MetroTabControl();
-            this.maintooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.settingsbuttoncontainer = new MetroFramework.Controls.MetroPanel();
-            this.settingsbutton = new MetroFramework.Controls.MetroButton();
-            this.addminerbuttoncontainer = new MetroFramework.Controls.MetroPanel();
-            this.addminerbutton = new MetroFramework.Controls.MetroButton();
-            this.refreshintervalcontainer = new System.Windows.Forms.TableLayoutPanel();
-            this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
-            this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
+            this.controlcontainer = new System.Windows.Forms.TableLayoutPanel();
             this.removeminerbuttoncontainer = new MetroFramework.Controls.MetroPanel();
             this.removeminerbutton = new MetroFramework.Controls.MetroButton();
-            this.controlcontainer = new System.Windows.Forms.TableLayoutPanel();
-            this.attributionlabelcontainer = new MetroFramework.Controls.MetroPanel();
-            this.attributionlabel = new MetroFramework.Controls.MetroLabel();
-            this.taskbaricon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.taskbariconrightclickmenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.openprogrammenuitem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitprogrammenuitem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshintervalcontainer = new System.Windows.Forms.TableLayoutPanel();
+            this.refreshintervaltrackbar = new MetroFramework.Controls.MetroTrackBar();
+            this.refreshintervallabel = new MetroFramework.Controls.MetroLabel();
+            this.addminerbuttoncontainer = new MetroFramework.Controls.MetroPanel();
+            this.addminerbutton = new MetroFramework.Controls.MetroButton();
+            this.settingsbuttoncontainer = new MetroFramework.Controls.MetroPanel();
+            this.settingsbutton = new MetroFramework.Controls.MetroButton();
+            this.maintooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltrayicon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.tooltrayiconrightclick = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.restoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainpanel.SuspendLayout();
+            this.attributionlabelcontainer.SuspendLayout();
             this.sidepanel.SuspendLayout();
             this.weeklyrevenuecontainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.weeklyrevenueimage)).BeginInit();
@@ -78,13 +79,12 @@
             this.logocontainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logo)).BeginInit();
             this.maintabcontrolcontainer.SuspendLayout();
-            this.settingsbuttoncontainer.SuspendLayout();
-            this.addminerbuttoncontainer.SuspendLayout();
-            this.refreshintervalcontainer.SuspendLayout();
-            this.removeminerbuttoncontainer.SuspendLayout();
             this.controlcontainer.SuspendLayout();
-            this.attributionlabelcontainer.SuspendLayout();
-            this.taskbariconrightclickmenu.SuspendLayout();
+            this.removeminerbuttoncontainer.SuspendLayout();
+            this.refreshintervalcontainer.SuspendLayout();
+            this.addminerbuttoncontainer.SuspendLayout();
+            this.settingsbuttoncontainer.SuspendLayout();
+            this.tooltrayiconrightclick.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainpanel
@@ -108,6 +108,34 @@
             this.mainpanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.mainpanel.Size = new System.Drawing.Size(972, 673);
             this.mainpanel.TabIndex = 0;
+            // 
+            // attributionlabelcontainer
+            // 
+            this.attributionlabelcontainer.Controls.Add(this.attributionlabel);
+            this.attributionlabelcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.attributionlabelcontainer.HorizontalScrollbarBarColor = true;
+            this.attributionlabelcontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.attributionlabelcontainer.HorizontalScrollbarSize = 10;
+            this.attributionlabelcontainer.Location = new System.Drawing.Point(663, 608);
+            this.attributionlabelcontainer.Name = "attributionlabelcontainer";
+            this.attributionlabelcontainer.Size = new System.Drawing.Size(306, 62);
+            this.attributionlabelcontainer.TabIndex = 1004;
+            this.attributionlabelcontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.attributionlabelcontainer.VerticalScrollbarBarColor = true;
+            this.attributionlabelcontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.attributionlabelcontainer.VerticalScrollbarSize = 10;
+            // 
+            // attributionlabel
+            // 
+            this.attributionlabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.attributionlabel.Location = new System.Drawing.Point(0, 0);
+            this.attributionlabel.Name = "attributionlabel";
+            this.attributionlabel.Size = new System.Drawing.Size(306, 62);
+            this.attributionlabel.TabIndex = 1001;
+            this.attributionlabel.Text = "XMR-Stak Hashrate Viewer v0.0.0.0";
+            this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.attributionlabel, "Program by: Paul Ferreira, 2019\r\n");
             // 
             // sidepanel
             // 
@@ -369,42 +397,117 @@
             this.maintabcontrol.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.maintabcontrol.UseSelectable = true;
             // 
-            // maintooltip
+            // controlcontainer
             // 
-            this.maintooltip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-            this.maintooltip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(149)))), ((int)(((byte)(146)))));
+            this.controlcontainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.controlcontainer.ColumnCount = 8;
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.controlcontainer.Controls.Add(this.removeminerbuttoncontainer, 4, 0);
+            this.controlcontainer.Controls.Add(this.refreshintervalcontainer, 0, 0);
+            this.controlcontainer.Controls.Add(this.addminerbuttoncontainer, 2, 0);
+            this.controlcontainer.Controls.Add(this.settingsbuttoncontainer, 6, 0);
+            this.controlcontainer.Location = new System.Drawing.Point(3, 608);
+            this.controlcontainer.Name = "controlcontainer";
+            this.controlcontainer.RowCount = 1;
+            this.controlcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.controlcontainer.Size = new System.Drawing.Size(654, 62);
+            this.controlcontainer.TabIndex = 3;
             // 
-            // settingsbuttoncontainer
+            // removeminerbuttoncontainer
             // 
-            this.settingsbuttoncontainer.Controls.Add(this.settingsbutton);
-            this.settingsbuttoncontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsbuttoncontainer.HorizontalScrollbarBarColor = true;
-            this.settingsbuttoncontainer.HorizontalScrollbarHighlightOnWheel = false;
-            this.settingsbuttoncontainer.HorizontalScrollbarSize = 10;
-            this.settingsbuttoncontainer.Location = new System.Drawing.Point(464, 3);
-            this.settingsbuttoncontainer.MaximumSize = new System.Drawing.Size(100, 70);
-            this.settingsbuttoncontainer.MinimumSize = new System.Drawing.Size(50, 30);
-            this.settingsbuttoncontainer.Name = "settingsbuttoncontainer";
-            this.settingsbuttoncontainer.Size = new System.Drawing.Size(100, 56);
-            this.settingsbuttoncontainer.TabIndex = 5;
-            this.settingsbuttoncontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.settingsbuttoncontainer.VerticalScrollbarBarColor = true;
-            this.settingsbuttoncontainer.VerticalScrollbarHighlightOnWheel = false;
-            this.settingsbuttoncontainer.VerticalScrollbarSize = 10;
+            this.removeminerbuttoncontainer.Controls.Add(this.removeminerbutton);
+            this.removeminerbuttoncontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.removeminerbuttoncontainer.HorizontalScrollbarBarColor = true;
+            this.removeminerbuttoncontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.removeminerbuttoncontainer.HorizontalScrollbarSize = 10;
+            this.removeminerbuttoncontainer.Location = new System.Drawing.Point(353, 3);
+            this.removeminerbuttoncontainer.MaximumSize = new System.Drawing.Size(100, 70);
+            this.removeminerbuttoncontainer.MinimumSize = new System.Drawing.Size(50, 30);
+            this.removeminerbuttoncontainer.Name = "removeminerbuttoncontainer";
+            this.removeminerbuttoncontainer.Size = new System.Drawing.Size(100, 56);
+            this.removeminerbuttoncontainer.TabIndex = 4;
+            this.removeminerbuttoncontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.removeminerbuttoncontainer.VerticalScrollbarBarColor = true;
+            this.removeminerbuttoncontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.removeminerbuttoncontainer.VerticalScrollbarSize = 10;
             // 
-            // settingsbutton
+            // removeminerbutton
             // 
-            this.settingsbutton.BackgroundImage = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.settings;
-            this.settingsbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.settingsbutton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsbutton.Location = new System.Drawing.Point(0, 0);
-            this.settingsbutton.Name = "settingsbutton";
-            this.settingsbutton.Size = new System.Drawing.Size(100, 56);
-            this.settingsbutton.TabIndex = 3;
-            this.settingsbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.maintooltip.SetToolTip(this.settingsbutton, "Settings");
-            this.settingsbutton.UseSelectable = true;
-            this.settingsbutton.Click += new System.EventHandler(this.settingsbutton_Click);
+            this.removeminerbutton.BackgroundImage = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.removeminer;
+            this.removeminerbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.removeminerbutton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.removeminerbutton.Location = new System.Drawing.Point(0, 0);
+            this.removeminerbutton.Name = "removeminerbutton";
+            this.removeminerbutton.Size = new System.Drawing.Size(100, 56);
+            this.removeminerbutton.TabIndex = 3;
+            this.removeminerbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.removeminerbutton, "Remove Miner");
+            this.removeminerbutton.UseSelectable = true;
+            this.removeminerbutton.Click += new System.EventHandler(this.onRemoveMinerClick);
+            // 
+            // refreshintervalcontainer
+            // 
+            this.refreshintervalcontainer.ColumnCount = 1;
+            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervaltrackbar, 0, 1);
+            this.refreshintervalcontainer.Controls.Add(this.refreshintervallabel, 0, 0);
+            this.refreshintervalcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.refreshintervalcontainer.Location = new System.Drawing.Point(2, 2);
+            this.refreshintervalcontainer.Margin = new System.Windows.Forms.Padding(2);
+            this.refreshintervalcontainer.MaximumSize = new System.Drawing.Size(200, 70);
+            this.refreshintervalcontainer.MinimumSize = new System.Drawing.Size(200, 50);
+            this.refreshintervalcontainer.Name = "refreshintervalcontainer";
+            this.refreshintervalcontainer.RowCount = 2;
+            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.refreshintervalcontainer.Size = new System.Drawing.Size(200, 58);
+            this.refreshintervalcontainer.TabIndex = 0;
+            // 
+            // refreshintervaltrackbar
+            // 
+            this.refreshintervaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshintervaltrackbar.BackColor = System.Drawing.Color.Transparent;
+            this.refreshintervaltrackbar.LargeChange = 500;
+            this.refreshintervaltrackbar.Location = new System.Drawing.Point(3, 32);
+            this.refreshintervaltrackbar.Maximum = 10000;
+            this.refreshintervaltrackbar.Minimum = 2000;
+            this.refreshintervaltrackbar.MouseWheelBarPartitions = 16;
+            this.refreshintervaltrackbar.Name = "refreshintervaltrackbar";
+            this.refreshintervaltrackbar.Size = new System.Drawing.Size(197, 23);
+            this.refreshintervaltrackbar.SmallChange = 500;
+            this.refreshintervaltrackbar.TabIndex = 1;
+            this.refreshintervaltrackbar.Text = "metroTrackBar1";
+            this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.refreshintervaltrackbar, "Refresh Interval");
+            this.refreshintervaltrackbar.Value = 2000;
+            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
+            // 
+            // refreshintervallabel
+            // 
+            this.refreshintervallabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.refreshintervallabel.AutoSize = true;
+            this.refreshintervallabel.Location = new System.Drawing.Point(3, 0);
+            this.refreshintervallabel.Name = "refreshintervallabel";
+            this.refreshintervallabel.Size = new System.Drawing.Size(197, 29);
+            this.refreshintervallabel.TabIndex = 5;
+            this.refreshintervallabel.Text = "Refresh Interval: 2.00s";
+            this.refreshintervallabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.refreshintervallabel, "Refresh Interval");
             // 
             // addminerbuttoncontainer
             // 
@@ -439,178 +542,76 @@
             this.addminerbutton.UseSelectable = true;
             this.addminerbutton.Click += new System.EventHandler(this.onAddMinerClick);
             // 
-            // refreshintervalcontainer
+            // settingsbuttoncontainer
             // 
-            this.refreshintervalcontainer.ColumnCount = 1;
-            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.refreshintervalcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16F));
-            this.refreshintervalcontainer.Controls.Add(this.refreshintervaltrackbar, 0, 1);
-            this.refreshintervalcontainer.Controls.Add(this.refreshintervallabel, 0, 0);
-            this.refreshintervalcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.refreshintervalcontainer.Location = new System.Drawing.Point(2, 2);
-            this.refreshintervalcontainer.Margin = new System.Windows.Forms.Padding(2);
-            this.refreshintervalcontainer.MaximumSize = new System.Drawing.Size(200, 70);
-            this.refreshintervalcontainer.MinimumSize = new System.Drawing.Size(200, 50);
-            this.refreshintervalcontainer.Name = "refreshintervalcontainer";
-            this.refreshintervalcontainer.RowCount = 2;
-            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.refreshintervalcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.refreshintervalcontainer.Size = new System.Drawing.Size(200, 58);
-            this.refreshintervalcontainer.TabIndex = 0;
+            this.settingsbuttoncontainer.Controls.Add(this.settingsbutton);
+            this.settingsbuttoncontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsbuttoncontainer.HorizontalScrollbarBarColor = true;
+            this.settingsbuttoncontainer.HorizontalScrollbarHighlightOnWheel = false;
+            this.settingsbuttoncontainer.HorizontalScrollbarSize = 10;
+            this.settingsbuttoncontainer.Location = new System.Drawing.Point(464, 3);
+            this.settingsbuttoncontainer.MaximumSize = new System.Drawing.Size(100, 70);
+            this.settingsbuttoncontainer.MinimumSize = new System.Drawing.Size(50, 30);
+            this.settingsbuttoncontainer.Name = "settingsbuttoncontainer";
+            this.settingsbuttoncontainer.Size = new System.Drawing.Size(100, 56);
+            this.settingsbuttoncontainer.TabIndex = 5;
+            this.settingsbuttoncontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.settingsbuttoncontainer.VerticalScrollbarBarColor = true;
+            this.settingsbuttoncontainer.VerticalScrollbarHighlightOnWheel = false;
+            this.settingsbuttoncontainer.VerticalScrollbarSize = 10;
             // 
-            // refreshintervallabel
+            // settingsbutton
             // 
-            this.refreshintervallabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshintervallabel.AutoSize = true;
-            this.refreshintervallabel.Location = new System.Drawing.Point(3, 0);
-            this.refreshintervallabel.Name = "refreshintervallabel";
-            this.refreshintervallabel.Size = new System.Drawing.Size(197, 29);
-            this.refreshintervallabel.TabIndex = 5;
-            this.refreshintervallabel.Text = "Refresh Interval: 2.00s";
-            this.refreshintervallabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.refreshintervallabel.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.maintooltip.SetToolTip(this.refreshintervallabel, "Refresh Interval");
+            this.settingsbutton.BackgroundImage = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.settings;
+            this.settingsbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.settingsbutton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.settingsbutton.Location = new System.Drawing.Point(0, 0);
+            this.settingsbutton.Name = "settingsbutton";
+            this.settingsbutton.Size = new System.Drawing.Size(100, 56);
+            this.settingsbutton.TabIndex = 3;
+            this.settingsbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.maintooltip.SetToolTip(this.settingsbutton, "Settings");
+            this.settingsbutton.UseSelectable = true;
+            this.settingsbutton.Click += new System.EventHandler(this.settingsbutton_Click);
             // 
-            // refreshintervaltrackbar
+            // maintooltip
             // 
-            this.refreshintervaltrackbar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.refreshintervaltrackbar.BackColor = System.Drawing.Color.Transparent;
-            this.refreshintervaltrackbar.LargeChange = 500;
-            this.refreshintervaltrackbar.Location = new System.Drawing.Point(3, 32);
-            this.refreshintervaltrackbar.Maximum = 10000;
-            this.refreshintervaltrackbar.Minimum = 2000;
-            this.refreshintervaltrackbar.MouseWheelBarPartitions = 16;
-            this.refreshintervaltrackbar.Name = "refreshintervaltrackbar";
-            this.refreshintervaltrackbar.Size = new System.Drawing.Size(197, 23);
-            this.refreshintervaltrackbar.SmallChange = 500;
-            this.refreshintervaltrackbar.TabIndex = 1;
-            this.refreshintervaltrackbar.Text = "metroTrackBar1";
-            this.refreshintervaltrackbar.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.maintooltip.SetToolTip(this.refreshintervaltrackbar, "Refresh Interval");
-            this.refreshintervaltrackbar.Value = 2000;
-            this.refreshintervaltrackbar.ValueChanged += new System.EventHandler(this.OnTrackbarValueChanged);
+            this.maintooltip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+            this.maintooltip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(149)))), ((int)(((byte)(149)))), ((int)(((byte)(146)))));
             // 
-            // removeminerbuttoncontainer
+            // tooltrayicon
             // 
-            this.removeminerbuttoncontainer.Controls.Add(this.removeminerbutton);
-            this.removeminerbuttoncontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.removeminerbuttoncontainer.HorizontalScrollbarBarColor = true;
-            this.removeminerbuttoncontainer.HorizontalScrollbarHighlightOnWheel = false;
-            this.removeminerbuttoncontainer.HorizontalScrollbarSize = 10;
-            this.removeminerbuttoncontainer.Location = new System.Drawing.Point(353, 3);
-            this.removeminerbuttoncontainer.MaximumSize = new System.Drawing.Size(100, 70);
-            this.removeminerbuttoncontainer.MinimumSize = new System.Drawing.Size(50, 30);
-            this.removeminerbuttoncontainer.Name = "removeminerbuttoncontainer";
-            this.removeminerbuttoncontainer.Size = new System.Drawing.Size(100, 56);
-            this.removeminerbuttoncontainer.TabIndex = 4;
-            this.removeminerbuttoncontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.removeminerbuttoncontainer.VerticalScrollbarBarColor = true;
-            this.removeminerbuttoncontainer.VerticalScrollbarHighlightOnWheel = false;
-            this.removeminerbuttoncontainer.VerticalScrollbarSize = 10;
-            // 
-            // removeminerbutton
-            // 
-            this.removeminerbutton.BackgroundImage = global::XMR_Stak_Hashrate_Viewer.Properties.Resources.removeminer;
-            this.removeminerbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.removeminerbutton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.removeminerbutton.Location = new System.Drawing.Point(0, 0);
-            this.removeminerbutton.Name = "removeminerbutton";
-            this.removeminerbutton.Size = new System.Drawing.Size(100, 56);
-            this.removeminerbutton.TabIndex = 3;
-            this.removeminerbutton.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.maintooltip.SetToolTip(this.removeminerbutton, "Remove Miner");
-            this.removeminerbutton.UseSelectable = true;
-            this.removeminerbutton.Click += new System.EventHandler(this.onRemoveMinerClick);
-            // 
-            // controlcontainer
-            // 
-            this.controlcontainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.controlcontainer.ColumnCount = 8;
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlcontainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlcontainer.Controls.Add(this.removeminerbuttoncontainer, 4, 0);
-            this.controlcontainer.Controls.Add(this.refreshintervalcontainer, 0, 0);
-            this.controlcontainer.Controls.Add(this.addminerbuttoncontainer, 2, 0);
-            this.controlcontainer.Controls.Add(this.settingsbuttoncontainer, 6, 0);
-            this.controlcontainer.Location = new System.Drawing.Point(3, 608);
-            this.controlcontainer.Name = "controlcontainer";
-            this.controlcontainer.RowCount = 1;
-            this.controlcontainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.controlcontainer.Size = new System.Drawing.Size(654, 62);
-            this.controlcontainer.TabIndex = 3;
-            // 
-            // attributionlabelcontainer
-            // 
-            this.attributionlabelcontainer.Controls.Add(this.attributionlabel);
-            this.attributionlabelcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.attributionlabelcontainer.HorizontalScrollbarBarColor = true;
-            this.attributionlabelcontainer.HorizontalScrollbarHighlightOnWheel = false;
-            this.attributionlabelcontainer.HorizontalScrollbarSize = 10;
-            this.attributionlabelcontainer.Location = new System.Drawing.Point(663, 608);
-            this.attributionlabelcontainer.Name = "attributionlabelcontainer";
-            this.attributionlabelcontainer.Size = new System.Drawing.Size(306, 62);
-            this.attributionlabelcontainer.TabIndex = 1004;
-            this.attributionlabelcontainer.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.attributionlabelcontainer.VerticalScrollbarBarColor = true;
-            this.attributionlabelcontainer.VerticalScrollbarHighlightOnWheel = false;
-            this.attributionlabelcontainer.VerticalScrollbarSize = 10;
-            // 
-            // attributionlabel
-            // 
-            this.attributionlabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.attributionlabel.Location = new System.Drawing.Point(0, 0);
-            this.attributionlabel.Name = "attributionlabel";
-            this.attributionlabel.Size = new System.Drawing.Size(306, 62);
-            this.attributionlabel.TabIndex = 1001;
-            this.attributionlabel.Text = "XMR-Stak Hashrate Viewer v0.0.0.0";
-            this.attributionlabel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.attributionlabel.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.maintooltip.SetToolTip(this.attributionlabel, "Program by: Paul Ferreira, 2019\r\n");
-            // 
-            // taskbaricon
-            // 
-            this.taskbaricon.BalloonTipText = "Hey! I\'m still here! Click this balloon or double click my icon in the taskbar to" +
+            this.tooltrayicon.BalloonTipText = "Hey! I\'m still here! Click this balloon or double click my icon in the taskbar to" +
     " get back into the program.\r\n";
-            this.taskbaricon.BalloonTipTitle = "XMR-Stak Hashrate Viewer";
-            this.taskbaricon.ContextMenuStrip = this.taskbariconrightclickmenu;
-            this.taskbaricon.Icon = ((System.Drawing.Icon)(resources.GetObject("taskbaricon.Icon")));
-            this.taskbaricon.Text = "XMR-Stak Hashrate Viewer";
-            this.taskbaricon.BalloonTipClicked += new System.EventHandler(this.taskbaricon_BalloonTipClicked);
-            this.taskbaricon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.taskbaricon_MouseDoubleClick);
+            this.tooltrayicon.BalloonTipTitle = "XMR-Stak Hashrate Viewer";
+            this.tooltrayicon.ContextMenuStrip = this.tooltrayiconrightclick;
+            this.tooltrayicon.Icon = ((System.Drawing.Icon)(resources.GetObject("tooltrayicon.Icon")));
+            this.tooltrayicon.BalloonTipClicked += new System.EventHandler(this.taskbaricon_BalloonTipClicked);
+            this.tooltrayicon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.taskbaricon_MouseDoubleClick);
             // 
-            // taskbariconrightclickmenu
+            // tooltrayiconrightclick
             // 
-            this.taskbariconrightclickmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openprogrammenuitem,
-            this.exitprogrammenuitem});
-            this.taskbariconrightclickmenu.Name = "contextMenuStrip1";
-            this.taskbariconrightclickmenu.Size = new System.Drawing.Size(153, 48);
+            this.tooltrayiconrightclick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.tooltrayiconrightclick.Name = "tooltrayiconrightclick";
+            this.tooltrayiconrightclick.Size = new System.Drawing.Size(114, 48);
+            this.tooltrayiconrightclick.UseCustomBackColor = true;
+            this.tooltrayiconrightclick.UseCustomForeColor = true;
             // 
-            // openprogrammenuitem
+            // restoreToolStripMenuItem
             // 
-            this.openprogrammenuitem.Name = "openprogrammenuitem";
-            this.openprogrammenuitem.Size = new System.Drawing.Size(152, 22);
-            this.openprogrammenuitem.Text = "Open Program";
-            this.openprogrammenuitem.Click += new System.EventHandler(this.openprogrammenuitem_Click);
+            this.restoreToolStripMenuItem.Name = "restoreToolStripMenuItem";
+            this.restoreToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.restoreToolStripMenuItem.Text = "Restore";
+            this.restoreToolStripMenuItem.Click += new System.EventHandler(this.restoremenuitem_Click);
             // 
-            // exitprogrammenuitem
+            // exitToolStripMenuItem
             // 
-            this.exitprogrammenuitem.Name = "exitprogrammenuitem";
-            this.exitprogrammenuitem.Size = new System.Drawing.Size(152, 22);
-            this.exitprogrammenuitem.Text = "Exit Program";
-            this.exitprogrammenuitem.Click += new System.EventHandler(this.exitprogrammenuitem_Click);
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitmenuitem_Click);
             // 
             // MainPage
             // 
@@ -626,7 +627,9 @@
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainPage_FormClosing);
             this.Load += new System.EventHandler(this.MainPage_FormLoad);
+            this.Resize += new System.EventHandler(this.onResize);
             this.mainpanel.ResumeLayout(false);
+            this.attributionlabelcontainer.ResumeLayout(false);
             this.sidepanel.ResumeLayout(false);
             this.weeklyrevenuecontainer.ResumeLayout(false);
             this.weeklyrevenuecontainer.PerformLayout();
@@ -643,14 +646,13 @@
             this.logocontainer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.logo)).EndInit();
             this.maintabcontrolcontainer.ResumeLayout(false);
-            this.settingsbuttoncontainer.ResumeLayout(false);
-            this.addminerbuttoncontainer.ResumeLayout(false);
+            this.controlcontainer.ResumeLayout(false);
+            this.removeminerbuttoncontainer.ResumeLayout(false);
             this.refreshintervalcontainer.ResumeLayout(false);
             this.refreshintervalcontainer.PerformLayout();
-            this.removeminerbuttoncontainer.ResumeLayout(false);
-            this.controlcontainer.ResumeLayout(false);
-            this.attributionlabelcontainer.ResumeLayout(false);
-            this.taskbariconrightclickmenu.ResumeLayout(false);
+            this.addminerbuttoncontainer.ResumeLayout(false);
+            this.settingsbuttoncontainer.ResumeLayout(false);
+            this.tooltrayiconrightclick.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -663,10 +665,8 @@
         private MetroFramework.Controls.MetroPanel monerovaluecontainer;
         private MetroFramework.Controls.MetroPanel totalhashratecontainer;
         private MetroFramework.Controls.MetroPanel highesthashratecontainer;
-        private MetroFramework.Controls.MetroPanel maintabcontrolcontainer;
         private MetroFramework.Controls.MetroPanel logocontainer;
         private System.Windows.Forms.PictureBox logo;
-        public MetroFramework.Controls.MetroTabControl maintabcontrol;
         public MetroFramework.Controls.MetroLabel weeklyrevenuelabel;
         public MetroFramework.Controls.MetroLabel monerovaluelabel;
         public MetroFramework.Controls.MetroLabel totalhashratelabel;
@@ -688,9 +688,11 @@
         public MetroFramework.Controls.MetroButton settingsbutton;
         private MetroFramework.Controls.MetroPanel attributionlabelcontainer;
         private MetroFramework.Controls.MetroLabel attributionlabel;
-        private System.Windows.Forms.NotifyIcon taskbaricon;
-        private System.Windows.Forms.ContextMenuStrip taskbariconrightclickmenu;
-        private System.Windows.Forms.ToolStripMenuItem openprogrammenuitem;
-        private System.Windows.Forms.ToolStripMenuItem exitprogrammenuitem;
+        public System.Windows.Forms.NotifyIcon tooltrayicon;
+        public MetroFramework.Controls.MetroContextMenu tooltrayiconrightclick;
+        private System.Windows.Forms.ToolStripMenuItem restoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private MetroFramework.Controls.MetroPanel maintabcontrolcontainer;
+        public MetroFramework.Controls.MetroTabControl maintabcontrol;
     }
 }

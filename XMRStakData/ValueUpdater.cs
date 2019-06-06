@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetroFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -34,6 +35,7 @@ namespace XMR_Stak_Hashrate_Viewer
                     Program.mainPage.totalhashratelabel.Text = totalvalue.ToString() + " H/s";
                     Program.mainPage.monerovaluelabel.Text = "$" + moneroprice.ToString("N2");
                     Program.mainPage.weeklyrevenuelabel.Text = "$" + weeklyrevenue.ToString("N2");
+                    Program.mainPage.tooltrayicon.Text = "Highest: " + highestvalue.ToString() + " H/s \r\n" + "Total: " + totalvalue.ToString() + " H/s \r\n";
                 }));
                 errorcount = 0;
             }
@@ -91,7 +93,7 @@ namespace XMR_Stak_Hashrate_Viewer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MetroMessageBox.Show(Program.mainPage,ex.Message, "Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     Console.WriteLine(ex.Message);
                     break;
                 }

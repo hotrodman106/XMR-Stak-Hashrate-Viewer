@@ -1,4 +1,5 @@
 ﻿using MetroFramework.Forms;
+using MetroFramework;
 using System;
 using System.Windows.Forms;
 
@@ -30,12 +31,12 @@ namespace XMR_Stak_Hashrate_Viewer
             password = passwordtextbox.Text;
             if (username.Equals(""))
             {
-                MessageBox.Show("Username cannot be left blank!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this,"Username cannot be left blank!","Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("Username cannot be left blank!");
             }
             else if (password.Equals(""))
             {
-                MessageBox.Show("Password cannot be left blank!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MetroMessageBox.Show(this, "Password cannot be left blank!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Console.WriteLine("Password cannot be left blank!");
             }
             else
